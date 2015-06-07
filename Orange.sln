@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Business", "Orange.Business\Orange.Business.csproj", "{57F0AC93-FC67-48F7-B23F-C266FEC4CC44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Core", "Orange.Core\Orange.Core.csproj", "{61008047-5F9A-4215-A4B2-8E3B1AF61BCC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Database", "Orange.Database\Orange.Database.csproj", "{9C7B59E4-C125-495F-9913-8A029FCC5294}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Test", "Orange.Test\Orange.Test.csproj", "{C07066F0-7EF7-4C2C-995B-D6657BA114D8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{FA55BA8B-832A-4920-8D45-AF24C15962DE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57F0AC93-FC67-48F7-B23F-C266FEC4CC44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57F0AC93-FC67-48F7-B23F-C266FEC4CC44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57F0AC93-FC67-48F7-B23F-C266FEC4CC44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57F0AC93-FC67-48F7-B23F-C266FEC4CC44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61008047-5F9A-4215-A4B2-8E3B1AF61BCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61008047-5F9A-4215-A4B2-8E3B1AF61BCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61008047-5F9A-4215-A4B2-8E3B1AF61BCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61008047-5F9A-4215-A4B2-8E3B1AF61BCC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C7B59E4-C125-495F-9913-8A029FCC5294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C7B59E4-C125-495F-9913-8A029FCC5294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C7B59E4-C125-495F-9913-8A029FCC5294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C7B59E4-C125-495F-9913-8A029FCC5294}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07066F0-7EF7-4C2C-995B-D6657BA114D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07066F0-7EF7-4C2C-995B-D6657BA114D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07066F0-7EF7-4C2C-995B-D6657BA114D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07066F0-7EF7-4C2C-995B-D6657BA114D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA55BA8B-832A-4920-8D45-AF24C15962DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA55BA8B-832A-4920-8D45-AF24C15962DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA55BA8B-832A-4920-8D45-AF24C15962DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA55BA8B-832A-4920-8D45-AF24C15962DE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

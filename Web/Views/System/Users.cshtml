@@ -1,0 +1,107 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+<br />
+@*<h1 class="text-left medium-15 medium-offset-1" style="color: #FFFFFF; background-color: #332717;">Users</h1>*@
+
+<div class="medium-15 medium-offset-1 columns" style="color: #FFFFFF; background-color: #332717;">
+    <div class="medium-2 columns">
+        <h1 style="color: #FFFFFF">Users</h1>
+    </div>
+    <div class="medium-4 medium-offset-2 columns end">
+        <h1 style="color: #FFFFFF">Information</h1>
+    </div>
+</div> 
+
+<div class="medium-15 medium-offset-1 columns">
+    <br />
+    <div class="medium-4 columns">
+        <label style="font-size: 22px; line-height: 33px;" for="username">Username</label>
+        <input style="height: 36px; font-size: 18px; line-height: 28px" class="medium-16" id="username" />
+    </div>
+    <br />
+    <div class="medium-10 columns end">
+        <p class="medium-16">
+            The username helps identify a user across the website. When logging into the site, the user
+            may choose to use their username, or the email specified below.
+        </p>
+    </div>    
+</div> 
+
+<div class="medium-15 medium-offset-1 columns">
+    <div class="medium-4 columns">
+        <label style="font-size: 22px; line-height: 33px;" for="email">Email</label>
+        <input style="height: 36px; font-size: 18px; line-height: 28px" class="medium-16" id="email" />
+    </div>
+    <div class="medium-10 columns end">
+        <hr style="margin-top: 6px;" />
+        <p class="medium-16">
+            An email address will be needed when resetting the user's password. Additionally,
+            a user may choose to use their email address, rather than their username, when signing into Orange.
+        </p>
+    </div>
+</div>
+
+<div class="medium-15 medium-offset-1 columns">
+    <div class="medium-4 columns">
+        <label style="font-size: 22px; line-height: 33px;" for="password">Password</label>
+        <input @*style="height: 36px; font-size: 18px; line-height: 28px"*@ @*class="small-12 columns"*@ id="password" type="password" />
+    </div>
+    <div class="medium-10 columns end">
+        <hr style="margin-top: 6px;" />
+        <p class="medium-16">
+            Every user needs a password! To help keep everything as secure as possible, a number of restrictions 
+            are in place when creating a password:
+            <ul class="medium-offset-1">
+                <li>Must contain at least 1 number</li>
+                <li>Must contain at least 1 uppercase letter</li>
+                <li>Must contain at least 1 lowercase letter</li>
+                <li>Must contain at least 1 special character</li>
+            </ul>
+        </p>
+    </div>
+</div>
+
+<div class="medium-15 medium-offset-1 columns">
+    <div class="medium-4 columns">
+        <label style="font-size: 22px; line-height: 33px;" for="permission">Permission</label>
+        <select id="permission" class="medium-16">
+            <option>Admin</option>
+            <option>General</option>
+            <option>Basic</option>
+        </select>
+    </div>
+    <div class="medium-10 columns end">
+        <hr style="margin-top: 6px;" />
+        <p class="medium-16">
+            Define which level of permissions this user should have. If you need to
+            define additional permissions, or alter the currently available permissions, 
+            you may make those changes <a style="font-weight: bold;" onclick="location.href='@Url.Action("Permissions", "System")'">here</a>.
+        </p>
+    </div>
+</div>
+
+<div class="medium-15 medium-offset-1 columns">
+    <div class="medium-4 columns">
+        <label style="font-size: 22px; line-height: 33px;" for="active" class="medium-4">Is Active</label>
+        <input type="checkbox" id="active" class="medium-4" checked="checked" />
+    </div>
+    <div class="medium-10 columns end">
+        <hr style="margin-top: 6px;" />
+        <p class="medium-16">
+            This identifies the user as being active, or inactive, within the system. If not checked, the user is effectively deleted, 
+            though you can always reactivate them by simply checking the box again.
+        </p>
+    </div>
+</div>
+
+<div class="medium-15 medium-offset-1 columns">
+    <div class="medium-4 columns end">
+        <input type="submit" class="button medium-16" style="margin-top: 18px;" value="Save" />
+    </div>
+    @*<hr />*@
+</div>
+
+@Html.Partial("_Results")

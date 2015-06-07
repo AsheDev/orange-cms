@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9C7B59E4-C125-495F-9913-8A029FCC5294}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orange.Database</RootNamespace>
+    <AssemblyName>Orange.Database</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Stored Procedures\spAccessibilityUpdate.sql" />
+    <Content Include="Stored Procedures\spPostHistoryGetAll.sql" />
+    <Content Include="Stored Procedures\spRecordAccessGetAll.sql" />
+    <Content Include="Stored Procedures\spRecordNavigationGetAll.sql" />
+    <Content Include="Stored Procedures\spRecordNavigationGet.sql" />
+    <Content Include="Stored Procedures\spRecordNavigation.sql" />
+    <Content Include="Stored Procedures\spRecordAccessGet.sql" />
+    <Content Include="Stored Procedures\spRecordAccess.sql" />
+    <Content Include="Stored Procedures\spLogOut.sql" />
+    <Content Include="Stored Procedures\spPasswordResetGet.sql" />
+    <Content Include="Stored Procedures\spPasswordReset.sql" />
+    <Content Include="Stored Procedures\spPasswordUpdate.sql" />
+    <Content Include="Stored Procedures\spPasswordSettingsUpdate.sql" />
+    <Content Include="Stored Procedures\spPasswordSettingsGet.sql" />
+    <Content Include="Stored Procedures\spPasswordGet.sql" />
+    <Content Include="Stored Procedures\spPasswordRecordAttempt.sql" />
+    <Content Include="Stored Procedures\spPasswordAdd.sql" />
+    <Content Include="Stored Procedures\spPostAdd.sql" />
+    <Content Include="Stored Procedures\spPostGet.sql" />
+    <Content Include="Stored Procedures\spPostGetAll.sql" />
+    <Content Include="Stored Procedures\spPostRemove.sql" />
+    <Content Include="Stored Procedures\spLogIn.sql" />
+    <Content Include="Stored Procedures\spAccessibilityGet.sql" />
+    <Content Include="Stored Procedures\spUserToggleInSystem.sql" />
+    <Content Include="Stored Procedures\spUserGetByUsername.sql" />
+    <Content Include="Stored Procedures\spUserRemove.sql" />
+    <Content Include="Stored Procedures\spPostUpdate.sql" />
+    <Content Include="Stored Procedures\spUserUpdate.sql" />
+    <Content Include="Stored Procedures\spUserAdd.sql" />
+    <Content Include="Stored Procedures\spUserGet.sql" />
+    <Content Include="Stored Procedures\spUserGetAll.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scratch\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BuildScripts\BuildOrange.sql" />
+    <Content Include="BuildScripts\PopulateOrange.sql" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

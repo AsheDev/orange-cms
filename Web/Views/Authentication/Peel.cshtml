@@ -1,0 +1,38 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+
+@* this could be hidden *@
+@*<div class="medium-16 columns">
+    <input type="button" class="button right pull-1" value="Home" onclick="location.href='@Url.Action("Home", "Pages")'" />
+</div>*@
+
+<div class="row" style="padding-top: 10%;">
+    <div class="small-12 columns text-center">
+        <h1>THIS IS THE LOGO!</h1>
+        <br />
+        <h4 class="small-6 small-offset-1 columns">Username: orange</h4>
+        <h4 class="small-7 columns end">Password: !Orange_2015!</h4>
+    </div>
+    @*<div class="orange-vertical-line">
+        </div>*@
+    <div class="small-4 columns">
+        <h4>Welcome to Orange</h4>
+
+        @using (Html.BeginForm("Authenticate", "Authentication"))
+        {
+            @Html.TextBox("username", null, new { @placeholder = "username" })
+            @Html.TextBox("password", null, new { @placeholder = "password", @type = "password" })
+            <input type="submit" class="button small-16" value="Sign In" />
+        }
+
+        @if (Convert.ToBoolean(TempData["Error"]) == true)
+        {
+            <div data-alert class="alert-box warning">
+                <label style="color: white;">incorrect password</label>
+                <a href="#" class="close">&times;</a>
+            </div>
+        }        
+    </div>
+</div>

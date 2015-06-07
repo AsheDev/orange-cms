@@ -1,0 +1,24 @@
+﻿
+
+
+
+<div class="medium-2 columns orange-nav hide-for-medium-down" id="navPanel">
+    <br />
+    <h3 class="medium-12 orange-nav-text">@Ajax.ActionLink("Users", "Users", "Panel", new AjaxOptions { UpdateTargetId = "partial" })</h3><hr class="orange-nav-hr" />
+    <h3 class="medium-12 orange-nav-text">@Ajax.ActionLink("Permissions", "Permissions", "Panel", new AjaxOptions { UpdateTargetId = "partial" })</h3><hr class="orange-nav-hr" />
+    <h3 class="medium-12 orange-nav-text">@Ajax.ActionLink("Security", "Security", "Panel", new AjaxOptions { UpdateTargetId = "partial" })</h3><hr class="orange-nav-hr" />
+    <h3 class="medium-12 orange-nav-text">@Ajax.ActionLink("Accessibility", "Accessibility", "Panel", new AjaxOptions { UpdateTargetId = "partial" })</h3><hr class="orange-nav-hr" />
+    <h3 class="medium-12 orange-nav-text">@Ajax.ActionLink("Metrics", "Metrics", "Panel", new AjaxOptions { UpdateTargetId = "partial" })</h3><hr class="orange-nav-hr" />
+</div>
+
+
+<div class="medium-12 columns" style="position: relative;" id="partial">
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        $('#navPanel').css({ height: $(window).innerHeight() });
+    });
+</script>
+

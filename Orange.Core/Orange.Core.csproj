@@ -1,0 +1,97 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{61008047-5F9A-4215-A4B2-8E3B1AF61BCC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Orange.Core</RootNamespace>
+    <AssemblyName>Orange.Core</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Entities\AccessDetails.cs" />
+    <Compile Include="Entities\Accessibility.cs" />
+    <Compile Include="Entities\Error.cs" />
+    <Compile Include="Entities\Link.cs" />
+    <Compile Include="Entities\NavigationDetails.cs" />
+    <Compile Include="Entities\PageDetails.cs" />
+    <Compile Include="Entities\Password.cs" />
+    <Compile Include="Entities\PasswordReset.cs" />
+    <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\Post.cs" />
+    <Compile Include="Entities\PasswordSettings.cs" />
+    <Compile Include="Entities\User.cs" />
+    <Compile Include="Enums\Enums.cs" />
+    <Compile Include="Interfaces\IAccessibility.cs" />
+    <Compile Include="Interfaces\IImpersonation.cs" />
+    <Compile Include="Interfaces\IPassword.cs" />
+    <Compile Include="Interfaces\IPost.cs" />
+    <Compile Include="Interfaces\IResult.cs" />
+    <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Results\AccessDetailsResult.cs" />
+    <Compile Include="Results\AccessibilityResult.cs" />
+    <Compile Include="Results\BoolResult.cs" />
+    <Compile Include="Results\IntResult.cs" />
+    <Compile Include="Results\NavigationDetailsResult.cs" />
+    <Compile Include="Results\PageDetailsResult.cs" />
+    <Compile Include="Results\PasswordResetResult.cs" />
+    <Compile Include="Results\PasswordResult.cs" />
+    <Compile Include="Results\PasswordSettingsResult.cs" />
+    <Compile Include="Results\PermissionResult.cs" />
+    <Compile Include="Results\StringResult.cs" />
+    <Compile Include="Results\PostResult.cs" />
+    <Compile Include="Results\UserResult.cs" />
+    <Compile Include="Utility\Extensions.cs" />
+    <Compile Include="Utility\ObjectBuilder.cs" />
+    <Compile Include="Utility\Result.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
