@@ -77,17 +77,13 @@
       <Project>{57f0ac93-fc67-48f7-b23f-c266fec4cc44}</Project>
       <Name>Orange.Business</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Orange.Connections\Orange.Connections.csproj">
+    <ProjectReference Include="..\..\OrangeCMS\Orange.Connections\Ripley.Connections.csproj">
       <Project>{3795a4e2-abf2-4ae8-8857-964af24aaf01}</Project>
-      <Name>Orange.Connections</Name>
+      <Name>Ripley.Connections</Name>
     </ProjectReference>
     <ProjectReference Include="..\Orange.Core\Orange.Core.csproj">
       <Project>{61008047-5f9a-4215-a4b2-8e3b1af61bcc}</Project>
       <Name>Orange.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Orange.Security\Orange.Security.csproj">
-      <Project>{02297d3c-5356-4a1d-af1a-bebc1ae3aee4}</Project>
-      <Name>Orange.Security</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

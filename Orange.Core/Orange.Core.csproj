@@ -67,6 +67,7 @@
     <Compile Include="Interfaces\IPost.cs" />
     <Compile Include="Interfaces\IResult.cs" />
     <Compile Include="Interfaces\IUser.cs" />
+    <Compile Include="Models\Authentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Results\AccessDetailsResult.cs" />
     <Compile Include="Results\AccessibilityResult.cs" />

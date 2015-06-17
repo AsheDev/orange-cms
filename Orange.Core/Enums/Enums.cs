@@ -71,4 +71,11 @@ namespace Orange.Core.Enums
         Get = 3, // do we care?
         GetAll = 4 // do we care?
     }
+
+    public enum AuthenticationStatus
+    {
+        Success = 0,
+        Failure = 1,
+        Default = 2
+    }
 }

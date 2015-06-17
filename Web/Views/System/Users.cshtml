@@ -10,7 +10,7 @@
     <div class="medium-2 columns">
         <h1 style="color: #FFFFFF">Users</h1>
     </div>
-    <div class="medium-4 medium-offset-2 columns end">
+    <div class="medium-4 medium-offset-2 columns end show-for-medium-up">
         <h1 style="color: #FFFFFF">Information</h1>
     </div>
 </div> 
@@ -19,7 +19,7 @@
     <br />
     <div class="medium-4 columns">
         <label style="font-size: 22px; line-height: 33px;" for="username">Username</label>
-        <input style="height: 36px; font-size: 18px; line-height: 28px" class="medium-16" id="username" />
+        <input style="height: 36px; font-size: 18px; line-height: 28px" class="medium-16 small-16" id="username" />
     </div>
     <br />
     <div class="medium-10 columns end">
@@ -33,7 +33,7 @@
 <div class="medium-15 medium-offset-1 columns">
     <div class="medium-4 columns">
         <label style="font-size: 22px; line-height: 33px;" for="email">Email</label>
-        <input style="height: 36px; font-size: 18px; line-height: 28px" class="medium-16" id="email" />
+        <input style="height: 36px; font-size: 18px; line-height: 28px" class="medium-16 small-16" id="email" />
     </div>
     <div class="medium-10 columns end">
         <hr style="margin-top: 6px;" />
@@ -85,8 +85,12 @@
 
 <div class="medium-15 medium-offset-1 columns">
     <div class="medium-4 columns">
-        <label style="font-size: 22px; line-height: 33px;" for="active" class="medium-4">Is Active</label>
-        <input type="checkbox" id="active" class="medium-4" checked="checked" />
+        @* MAKE THIS LINE UP MO BETTA *@
+        <span>
+            <label style="font-size: 22px; line-height: 33px;" for="active" class="medium-10">Is Active</label>
+            <input type="checkbox" id="active" class="medium-4" checked="checked" />
+        </span>
+        
     </div>
     <div class="medium-10 columns end">
         <hr style="margin-top: 6px;" />
@@ -98,8 +102,8 @@
 </div>
 
 <div class="medium-15 medium-offset-1 columns">
-    <div class="medium-4 columns end">
-        <input type="submit" class="button medium-16" style="margin-top: 18px;" value="Save" />
+    <div class="medium-3 medium-offset-1 columns end">
+        <input type="submit" class="button medium-16 small-16" style="margin-top: 18px;" value="Save" />
     </div>
     @*<hr />*@
 </div>

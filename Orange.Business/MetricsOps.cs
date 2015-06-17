@@ -1,7 +1,7 @@
 ﻿using System.Data;
 using System.Linq;
 using Orange.Core.Enums;
-using Orange.Connections;
+using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Utility;
 using Orange.Core.Entities;

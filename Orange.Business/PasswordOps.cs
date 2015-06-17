@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Data;
 using System.Linq;
-using Orange.Security;
+using Ripley.Security;
 using Orange.Core.Enums;
-using Orange.Connections;
+using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Utility;
 using Orange.Core.Entities;
@@ -21,7 +21,7 @@ namespace Orange.Business
         private PasswordResult _passwordDetails;
         private string _hashedPassword;
         private byte[] _salt;
-
+        
         public PasswordOps() { }
 
         public PasswordOps(IDataSource dataSource)
@@ -48,7 +48,7 @@ namespace Orange.Business
 
             IsPasswordStrong(passwordDetails.Password, result);
             if (result.Severity != Orange.Core.Enums.Severity.Success) return result;
-
+            
             byte[] salt = PasswordHash.CreateSalt();
             string hashedPassword = PasswordHash.CreateHash(passwordDetails.Password, salt);
             _hashedPassword = hashedPassword;

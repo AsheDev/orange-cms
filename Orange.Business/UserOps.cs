@@ -1,8 +1,8 @@
 ﻿using System.Data;
 using System.Linq;
-using Orange.Security;
+using Ripley.Security;
 using Orange.Core.Enums;
-using Orange.Connections;
+using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Utility;
 using Orange.Core.Entities;
@@ -134,12 +134,15 @@ namespace Orange.Business
         public UserResult Login(string username, string password)
         {
             UserOps userOperations = new UserOps(DataSource);
-            UserResult userDetails = userOperations.GetByUsername(username);
-            IsDataSourceNull(userDetails);
-            if (userDetails.Severity != Severity.Success) return userDetails;
+            UserResult userDetails = new UserResult();
             if (string.IsNullOrWhiteSpace(username)) return userDetails;
             if (string.IsNullOrWhiteSpace(password)) return userDetails;
 
+            IsDataSourceNull(userDetails);
+            if (userDetails.Severity != Severity.Success) return userDetails;
+
+            userDetails = userOperations.GetByUsername(username);
+            if (userDetails.Severity != Severity.Success) return userDetails;
 
             _settings = new PasswordSettingsOps(DataSource).Get();
             PasswordOps passwordOperations = new PasswordOps(DataSource);

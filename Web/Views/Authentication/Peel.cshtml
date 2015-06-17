@@ -2,6 +2,8 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Master.cshtml";
 }
+@using Orange.Core.Enums
+@model Orange.Core.Models.Authentication
 
 @* this could be hidden *@
 @*<div class="medium-16 columns">
@@ -12,13 +14,15 @@
     <div class="small-12 columns text-center">
         <h1>THIS IS THE LOGO!</h1>
         <br />
-        <h4 class="small-6 small-offset-1 columns">Username: orange</h4>
-        <h4 class="small-7 columns end">Password: !Orange_2015!</h4>
+        <h4 class="small-6 small-offset-1 columns">Username:</h4>
+        <h4 class="small-7 columns end">Password:</h4>
+        <h4 class="small-6 small-offset-1 columns">orange</h4>
+        <h4 class="small-7 columns end">!Orange_2015!</h4>
     </div>
     @*<div class="orange-vertical-line">
         </div>*@
     <div class="small-4 columns">
-        <h4>Welcome to Orange</h4>
+        <h5>Welcome to Orange</h5>
 
         @using (Html.BeginForm("Authenticate", "Authentication"))
         {
@@ -27,7 +31,7 @@
             <input type="submit" class="button small-16" value="Sign In" />
         }
 
-        @if (Convert.ToBoolean(TempData["Error"]) == true)
+        @if (@Model.Status == AuthenticationStatus.Failure)
         {
             <div data-alert class="alert-box warning">
                 <label style="color: white;">incorrect password</label>
@@ -36,3 +40,7 @@
         }        
     </div>
 </div>
+
+<script>
+    $(document).foundation();
+</script>

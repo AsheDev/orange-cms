@@ -1,4 +1,5 @@
 ﻿@{HttpCookie userCookie = Request.Cookies["ChocolateChip"];}
+@using Orange.Core.Models;
 
 <nav class="top-bar sticky" data-topbar role="navigation">
     <ul class="title-area">
@@ -27,7 +28,7 @@
         <ul class="right">
             <li>
                 @*<a class="button pull-1" onclick="location.href='@Url.Action("Peel", "Authentication")'">Login</a>*@
-                <a class="login" style="background-color: #FF370F;" href="#" onclick="location.href='@Url.Action("Peel", "Authentication")'">Sign In</a>
+                <a class="login" style="background-color: #FF370F;" href="#" onclick="location.href='@Url.Action("Peel", "Authentication", new Authentication())'">Sign In</a>
             </li>
         </ul>
 
