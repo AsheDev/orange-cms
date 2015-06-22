@@ -5,7 +5,7 @@ IF (EXISTS (SELECT name FROM sysobjects WHERE (name = N'PostAdd') AND (TYPE = 'P
 GO
 CREATE PROCEDURE o.PostAdd
 	@UserId INT,
-	@CallingUserId INT, -- if you're impersonating should you be allowed to modify the settings?
+	@CallingUserId INT,
 	@Subject NVARCHAR(256),
 	@Body NVARCHAR(MAX),
 	@EffectiveDate DATETIME,

@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Entities\AccessDetails.cs" />
     <Compile Include="Entities\Accessibility.cs" />
+    <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\Error.cs" />
     <Compile Include="Entities\Link.cs" />
     <Compile Include="Entities\NavigationDetails.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Interfaces\IAccessibility.cs" />
+    <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\IImpersonation.cs" />
     <Compile Include="Interfaces\IPassword.cs" />
     <Compile Include="Interfaces\IPost.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Results\AccessDetailsResult.cs" />
     <Compile Include="Results\AccessibilityResult.cs" />
     <Compile Include="Results\BoolResult.cs" />
+    <Compile Include="Results\CommentResult.cs" />
     <Compile Include="Results\IntResult.cs" />
     <Compile Include="Results\NavigationDetailsResult.cs" />
     <Compile Include="Results\PageDetailsResult.cs" />

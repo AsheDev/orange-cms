@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccessibilitySettingsOps.cs" />
+    <Compile Include="CommentOps.cs" />
     <Compile Include="Operations.cs" />
     <Compile Include="MessagingOps.cs" />
     <Compile Include="MetricsOps.cs" />

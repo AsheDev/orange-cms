@@ -78,4 +78,11 @@ namespace Orange.Core.Enums
         Failure = 1,
         Default = 2
     }
+
+    public enum Approval
+    {
+        Pending = 0,
+        Approved = 1,
+        Denied = 2
+    }
 }

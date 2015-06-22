@@ -221,5 +221,18 @@ namespace Orange.Core.Utility
             result.Result = (PasswordSettings)Result.ConstructSingleObject(new PasswordSettings(), returnedTable);
             result = (PasswordSettingsResult)SetResultAsSuccess(result);
         }
+
+        public static void PopulateSingleResult(CommentResult result, DataTable returnedTable)
+        {
+            result.Result = (Comment)Result.ConstructSingleObject(new Comment(), returnedTable);
+            result = (CommentResult)SetResultAsSuccess(result);
+        }
+
+        public static void PopulateMultipleResults(CommentResultList result, DataTable returnedTable)
+        {
+            List<object> objectList = Result.ConstructMultipleObjects(new Comment(), returnedTable);
+            result.Results = new List<Comment>(objectList.Cast<Comment>());
+            result = (CommentResultList)SetResultAsSuccess(result);
+        }
     }
 }

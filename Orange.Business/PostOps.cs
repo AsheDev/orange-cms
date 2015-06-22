@@ -9,7 +9,6 @@ using System.Data.SqlClient;
 using Orange.Core.Interfaces;
 using System.Collections.Generic;
 
-
 namespace Orange.Business
 {
     public class PostOps : Operations

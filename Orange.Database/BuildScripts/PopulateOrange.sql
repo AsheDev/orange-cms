@@ -1,33 +1,50 @@
 ﻿USE DevOrange
 GO
-
+---
 INSERT INTO o.[Permissions]
 (Name, IsRemovable, IsHidden)
 VALUES
 ('Orange', 0, 1),
 ('Admin', 0, 0),
-('Basic', 1, 0);
+('Basic', 1, 0),
+('Anonymous', 0, 1); -- people don't need to worry about this one
 ---
 INSERT INTO o.Users
 (Name, Email, IsVisible, FK_PermissionId)
 VALUES
 ('Orange', 'orange@michaelovies.com', 0, 1),
 ('AdminUser', 'admin@admin.com', 1, 2),
-('BasicUser', 'basic@basic.com', 1, 3);
+('BasicUser', 'basic@basic.com', 1, 3),
+('Anonymous', 'anon@anon.com', 0, 4); -- anonymous commenters
 ---
 INSERT INTO o.Accessibility
 (FK_PermissionId, ManagePosts, CreateNewUsers, AccessSettings, CanImpersonate, ViewMetrics)
 VALUES
 (1, 1, 1, 1, 1, 1),
 (2, 1, 1, 1, 1, 1),
-(3, 1, 0, 0, 0, 0);
+(3, 1, 0, 0, 0, 0),
+(4, 0, 0, 0, 0, 0); -- the anonymous user
 ---
-INSERT INTO o.Posts
-(FK_UserId, [Subject], Body, Created, EffectiveDate)
-VALUES
-(2, 'My First Post!', 'The body and the blood, baby!', GETUTCDATE(), '2020-04-26 04:00:00'),
-(2, 'This isn''t even my final form.', 'I don''t really know what else to say honestly.', DATEADD(HOUR, 2, GETUTCDATE()), DATEADD(HOUR, 2, GETUTCDATE())),
-(2, 'Okay, let''s do this.', 'I''m literally done here!', DATEADD(HOUR, 3, GETUTCDATE()), DATEADD(HOUR, 4, GETUTCDATE()));
+DECLARE @TwoHours DATETIME = DATEADD(HOUR, 2, GETUTCDATE())
+DECLARE @FourHours DATETIME = DATEADD(HOUR, 4, GETUTCDATE())
+EXEC o.PostAdd @UserId = 2, 
+			   @Subject = 'My First Post!', 
+			   @Body = 'The body and the blood, baby!', 
+			   @EffectiveDate = '2020-04-26 04:00:00', 
+			   @CallingUserId = 2, 
+			   @IsPubliclyVisible = 1
+EXEC o.PostAdd @UserId = 2, 
+			   @Subject = 'This isn''t even my final form.', 
+			   @Body = 'I don''t really know what else to say honestly.', 
+			   @EffectiveDate = @TwoHours, 
+			   @CallingUserId = 2, 
+			   @IsPubliclyVisible = 1
+EXEC o.PostAdd @UserId = 2, 
+			   @Subject = 'Okay, let''s do this.', 
+			   @Body = 'I''m literally done here!', 
+			   @EffectiveDate = @FourHours, 
+			   @CallingUserId = 2, 
+			   @IsPubliclyVisible = 1
 --- TODO: how do I know where to fit the link in the LinkText field?
 --INSERT INTO o.Links
 --(FK_CreatedByUserId, Title, Body, LinkText, Url, IsVisible)

@@ -1,6 +1,6 @@
 ﻿using Orange.Business;
 using Orange.Core.Enums;
-using Orange.Connections;
+using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,7 +10,7 @@ namespace Orange.Test
     [TestClass]
     public class PasswordTest
     {
-        private IDataSource _dataSource = new Database("DevOrange");
+        private readonly IDataSource _dataSource = new Database("DevOrange");
 
         [TestMethod]
         public void PasswordCreate()

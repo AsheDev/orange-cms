@@ -1,6 +1,6 @@
 ﻿using Orange.Business;
 using Orange.Core.Enums;
-using Orange.Connections;
+using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
