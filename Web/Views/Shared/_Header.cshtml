@@ -32,7 +32,7 @@
             </li>
         </ul>
 
-        @if (userCookie != null && userCookie.Value == "true")
+        @if (Convert.ToBoolean(Session["Authenticated"]))
         {
             <ul class="right">
             <li class="has-dropdown">
@@ -55,8 +55,8 @@
                 
                 <ul class="dropdown">
                     <li class="active"><a onclick="location.href='@Url.Action("Home", "Pages")'">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a onclick="location.href='@Url.Action("BlogFeed", "Pages")'">Blog</a></li>
+                    @*<li><a href="#">Contact</a></li>*@
                 </ul>
             </li>
         </ul>

@@ -32,7 +32,7 @@ namespace Orange.Business
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
             
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -47,7 +47,7 @@ namespace Orange.Business
             result = (AccessDetailsResultList)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateMultipleResults(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -65,7 +65,7 @@ namespace Orange.Business
             result = (AccessDetailsResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -80,7 +80,7 @@ namespace Orange.Business
             result = (NavigationDetailsResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
         
@@ -95,7 +95,7 @@ namespace Orange.Business
             result = (NavigationDetailsResultList)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateMultipleResults(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -114,7 +114,7 @@ namespace Orange.Business
             result = (NavigationDetailsResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 

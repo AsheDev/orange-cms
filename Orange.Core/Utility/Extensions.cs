@@ -22,5 +22,20 @@ namespace Orange.Core.Utility
             return (attribute != null) ? attribute.Description : null;
         }
         #endregion
+
+        #region String extension methods
+        /// <summary>
+        /// Trim a string down to a max number of characters. The string will end with an ellipsis (...).
+        /// </summary>
+        /// <param name="input">The string being trimmed</param>
+        /// <param name="maxCharacters">The max length of the final string.</param>
+        /// <returns></returns>
+        public static string TrimToEllipsis(this string input, int maxCharacters)
+        {
+            if (string.IsNullOrWhiteSpace(input)) return "...";
+            if (maxCharacters > input.Length) return input + "...";
+            return input.Substring(0, maxCharacters - 3) + "...";
+        }
+        #endregion
     }
 }

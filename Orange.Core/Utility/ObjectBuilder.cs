@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using System.Data;
 using System.Reflection;
+using Orange.Core.Entities;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Orange.Core.Utility
 {
@@ -39,8 +40,14 @@ namespace Orange.Core.Utility
             return objectsToBeBuilt;
         }
 
-        // this populates an object with lists and whatnot
-        public static List<object> INPROCESS<T>(T objectType, List<DataTable> objectProperties)
+        /// <summary>
+        /// Populate an object from the datasource which contains a list of other objects
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="objectType"></param>
+        /// <param name="objectProperties"></param>
+        /// <returns></returns>
+        public static List<object> PopulateObjectWithNestedObject<T>(T objectType, List<DataTable> objectProperties)
         {
             List<object> listOfObjects = new List<object>();
 
@@ -49,21 +56,14 @@ namespace Orange.Core.Utility
                 object objectBeingBuilt = Activator.CreateInstance(objectType.GetType());
                 List<object> items = row.ItemArray.ToList();
 
-                int count = 0;
+                int count = 0;                
+                int subObjectCount = objectProperties.Count - 1; // the number of objects within the object we need to construct
                 foreach (PropertyInfo property in objectType.GetType().GetProperties())
                 {
-                    // handles List<int> cases
-                    if (property.PropertyType.Name == "List`1")
+                    // handles List<int> cases or Dictionaries
+                    if (property.PropertyType.Name == "List`1" | property.PropertyType.Name == "Dictionary`2")
                     {
-                        bool assignedToList = PopulateObjectLists(property, objectBeingBuilt, row, objectProperties.Last());
-                        if (assignedToList) continue;
-                        count++;
-                    }
-
-                    // handles Dictionaries... but what kind?
-                    if (property.PropertyType.Name == "Dictionary`2")
-                    {
-                        bool assignedToList = PopulateObjectLists(property, objectBeingBuilt, row, objectProperties.Last());
+                        bool assignedToList = PopulateObjectLists(property, objectBeingBuilt, row, objectProperties.Last(), ref subObjectCount);
                         if (assignedToList) continue;
                         count++;
                     }
@@ -92,22 +92,38 @@ namespace Orange.Core.Utility
         /// <param name="objectBeingBuilt"></param>
         /// <param name="row"></param>
         /// <param name="additionalData"></param>
+        /// <param name="subObjectCount">Indicates the number of objects within the parent object. If zero we need to add an empty list.</param>
         /// <returns></returns>
-        private static bool PopulateObjectLists(PropertyInfo property, object objectBeingBuilt, DataRow row, DataTable additionalData)
+        private static bool PopulateObjectLists(PropertyInfo property, object objectBeingBuilt, DataRow row, DataTable additionalData, ref int subObjectCount)
         {
-            if (objectBeingBuilt.GetType().Name == "MyClass")
+            //if (objectBeingBuilt.GetType().Name == "MyClass")
+            //{
+            //    // this section is all an example really
+            //    List<int> listOfInts = new List<int>();
+            //    if(row.ItemArray.Any())
+            //    {
+            //        // TODO: the "1000" below if an extra marker that can be in place to look for something. Changing the signature will need to be done to accomodate this
+            //        listOfInts = additionalData.AsEnumerable().Where(t => t.Field<int>("FieldNameFromDataSource") == 1000).Select(d => Convert.ToInt32(d.ItemArray[1])).ToList();
+            //        objectBeingBuilt.GetType().GetProperty(property.Name).SetValue(objectBeingBuilt, listOfInts, null);
+            //    }
+            //    else
+            //    {
+            //        listOfInts.Add(0);
+            //    }
+            //    return true;
+            //}
+            if (objectBeingBuilt.GetType().Name == "Post")
             {
-                // this section is all an example really
-                List<int> listOfInts = new List<int>();
+                if (subObjectCount == 0)
+                {
+                    objectBeingBuilt.GetType().GetProperty(property.Name).SetValue(objectBeingBuilt, new List<Tag>(), null);
+                    return true;
+                }
                 if(row.ItemArray.Any())
                 {
-                    // TODO: the "1000" below if an extra marker that can be in place to look for something. Changing the signature will need to be done to accomodate this
-                    listOfInts = additionalData.AsEnumerable().Where(t => t.Field<int>("FieldNameFromDataSource") == 1000).Select(d => Convert.ToInt32(d.ItemArray[1])).ToList();
-                    objectBeingBuilt.GetType().GetProperty(property.Name).SetValue(objectBeingBuilt, listOfInts, null);
-                }
-                else
-                {
-                    listOfInts.Add(0);
+                    List<Tag> postTags = new List<Tag>(PopulateMulitpleBasicObjects(new Tag(), additionalData).Cast<Tag>());
+                    objectBeingBuilt.GetType().GetProperty(property.Name).SetValue(objectBeingBuilt, postTags, null);
+                    --subObjectCount;
                 }
                 return true;
             }

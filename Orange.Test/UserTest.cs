@@ -43,7 +43,7 @@ namespace Orange.Test
         [TestMethod]
         public void GetByUsername()
         {
-            UserResult result = new UserOps(_dataSource).GetByUsername("orange@michaelovies.com");
+            UserResult result = new UserOps(_dataSource).GetByUsername("Emily Clark");
             Assert.AreEqual(Severity.Success, result.Severity);
         }
 

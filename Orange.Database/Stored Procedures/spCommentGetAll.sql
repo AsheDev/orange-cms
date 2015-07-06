@@ -9,7 +9,7 @@ CREATE PROCEDURE o.CommentGetAll
 AS
 	SET NOCOUNT ON;
 	---
-	SELECT Id, FK_PostId, FK_UserId, ProvidedName, Body, Created, ApprovalDate, Approval, IsActive 
+	SELECT Id, FK_PostId, FK_UserId, ProvidedName, Body, Created, ApprovalDate, Approval, EditKey, IsActive 
 	FROM o.PostComments
 	WHERE FK_PostId = @PostId;
 GO

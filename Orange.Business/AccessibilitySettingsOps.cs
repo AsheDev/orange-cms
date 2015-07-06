@@ -31,7 +31,7 @@ namespace Orange.Business
             result = (AccessibilityResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -52,7 +52,7 @@ namespace Orange.Business
             result = (AccessibilityResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 

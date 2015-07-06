@@ -36,7 +36,7 @@ namespace Orange.Business
             result = (UserResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -52,7 +52,7 @@ namespace Orange.Business
             result = (UserResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -67,7 +67,7 @@ namespace Orange.Business
             result = (UserResultList)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateMultipleResults(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -80,6 +80,16 @@ namespace Orange.Business
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
             // TODO: error checking
+            if(UsernameAlreadyExists(newUser.Name))
+            {
+                result = (UserResult)Result.SetResultAsWarning(result, Users.UsernameExists.GetDescription());
+            }
+
+            if (UsernameAlreadyExists(newUser.Email))
+            {
+                result = (UserResult)Result.SetResultAsWarning(result, Users.EmailExists.GetDescription());
+            }
+            if (result.Severity != Core.Enums.Severity.Success) return result;
 
             DataTable returnedTable = DataSource.Crud("o.UserAdd", AddParameters((UserAdd)newUser));
 
@@ -87,7 +97,7 @@ namespace Orange.Business
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -106,7 +116,7 @@ namespace Orange.Business
             result = (UserResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -155,7 +165,7 @@ namespace Orange.Business
                 DataTable returnedTable = DataSource.Crud("o.LogIn", UsernameParameter(username));
                 userDetails = (UserResult)Result.PostDatabaseCallErrorChecking(returnedTable, userDetails);
                 if (userDetails.Severity != Core.Enums.Severity.Success) return userDetails;
-                Result.PopulateSingleResult(userDetails, returnedTable);
+                Result.PopulateResult(userDetails, returnedTable);
                 // TODO: record successful login values (MetricOps RecordAccessDetails)
             }
             else
@@ -196,7 +206,7 @@ namespace Orange.Business
 
             // TODO: record logout details (MetricOps RecordAccessDetails)
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -214,7 +224,7 @@ namespace Orange.Business
 
             // TODO: record logout details (MetricOps RecordAccessDetails)
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -262,6 +272,17 @@ namespace Orange.Business
             parameters[1] = new SqlParameter("@UserId", remove.UserId);
             parameters[2] = new SqlParameter("@CallingUserId", remove.CallingUserId);
             return parameters;
+        }
+
+        /// <summary>
+        /// Checks whether a username already exists. Returns True is name already exists, False if not.
+        /// </summary>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        private bool UsernameAlreadyExists(string username)
+        {
+            UserResult userInfo = GetByUsername(username);
+            return (userInfo.Result.Id > 0);
         }
     }
 }

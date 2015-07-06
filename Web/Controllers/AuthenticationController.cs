@@ -8,6 +8,7 @@ using Orange.Core.Enums;
 using Ripley.Connections;
 using Orange.Core.Models;
 using Orange.Core.Results;
+using System.Configuration;
 using Orange.Core.Entities;
 using System.Collections.Generic;
 
@@ -15,20 +16,25 @@ namespace Web.Controllers
 {
     public class AuthenticationController : Controller
     {
-        //  this should be loading an empty class I think. I'd be happier with it
+        // this should be loading an empty class I think. I'd be happier with it
+        // Use Session for shit you need to trust
+        //  Use cookies for stuff you don't people possibly editing/deleting
         [HttpPost]
         public ActionResult Authenticate(string username, string password)
         {
             HttpCookie cookie = Request.Cookies.Get("ChocolateChip");
 
-            Database orange = new Database("DevOrange"); // TODO: move to webconfig
-            UserResult result = new UserOps(orange).Login(username, password);
+            //Database orange = new Database(ConfigurationManager.AppSettings["DevOrange"]);
+            Database orange = new Database("DevOrange");
+            UserResult userInfo = new UserOps(orange).Login(username, password);
 
             Authentication model = new Authentication();
 
-            if (result.Severity == Orange.Core.Enums.Severity.Success)
+            if (userInfo.Severity == Orange.Core.Enums.Severity.Success)
             {
-                cookie.Expires = DateTime.Now.AddDays(7);
+                Session["Authenticated"] = true;
+                Session["Username"] = userInfo.Result.Name;
+                cookie.Expires = DateTime.Now.AddDays(1);
                 cookie.Value = "true";
                 model.Status = AuthenticationStatus.Success;
                 Response.Cookies.Remove("ChocolateChip");
@@ -37,7 +43,7 @@ namespace Web.Controllers
             }
             else
             {
-                // TODO: this should be a bit more robust :P
+                Session["Authenticated"] = false;
                 cookie.Value = "false";
                 model.Status = AuthenticationStatus.Failure;
                 Response.Cookies.Remove("ChocolateChip");

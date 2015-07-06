@@ -1,0 +1,32 @@
+﻿@using Orange.Core.Enums
+@using System.Globalization
+@model Orange.Core.Interfaces.IResult
+
+@if (@Model.Severity != Severity.Empty)
+{   
+    if(@Model.Severity == Severity.Success)
+    {
+        <div data-alert class="alert-box success">
+            <label style="color: white;" class="text-center">@Model.Message</label>
+            <a href="#" class="close">&times;</a>
+        </div>
+    }
+    else if (@Model.Severity == Severity.Warning)
+    {
+        <div data-alert class="alert-box warning">
+            <label style="color: white;" class="text-center">@Model.Message</label>
+            <a href="#" class="close">&times;</a>
+        </div>
+    }
+    else if (@Model.Severity == Severity.Critical)
+    {
+        <div data-alert class="alert-box alert">
+            <label style="color: white;" class="text-center">@Model.Message</label>
+            <a href="#" class="close">&times;</a>
+        </div>
+    }
+}
+
+<script>
+    $(document).foundation();
+</script>

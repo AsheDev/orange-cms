@@ -29,7 +29,7 @@ namespace Orange.Business
             result = (PasswordSettingsResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -47,7 +47,7 @@ namespace Orange.Business
             result = (PasswordSettingsResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success || result.Result.MaxPasswordAttempts < 0) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 

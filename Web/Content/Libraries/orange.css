@@ -37,7 +37,9 @@
     background-color: #d82400 !important;
 }
 
-
+.standard-cursor {
+    cursor: default;
+}
 
 
 

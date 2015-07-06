@@ -73,7 +73,7 @@ namespace Orange.Business
             result = (PasswordResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -88,7 +88,7 @@ namespace Orange.Business
             result = (PasswordResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -106,7 +106,7 @@ namespace Orange.Business
             result = (PasswordResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -124,7 +124,7 @@ namespace Orange.Business
             result = (PasswordResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -153,7 +153,7 @@ namespace Orange.Business
             result = (PasswordResetResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -168,7 +168,7 @@ namespace Orange.Business
             result = (PasswordResetResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTable);
             return result;
         }
 
@@ -333,7 +333,7 @@ namespace Orange.Business
         /// </summary>
         /// <param name="byteLength"></param>
         /// <returns></returns>
-        private string GetUniqueWebSafeString(int byteLength)
+        public string GetUniqueWebSafeString(int byteLength)
         {
             if (byteLength < 8) byteLength = 8;
             const string availableWebSafeCharacters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-._~";

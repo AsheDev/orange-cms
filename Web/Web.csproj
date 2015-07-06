@@ -136,13 +136,18 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Controllers\PagesController.cs" />
+    <Compile Include="Controllers\PostsController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
     <Compile Include="Filters\RefreshDetectFilter.cs" />
     <Compile Include="Filters\SessionExpiredFilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\BlogFeed.cs" />
+    <Compile Include="Models\BlogPost.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\Orange\Core.js" />
+    <Content Include="Scripts\Orange\Posts.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Libraries\dataTables.foundation.css" />
@@ -249,11 +254,15 @@
     <Content Include="Views\Shared\_Alert.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Shared\_Results.cshtml" />
+    <Content Include="Views\Pages\BlogFeed.cshtml" />
+    <Content Include="Views\Posts\_ApprovedComments.cshtml" />
+    <Content Include="Views\Posts\BlogPost.cshtml" />
+    <Content Include="Views\Partials\_Notification.cshtml" />
+    <Content Include="Views\Posts\_PendingComments.cshtml" />
+    <Content Include="Views\Posts\_PostComment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Scripts\Orange\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

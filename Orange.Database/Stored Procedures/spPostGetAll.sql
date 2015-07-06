@@ -7,6 +7,10 @@ CREATE PROCEDURE o.PostGetAll
 AS
 	SET NOCOUNT ON;
 	---
-	SELECT Id, FK_UserId, [Subject], Body, Created, EffectiveDate, IsPubliclyVisible, IsActive 
-	FROM o.Posts
+	SELECT P.Id, P.FK_UserId, P.[Subject], P.Body, P.Created, P.EffectiveDate, 
+		COUNT(PC.Id) AS CommentCount,
+		P.IsPubliclyVisible, P.IsActive 
+	FROM o.Posts AS P
+	FULL OUTER JOIN o.PostComments AS PC ON PC.FK_PostId = P.Id
+	GROUP BY P.Id, P.FK_UserId, P.[Subject], P.Body, P.Created, P.EffectiveDate, P.IsPubliclyVisible, P.IsActive;
 GO

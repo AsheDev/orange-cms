@@ -23,7 +23,8 @@
         <link href='http://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>*@
     <link href='http://fonts.googleapis.com/css?family=Noto+Sans:700' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Droid+Serif' rel='stylesheet' type='text/css'>
-    @*@RenderSection("PageSpecificScripts", false)*@
+    <script src="~/Scripts/Orange/Core.js?@System.Configuration.ConfigurationManager.AppSettings["versioning"]"></script>
+    @RenderSection("PageSpecificScripts", false)
     @* TODO: BUNDLING! *@
 </head>
 <body>

@@ -60,6 +60,7 @@
     <Compile Include="Entities\Permission.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\PasswordSettings.cs" />
+    <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Interfaces\IAccessibility.cs" />

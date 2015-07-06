@@ -10,6 +10,11 @@ namespace Orange.Business
     {
         protected IDataSource DataSource { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="details"></param>
+        /// <param name="result"></param>
         protected void IsImpersonating(IImpersonation details, IResult result)
         {
             if (details.CallingUserId == 0)
@@ -27,10 +32,13 @@ namespace Orange.Business
             result = Result.SetResultAsSuccess(result);
         }
 
+        /// <summary>
+        /// Determines whether or not the datasource has been populated and is reachable.
+        /// </summary>
+        /// <param name="result"></param>
         protected void IsDataSourceNull(IResult result)
         {
-            // TODO: this needs to be an actual test to hit the database provided
-            if (DataSource == null)
+            if (DataSource == null | !DataSource.IsConnectionLive())
             {
                 result = Result.SetResultAsCritical(result, General.DataSourceIsNull.GetDescription());
                 return;

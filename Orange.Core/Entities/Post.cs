@@ -1,5 +1,6 @@
 ﻿using System;
 using Orange.Core.Interfaces;
+using System.Collections.Generic;
 
 namespace Orange.Core.Entities
 {
@@ -11,6 +12,8 @@ namespace Orange.Core.Entities
         public string Body { get; set; }
         public DateTime Created { get; set; }
         public DateTime EffectiveDate { get; set; }
+        public int CommentCount { get; set; }
+        public List<Tag> Tags { get; set; }
         public bool IsPubliclyVisible { get; set; }
         public bool IsActive { get; set; }
     }

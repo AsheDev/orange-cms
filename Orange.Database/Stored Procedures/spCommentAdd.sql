@@ -8,7 +8,8 @@ CREATE PROCEDURE o.CommentAdd
 	@CallingUserId INT,
 	@PostId INT,
 	@ProvidedName NVARCHAR(255),
-	@Body NVARCHAR(1200)
+	@Body NVARCHAR(1200),
+	@EditKey NVARCHAR(7)
 --WITH ENCRYPTION AS
 AS
 	SET NOCOUNT ON;
@@ -26,16 +27,16 @@ AS
 		END
 		---
 		INSERT INTO o.PostComments
-		(FK_PostId, FK_UserId, ProvidedName, Body, Created, ApprovalDate)
+		(FK_PostId, FK_UserId, ProvidedName, Body, Created, ApprovalDate, EditKey)
 		VALUES
-		(@PostId, @UserId, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created));
+		(@PostId, @UserId, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @EditKey);
 		---
 		DECLARE @NewCommentId INT = SCOPE_IDENTITY();
 		---
 		INSERT INTO o.PostCommentEditHistory
-		(FK_CommentId, FK_EditTypeId, FK_UserId, [TimeStamp], ProvidedName, Body, Created, ApprovalDate, FK_CallerId)
+		(FK_CommentId, FK_EditTypeId, FK_UserId, [TimeStamp], ProvidedName, Body, Created, ApprovalDate, EditKey, FK_CallerId)
 		VALUES
-		(@NewCommentId, @EditTypeId, @UserId, @Created, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @CallingUserId);
+		(@NewCommentId, @EditTypeId, @UserId, @Created, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @EditKey, @CallingUserId);
 		---
 		EXEC o.CommentGet @CommentId = @NewCommentId;
 		---

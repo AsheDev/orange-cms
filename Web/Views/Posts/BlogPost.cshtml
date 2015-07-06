@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Post";
+    Layout = "~/Views/Shared/_Master.cshtml";
+}
+@section PageSpecificScripts
+{
+    <script src="~/Scripts/Orange/Posts.js"></script>
+}
+
+@using Orange.Core.Results
+@using Orange.Core.Entities
+@model Web.Models.BlogPost
+
+<div class="small-16 columns" style="background-color: #FFFFFF;">
+    <br /><br /><br />
+    <h2 class="text-center">Sample Blog Post</h2>
+    
+    <div class="row">
+        <div class="small-16 columns">
+            <br />
+            <h2 class="text-left">@Model.Post.Subject</h2>
+            <h5 class="text-left">@Model.Post.EffectiveDate</h5>
+            <p class="text-left">@Model.Post.Body</p>
+            <br />
+        </div>
+        <hr />
+    </div>
+        
+    @Html.Partial("_PostComment", @Model)
+    
+    @{
+        if (Model.ViewPendingComments)
+        {
+            @Html.Partial("_PendingComments", Model)
+        }
+    }
+
+    @Html.Partial("_ApprovedComments", Model)
+    
+    <br />
+    <br />
+    <br />
+</div>

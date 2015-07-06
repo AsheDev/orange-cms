@@ -61,6 +61,7 @@
     <Compile Include="AccessibilitySettingsTest.cs" />
     <Compile Include="AccessTest.cs" />
     <Compile Include="CommentTest.cs" />
+    <Compile Include="ExtensionTest.cs" />
     <Compile Include="PasswordSettingsTest.cs" />
     <Compile Include="PasswordTest.cs" />
     <Compile Include="PostTest.cs" />

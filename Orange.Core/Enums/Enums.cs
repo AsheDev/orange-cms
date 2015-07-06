@@ -85,4 +85,18 @@ namespace Orange.Core.Enums
         Approved = 1,
         Denied = 2
     }
+
+    public enum Comments
+    {
+        [Description("Provided key for editing comment is invalid.")]
+        InvalidEditKey = 0
+    }
+
+    public enum Users
+    {
+        [Description("Username already in use.")]
+        UsernameExists = 0,
+        [Description("Email is invalid.")] // don't directly say a user is using it
+        EmailExists = 1
+    }
 }

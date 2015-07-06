@@ -32,7 +32,7 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Permissions') AND (TYPE
 BEGIN
 	CREATE TABLE o.[Permissions] (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		Name						NVARCHAR(255) NOT NULL, -- Admin
+		Name						NVARCHAR(256) NOT NULL, -- Admin
 		IsRemovable					BIT DEFAULT 1, -- the hidden account won't be removable (this may be a wildly bad idea)
 		IsHidden					BIT DEFAULT 0,
 		IsActive					BIT DEFAULT 1
@@ -62,8 +62,8 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Users') AND (TYPE = 'U'
 BEGIN
 	CREATE TABLE o.Users (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		Name						NVARCHAR(255) NOT NULL,
-		Email						NVARCHAR(255) NOT NULL,
+		Name						NVARCHAR(256) NOT NULL,
+		Email						NVARCHAR(256) NOT NULL,
 		IsVisible					BIT DEFAULT 1, -- I want to hide my user account
 		FK_PermissionId				INT FOREIGN KEY REFERENCES o.[Permissions](Id),
 		InSystem					BIT DEFAULT 0,
@@ -116,7 +116,7 @@ BEGIN
 	CREATE TABLE o.Posts (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
 		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id),
-		[Subject]					NVARCHAR(255) NOT NULL,
+		[Subject]					NVARCHAR(256) NOT NULL,
 		Body						NVARCHAR(MAX) NOT NULL,
 		Created						DATETIME NOT NULL, -- when the post was initially created (could be the same as EffectiveDate if posted immediately)
 		EffectiveDate				DATETIME NOT NULL, -- when the post will show up
@@ -132,11 +132,12 @@ BEGIN
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
 		FK_PostId					INT FOREIGN KEY REFERENCES o.Posts(Id),
 		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id), -- this can be zeroed out if the user doesn't have an account
-		ProvidedName				NVARCHAR(255) NOT NULL,
+		ProvidedName				NVARCHAR(256) NOT NULL,
 		Body						NVARCHAR(1200) NOT NULL,
 		Created						DATETIME NOT NULL, -- when the comments was created
 		ApprovalDate				DATETIME NOT NULL, -- when the post will show up (this should be updated when the comment is approved)
 		Approval					TINYINT DEFAULT 0, -- 0 is unapproved (pending), 1 is approved, 2 is denied
+		EditKey						NVARCHAR(8), -- a semi-password to edit the comment if the user is anonymous (can it be edited after it's been approved?)
 		IsActive					BIT DEFAULT 1
 	);
 END
@@ -147,7 +148,7 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'EditTypes') AND (TYPE =
 BEGIN
 	CREATE TABLE o.EditTypes (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		Name						NVARCHAR(255) NOT NULL -- Created, Modified, Removed
+		Name						NVARCHAR(256) NOT NULL -- Created, Modified, Removed
 	);
 END
 GO
@@ -160,7 +161,7 @@ BEGIN
 		FK_EditTypeId				INT FOREIGN KEY REFERENCES o.EditTypes(Id),
 		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id),
 		[TimeStamp]					DATETIME, -- when the edit was made
-		[Subject]					NVARCHAR(255),
+		[Subject]					NVARCHAR(256),
 		Body						NVARCHAR(MAX) NOT NULL,
 		Created						DATETIME NOT NULL, -- when the posts was actually created (could be the same as EffectiveDate if posted immediately)
 		EffectiveDate				DATETIME NOT NULL, -- when the post will show up
@@ -178,11 +179,12 @@ BEGIN
 		FK_EditTypeId				INT FOREIGN KEY REFERENCES o.EditTypes(Id),
 		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id), -- this can be zeroed out if the user doesn't have an account
 		[TimeStamp]					DATETIME, -- when the edit was made
-		ProvidedName				NVARCHAR(255) NOT NULL,
+		ProvidedName				NVARCHAR(256) NOT NULL,
 		Body						NVARCHAR(1200) NOT NULL,
 		Created						DATETIME NOT NULL, -- when the comments was created
 		ApprovalDate				DATETIME NOT NULL, -- when the post will show up (this should be updated when the comment is approved)
 		Approval					TINYINT DEFAULT 0, -- 0 is unapproved (pending), 1 is approved, 2 is denied
+		EditKey						NVARCHAR(7), -- a semi-password to edit the comment if the user is anonymous (can it be edited after it's been approved?)
 		FK_CallerId					INT FOREIGN KEY REFERENCES o.Users(Id), -- in case we're impersonating
 		IsActive					BIT DEFAULT 1
 	);
@@ -195,7 +197,7 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'NewsletterInfo') AND (T
 BEGIN
 	CREATE TABLE o.NewsletterInfo (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		FirstName					NVARCHAR(255) NOT NULL,
+		FirstName					NVARCHAR(256) NOT NULL,
 		Email						NVARCHAR(256) NOT NULL, 
 		SignUpDate					DATETIME NOT NULL,
 		IsActive					BIT DEFAULT 1
@@ -209,10 +211,10 @@ GO
 --	CREATE TABLE o.Links (
 --		Id							INT IDENTITY(1,1) PRIMARY KEY,
 --		FK_CreatedByUserId			INT FOREIGN KEY REFERENCES o.Users(Id),
---		Title						NVARCHAR(255) NOT NULL,
+--		Title						NVARCHAR(256) NOT NULL,
 --		Body						NVARCHAR(MAX) NOT NULL,
---		LinkText					NVARCHAR(255) NOT NULL, -- for example "Click HERE to watch"
---		Url							NVARCHAR(255) NOT NULL,
+--		LinkText					NVARCHAR(256) NOT NULL, -- for example "Click HERE to watch"
+--		Url							NVARCHAR(256) NOT NULL,
 --		IsVisible					BIT DEFAULT 1,
 --		IsActive					BIT DEFAULT 1
 --	);
@@ -230,14 +232,27 @@ BEGIN
 END
 GO
 
+-- TODO: this needs all the business logic and stored procedures (7/5/2015)
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'PostSettings') AND (TYPE = 'U')))
+BEGIN
+	CREATE TABLE o.PostSettings (
+		AnonymousEmail				BIT DEFAULT 1, -- email the admin(s) when an anonymous user posts a new comment
+		UserEmail					BIT DEFAULT 0, -- email the admin(s) when a user posts a new comment
+		AnonymousComments			BIT DEFAULT 1, -- enable anonymous comments
+		UserComments				BIT DEFAULT 1, -- enable user comments
+		AwaitModeration				BIT DEFAULT 1 -- new posts won't show until approved by an admin
+	);
+END
+GO
+
 -- Handled by: TODO
 IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Pages') AND (TYPE = 'U')))
 BEGIN
 	CREATE TABLE o.Pages (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		Name						NVARCHAR(255) NOT NULL,
-		[Description]				NVARCHAR(255),
-		URL							NVARCHAR(255),
+		Name						NVARCHAR(256) NOT NULL,
+		[Description]				NVARCHAR(256),
+		URL							NVARCHAR(256),
 		IsPublic					BIT DEFAULT 1, -- if it's not public, how do I handle permission to view?
 		IsActive					BIT DEFAULT 1
 	);
@@ -288,8 +303,8 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'AccessHistoryDetails') 
 BEGIN
 	CREATE TABLE o.AccessHistoryDetails (
 		FK_AccessId					INT FOREIGN KEY REFERENCES o.AccessHistory(Id),
-		OperatingSystem				NVARCHAR(255),
-		IPAddress					NVARCHAR(255)
+		OperatingSystem				NVARCHAR(256),
+		IPAddress					NVARCHAR(256)
 	);
 END
 GO
@@ -298,8 +313,8 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'TableListing') AND (TYP
 BEGIN
 	CREATE TABLE o.TableListing (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		Name						NVARCHAR(255) NOT NULL,
-		[Description]				NVARCHAR(255) NOT NULL
+		Name						NVARCHAR(256) NOT NULL,
+		[Description]				NVARCHAR(256) NOT NULL
 	);
 END
 GO
@@ -336,12 +351,14 @@ GO
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordSettingsGet.sql
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordSettingsUpdate.sql
 
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostGetAll.sql
+:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spPostGet.sql
+:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spPostGetAll.sql
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostAdd.sql
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostUpdate.sql
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostRemove.sql
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostHistoryGetAll.sql
+
+:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spTagAdd.sql
 
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordAccessGet.sql
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordAccessGetAll.sql
@@ -363,4 +380,4 @@ GO
 :r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spAccessibilityUpdate.sql
 
 -- populate the database with some basic data for testing purposes
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\BuildScripts\PopulateOrange.sql
+:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\BuildScripts\PopulateOrange.sql

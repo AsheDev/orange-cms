@@ -15,7 +15,7 @@ namespace Orange.Test
         [TestMethod]
         public void Get()
         {
-            PostResult result = new PostOps(_dataSource).Get(1);
+            PostResult result = new PostOps(_dataSource).Get(3);
             Assert.AreEqual(Severity.Success, result.Severity);
         }
 

@@ -23,18 +23,17 @@ namespace Orange.Business
             DataSource = dataSource;
         }
 
-        public PostResult Get(int userId)
+        public PostResult Get(int postId)
         {
             PostResult result = new PostResult();
             IsDataSourceNull(result);
             if (result.Severity != Severity.Success) return result;
 
-            DataTable returnedTable = DataSource.Crud("o.PostGet", IdParameter(userId));
-
-            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
+            List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostGet", IdParameter(postId));
+            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTables, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTables);
             return result;
         }
 
@@ -44,12 +43,11 @@ namespace Orange.Business
             IsDataSourceNull(results);
             if (results.Severity != Severity.Success) return results;
 
-            DataTable returnedTable = DataSource.Crud("o.PostGetAll");
-
-            results = (PostResultList)Result.PostDatabaseCallErrorChecking(returnedTable, results);
+            List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostGetAll");
+            results = (PostResultList)Result.PostDatabaseCallErrorChecking(returnedTables, results);
             if (results.Severity != Core.Enums.Severity.Success) return results;
             
-            Result.PopulateMultipleResults(results, returnedTable);
+            Result.PopulateResult(results, returnedTables);
             return results;
         }
 
@@ -66,12 +64,11 @@ namespace Orange.Business
 
             // TODO: error checking
 
-            DataTable returnedTable = DataSource.Crud("o.PostAdd", AddParameters());
-
-            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
+            List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostAdd", AddParameters());
+            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTables, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTables);
             return result;
         }
 
@@ -88,12 +85,11 @@ namespace Orange.Business
 
             // TODO: error checking
 
-            DataTable returnedTable = DataSource.Crud("o.PostUpdate", UpdateParameters());
-
-            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
+            List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostUpdate", UpdateParameters());
+            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTables, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
             
-            Result.PopulateSingleResult(result, returnedTable);
+            Result.PopulateResult(result, returnedTables);
             return result;
         }
 
@@ -108,7 +104,6 @@ namespace Orange.Business
             // TODO: error checking
 
             DataTable returnedTable = DataSource.Crud("o.PostRemove", RemoveParameters(remove));
-
             result = (BoolResult)Result.PostDatabaseCallErrorChecking(returnedTable, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
             // is this returning successfully?
@@ -122,11 +117,10 @@ namespace Orange.Business
             if (results.Severity != Severity.Success) return results;
 
             DataTable returnedTable = DataSource.Crud("o.PostHistoryGetAll", PostHistoryParameter(postId));
-
             results = (PostHistoryResultList)Result.PostDatabaseCallErrorChecking(returnedTable, results);
             if (results.Severity != Core.Enums.Severity.Success) return results;
 
-            Result.PopulateMultipleResults(results, returnedTable);
+            Result.PopulateResult(results, returnedTable);
             return results;
         }
 
