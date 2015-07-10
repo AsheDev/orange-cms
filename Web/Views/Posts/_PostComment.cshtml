@@ -1,0 +1,45 @@
+﻿@using Orange.Core.Results
+@using Orange.Core.Entities
+@model Web.Models.BlogPost
+
+<div class="row">
+    <div class="small-16 columns">
+        <h2 class="text-left">Leave a comment</h2>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="large-4 columns">
+        <input id="hdnPostId" type="hidden" value="@Model.Post.Id" />
+        @{
+            if (Convert.ToBoolean(Session["Authenticated"]))
+            {
+                <label>
+                    Name:
+                    <input type="text" id="txbxUsername" disabled="disabled" value=@Session["Username"] />
+                </label>
+            }
+            else
+            {
+                <label>
+                    Name:
+                    <input type="text" id="txbxUsername" value="" />
+                </label>
+            }
+        }
+    </div>
+    <div class="large-16 columns">
+        <label>
+            Add A Comment:
+            <textarea id="txtareaComment"></textarea>
+        </label>
+    </div>
+    <div class="small-4 columns">
+        <input id="btnSubmitComment" type="submit" class="button small-16" value="Submit Comment" />
+    </div>
+    <div class="small-12 columns text-center" id="notification">
+    </div>
+    <br />
+    <hr />
+</div>

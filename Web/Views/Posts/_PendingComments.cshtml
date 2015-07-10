@@ -1,0 +1,59 @@
+﻿@using Orange.Core.Entities
+@model Web.Models.BlogPost
+
+<div id="pendingComments">
+    @if (Model.PendingComments.Any())
+    {
+        <div class="row">
+            <div class="small-16 columns">
+                <h2 class="text-left">Pending Comments</h2>
+                @*<input id="btnApproveAll" type="submit" class="button small-4 end" value="Approve All" />*@
+            </div>
+        </div>
+        <div class="row">
+            <div class="small-4 columns">
+                <input id="btnApproveAll" type="submit" class="button small-16 end" value="Approve All" />
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="small-16 columns">
+                @foreach (Comment comment in Model.PendingComments)
+                {
+                    <div style="background-color: lightgray;">
+                        <div>
+                            @if (comment.UserId == Model.Post.UserId)
+                            {
+                                <h4>Posted by: @comment.ProvidedName (Author)</h4>
+                            }
+                            else
+                            {
+                                <h4 class="small-6">Posted by: @comment.ProvidedName</h4>
+                            }
+                            <label class="standard-cursor" style="font-size: 10px;">@comment.Created</label>
+                            <p>@comment.Body</p>
+                        </div>
+                        <div>
+                            @* TODO: if one is checked the other needs to be unchecked *@
+                            <input id="ckbxApproval-@comment.Id" type="checkbox" class="ckbxApproval"><label for="ckbxApproval-@comment.Id">Approve Comment</label>
+                            <input id="ckbxDiscard-@comment.Id" type="checkbox" class="ckbxDiscard"><label for="ckbxDiscard-@comment.Id">Discard Comment</label>
+                        </div>
+                        <div>
+                            <hr class="small-4 text-left" />
+                        </div>
+                    </div>                    
+                }
+            </div>
+
+            <div class="small-4 columns">
+                <input id="btnApproveSelected" type="submit" class="button small-16" value="Approve Selected" />
+            </div>
+            <div class="small-4 columns end">
+                <input id="btnDiscardSelected" type="submit" class="button small-16" value="Discard Selected" />
+            </div>
+
+            <hr />
+        </div>
+    }
+</div>
+

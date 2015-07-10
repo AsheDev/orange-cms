@@ -1,0 +1,34 @@
+﻿@using Orange.Core.Entities
+@model Web.Models.BlogPost
+
+<div id="approvedComments">
+    @if (Model.ApprovedComments.Any())
+    {
+        <div class="row">
+            <div class="small-16 columns">
+                <h2 class="text-left">Comments</h2>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="small-16 columns">
+            @foreach (Comment comment in Model.ApprovedComments)
+            {
+                <div>
+                    @if (comment.UserId == Model.Post.UserId)
+                    {
+                        <h4>Posted by: @comment.ProvidedName (Author)</h4>
+                    }
+                    else
+                    {
+                        <h4>Posted by: @comment.ProvidedName</h4>
+                    }
+                    <label class="standard-cursor" style="font-size: 10px;">@comment.Created</label>
+                    <p>@comment.Body</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
