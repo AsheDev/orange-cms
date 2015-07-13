@@ -72,7 +72,7 @@ namespace Orange.Business
             return result;
         }
 
-        public PostResult Update(IPost updatePost, int callingUserId)
+        public PostResult Update(IPost updatePost, int callingUserId) // TODO: I DON'T LIKE THIS IMPLEMENTATION!
         {
             PostResult result = new PostResult();
             IsDataSourceNull(result);

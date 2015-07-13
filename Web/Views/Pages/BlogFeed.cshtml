@@ -12,6 +12,7 @@
     <script src="~/Scripts/Libraries/en.js"></script>
     @*<link href="~/Content/Libraries/CKEditor/dialog.css" rel="stylesheet" />*@
     <link href="~/Content/Libraries/CKEditor/editor.css" rel="stylesheet" />
+<script src="~/Scripts/Orange/Posts.js"></script>
 }
 @using Orange.Core.Utility
 @using Orange.Core.Entities
@@ -26,29 +27,37 @@
         if(Convert.ToBoolean(Session["Authenticated"]))
         {
             <div class="row">
-                <div class="small-16 columns text-center">
-                    <br />
-                    <a class="button small-10">Add New Blog Entry</a>
-                    <hr />
-                    
-                                    
-
-
+                <div class="small-9 columns">
+                    <label class="small-16" for="txbxTitle">Title</label>
+                    <input id="txbxTitle" type="text" class="small-16" />
                 </div>
+                @* Use a time picker as well? *@
+                @* http://pttimeselect.sourceforge.net/example/index.html *@
+                <div class="small-3 columns end">
+                    <label class="small-16" for="txbxEffectiveDate">Effective Date</label>
+                    <input id="txbxEffectiveDate" type="text" class="small-16" value="@DateTime.Now.ToShortDateString()" />
+                </div>
+                <div class="small-16 columns">
+                    <input id="ckbxPublic" type="checkbox" checked="checked"><label for="ckbxPublic">Make post publicly visible</label>
+                </div>
+
+                <div class="small-16 columns">
+                    <textarea name="txtAreaBody" id="txtAreaBody" rows="10" cols="80">
+                        This is my textarea to be replaced with CKEditor.
+                    </textarea>
+                    <p></p>
+                </div>
+
+                <br />
+                <div class="small-6 columns">
+                    <input id="btnSavePost" type="submit" class="button small-16" value="Save Post" onclick="SavePost()"/>
+                </div>
+                <div class="small-10 columns text-center" id="notification">
+                </div>
+                <hr />
             </div>
         }        
-    }    
-
-    @* THIS EDIT IS HERE FOR TESTING ONLY. IT NEEDS TO BE WITHIN THE AUTHENTICATED SECTION. *@
-    <div class="row">
-        <div class="small-16 columns">
-            <textarea name="editor1" id="editor1" rows="10" cols="80">
-                This is my textarea to be replaced with CKEditor.
-            </textarea>
-        </div>
-    </div>
-
-
+    }
 
     @{bool additionalPosts = (Model.Posts.Count > 3);}
     @for (int p = 0; p < 3; ++p)
@@ -99,8 +108,15 @@
 
 </div>
 
+@* MOVE TO JAVASCRIPT FILE *@
+<script>
+    $(function () {
+        $("#txbxEffectiveDate").datepicker();
+    });
+</script>
+
 <script>
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
-    CKEDITOR.replace('editor1');
+    CKEDITOR.replace('txtAreaBody');
 </script>

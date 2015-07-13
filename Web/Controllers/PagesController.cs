@@ -40,6 +40,6 @@ namespace Web.Controllers
             };
 
             return View("BlogFeed", model);
-        }        
+        }
     }
 }

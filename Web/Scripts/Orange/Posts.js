@@ -112,3 +112,35 @@ function DiscardSelected() {
 function ClearCommentForm() {
     $('#txtareaComment').val('');
 }
+
+/* spin off into its own file? */
+function SavePost() {
+    var title = $('#txbxTitle').val();
+    var effectiveDate = $('#txbxEffectiveDate').val();
+    var publiclyVisible = $('#ckbxPublic').val();
+    var body = $('#txtAreaBody').val();
+    var path = GetBasePath(); // testing
+    $.ajax({
+        type: "POST",
+        async: false,
+        url: "/Posts/" + 'SavePost', // HARD CODED!
+        dataType: "html",
+        data: JSON.stringify({ title: title, effectiveDate: effectiveDate, publiclyVisible: publiclyVisible, body: body }),
+        contentType: "application/json",
+        beforeSend: function () {
+            //$.blockUI({ message: 'Hauling up the treasure!..', css: { backgroundColor: '#6F1623', color: '#FFF' } });
+        },
+        complete: function () {
+            //$.unblockUI();
+        },
+        success: function (data) {
+            $('#notification').html(data);
+            //GetPendingComments();
+            //GetApprovedComments();
+            //ClearCommentForm();
+        },
+        error: function (e) {
+            //alert("We've scrapped the reef!");
+        }
+    });
+}

@@ -22,6 +22,24 @@ namespace Web.Controllers
             return View("BlogPost", LoadBlogPostBody(locatorId));
         }
 
+        public ActionResult SavePost(string title, string effectiveDate, bool publiclyVisible, string body)
+        {
+            RC.Database orange = new RC.Database("DevOrange");
+
+            DateTime effective = DateTime.Parse(effectiveDate);
+
+            PostAdd post = new PostAdd
+            {
+                UserId = Convert.ToInt32(Session["UserId"]),
+                Subject = title,
+                EffectiveDate = effective,
+                IsPubliclyVisible = publiclyVisible,
+                Body = body
+            };
+            PostResult result = new PostOps(orange).Add(post, 0);
+            return PartialView("~/Views/Partials/_Notification.cshtml", result);
+        }
+
         public ActionResult SubmitComment(int postId, string username, string comment)
         {
             RC.Database orange = new RC.Database("DevOrange");
