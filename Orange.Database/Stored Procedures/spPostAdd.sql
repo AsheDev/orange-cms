@@ -9,13 +9,23 @@ CREATE PROCEDURE o.PostAdd
 	@Subject NVARCHAR(256),
 	@Body NVARCHAR(MAX),
 	@EffectiveDate DATETIME,
-	@IsPubliclyVisible BIT
+	@IsPubliclyVisible BIT,
+	@Tags Tags READONLY
 AS
 	-- WITH ENCRYPTION ON AS
 	SET NOCOUNT ON;
 	BEGIN TRANSACTION;
 	SET XACT_ABORT ON;
 	BEGIN TRY
+		--- BELOW IS TESTING AND SUPER QUICK AND DIRTY!
+		-- if the tag doesn't exist add it
+		-- once that step is done attach all the tags to the post via o.TagMap
+		-- DO THE SAME IN UPDATE STORED PROCEDURE
+		INSERT INTO o.Tags
+		(Name)
+		SELECT Name FROM @Tags;
+
+
 		---
 		DECLARE @EditTypeId INT = (SELECT Id FROM o.EditTypes WHERE Name = 'Created');
 		DECLARE @Created DATETIME = GETUTCDATE();

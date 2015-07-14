@@ -48,9 +48,14 @@
                     <p></p>
                 </div>
 
+                <div class="small-16 columns">
+                    <label class="small-16" for="txbxTags">Tags</label>
+                    <input id="txbxTags" type="text" class="small-16" />
+                </div>
+
                 <br />
                 <div class="small-6 columns">
-                    <input id="btnSavePost" type="submit" class="button small-16" value="Save Post" onclick="SavePost()"/>
+                    <input id="btnSavePost" type="submit" class="button small-16" value="Publish Post" onclick="SavePost()"/>
                 </div>
                 <div class="small-10 columns text-center" id="notification">
                 </div>
@@ -65,39 +70,60 @@
         <div class="row">
             <div class="small-16 columns">
                 <br />
-                <h2 class="text-left">@Model.Posts[p].Subject</h2>
-                <h5 class="text-left">@Model.Posts[p].EffectiveDate</h5>
-                <p class="text-left">@Model.Posts[p].Body.TrimToEllipsis(256)</p>
-                <p></p>
+
+                @* this needs to be cleaned up. it feels like a ghetto hyperlink *@
+                <h2 class="text-left" style="text-decoration: underline; color: black;">
+                    @Html.ActionLink(@Model.Posts[p].Subject, "BlogPost", "Posts", new { locatorId = @Model.Posts[p].Id }, new { @id = "btnBlogPost", @style="color: black;" })
+                </h2>
+
+                @*<h5 class="text-left">@Model.Posts[p].EffectiveDate</h5>*@
+                @*<p class="text-left">@Model.Posts[p].Body.TrimToEllipsis(256)</p>*@
+                @*<p></p>*@
             </div>
+
             <div class="small-4 columns">
-                <label class="standard-cursor">Comments (@Model.Posts[p].CommentCount)</label>
+                <h5 class="text-left">@Model.Posts[p].EffectiveDate</h5>
             </div>
+
+            <div class="small-12 columns">
+                <label class="standard-cursor" style="line-height: 34px;">Comments (@Model.Posts[p].CommentCount)</label>
+            </div>
+
             <div class="small-16 columns">
+                <p class="text-left">@Model.Posts[p].Body.TrimToEllipsis(256)</p>
+            </div>
+
+            @* TODO: each of these needs to be a link that will display all posts with that particular tag *@
+            <div class="small-16 columns">
+                <label class="standard-cursor">Tags: teaching, ECE, goats, educators</label>
                 <br />
+            </div>
+
+            <div class="small-12 columns">
                 @Html.ActionLink("Read Post", "BlogPost", "Posts", new { locatorId = @Model.Posts[p].Id }, new { @id = "btnBlogPost", @class="button small-6" })
             </div>
             <hr />
         </div>        
     }
 
-    @if (Model.Posts.Count > 3)
+    @if (Model.Posts.Count > 1)
     {
         if (Model.Posts.Count > 8)
         {
             <div class="row">
                 <div class="small-16 columns">
                     <br />
-                    <a class="button small-16">Load next five posts</a>
+                    <a class="button small-4 transparent-button">Load next five posts</a>
                 </div>
             </div>  
         }
         else
         {
+            int count = Model.Posts.Count() - 3;
             <div class="row">
                 <div class="small-16 columns">
                     <br />
-                    <a class="button small-16">Load next (@Model.Posts.Count - 3) posts</a>
+                    <a class="button small-4 transparent-button">Load next (@count) posts</a>
                 </div>
             </div>
         }
@@ -118,5 +144,12 @@
 <script>
     // Replace the <textarea id="editor1"> with a CKEditor
     // instance, using default configuration.
-    CKEDITOR.replace('txtAreaBody');
+
+    var elementExists = document.getElementById("txtAreaBody");
+    if (document.getElementById("txtAreaBody"))
+    {
+        CKEDITOR.replace('txtAreaBody');
+    }
+
+    
 </script>

@@ -114,14 +114,44 @@ GO
 IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Posts') AND (TYPE = 'U')))
 BEGIN
 	CREATE TABLE o.Posts (
-		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id),
-		[Subject]					NVARCHAR(256) NOT NULL,
-		Body						NVARCHAR(MAX) NOT NULL,
-		Created						DATETIME NOT NULL, -- when the post was initially created (could be the same as EffectiveDate if posted immediately)
-		EffectiveDate				DATETIME NOT NULL, -- when the post will show up
-		IsPubliclyVisible			BIT DEFAULT 1, -- maybe not everything should be on display?
-		IsActive					BIT DEFAULT 1
+		Id									INT IDENTITY(1,1) PRIMARY KEY,
+		FK_UserId							INT FOREIGN KEY REFERENCES o.Users(Id),
+		[Subject]							NVARCHAR(256) NOT NULL,
+		Body								NVARCHAR(MAX) NOT NULL,
+		Created								DATETIME NOT NULL, -- when the post was initially created (could be the same as EffectiveDate if posted immediately)
+		EffectiveDate						DATETIME NOT NULL, -- when the post will show up
+		IsPubliclyVisible					BIT DEFAULT 1, -- maybe not everything should be on display?
+		IsActive							BIT DEFAULT 1
+	);
+END
+GO
+
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Tags') AND (TYPE = 'U')))
+BEGIN
+	CREATE TABLE o.Tags (
+		Id									INT IDENTITY(1,1) PRIMARY KEY,
+		Name								NVARCHAR(256) NOT NULL,
+		IsActive							BIT DEFAULT 1
+	);
+END
+GO
+
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'TagMap') AND (TYPE = 'U')))
+BEGIN
+	CREATE TABLE o.TagMap (
+		FK_PostId							INT FOREIGN KEY REFERENCES o.Posts(Id),
+		FK_TagId							INT FOREIGN KEY REFERENCES o.Tags(Id)
+	);
+END
+GO
+
+-- A type for passing in multiple tags
+IF EXISTS(SELECT name FROM sys.types WHERE name = N'Tag')
+	DROP TYPE o.Tag
+BEGIN
+	CREATE TYPE o.Tag (
+		Name								NVARCHAR(256) NOT NULL,
+		Processed							BIT DEFAULT 0 -- when adding tags to a post. This lets us know if it's been processed
 	);
 END
 GO
@@ -129,16 +159,16 @@ GO
 IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'PostComments') AND (TYPE = 'U')))
 BEGIN
 	CREATE TABLE o.PostComments (
-		Id							INT IDENTITY(1,1) PRIMARY KEY,
-		FK_PostId					INT FOREIGN KEY REFERENCES o.Posts(Id),
-		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id), -- this can be zeroed out if the user doesn't have an account
-		ProvidedName				NVARCHAR(256) NOT NULL,
-		Body						NVARCHAR(1200) NOT NULL,
-		Created						DATETIME NOT NULL, -- when the comments was created
-		ApprovalDate				DATETIME NOT NULL, -- when the post will show up (this should be updated when the comment is approved)
-		Approval					TINYINT DEFAULT 0, -- 0 is unapproved (pending), 1 is approved, 2 is denied
-		EditKey						NVARCHAR(8), -- a semi-password to edit the comment if the user is anonymous (can it be edited after it's been approved?)
-		IsActive					BIT DEFAULT 1
+		Id									INT IDENTITY(1,1) PRIMARY KEY,
+		FK_PostId							INT FOREIGN KEY REFERENCES o.Posts(Id),
+		FK_UserId							INT FOREIGN KEY REFERENCES o.Users(Id), -- this can be zeroed out if the user doesn't have an account
+		ProvidedName						NVARCHAR(256) NOT NULL,
+		Body								NVARCHAR(1200) NOT NULL,
+		Created								DATETIME NOT NULL, -- when the comments was created
+		ApprovalDate						DATETIME NOT NULL, -- when the post will show up (this should be updated when the comment is approved)
+		Approval							TINYINT DEFAULT 0, -- 0 is unapproved (pending), 1 is approved, 2 is denied
+		EditKey								NVARCHAR(8), -- a semi-password to edit the comment if the user is anonymous (can it be edited after it's been approved?)
+		IsActive							BIT DEFAULT 1
 	);
 END
 GO

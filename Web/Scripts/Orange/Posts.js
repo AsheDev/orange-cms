@@ -17,10 +17,11 @@ function SubmitComment() {
     var username = $('#txbxUsername').val();
     var comment = $('#txtareaComment').val();
     var postId = $('#hdnPostId').val();
+    var derping = GetBasePath() + 'SubmitComment';
     $.ajax({
         type: "POST",
         async: false,
-        url: GetBasePath() + 'SubmitComment',
+        url: derping,
         dataType: "html",
         data: JSON.stringify({ postId: postId, username: username, comment: comment }),
         contentType: "application/json",
@@ -117,13 +118,13 @@ function ClearCommentForm() {
 function SavePost() {
     var title = $('#txbxTitle').val();
     var effectiveDate = $('#txbxEffectiveDate').val();
-    var publiclyVisible = $('#ckbxPublic').val();
+    var publiclyVisible = $('#ckbxPublic').is(':checked');
     var body = $('#txtAreaBody').val();
-    var path = GetBasePath(); // testing
+    var url = '/Posts/SavePost'
     $.ajax({
         type: "POST",
         async: false,
-        url: "/Posts/" + 'SavePost', // HARD CODED!
+        url: url,
         dataType: "html",
         data: JSON.stringify({ title: title, effectiveDate: effectiveDate, publiclyVisible: publiclyVisible, body: body }),
         contentType: "application/json",

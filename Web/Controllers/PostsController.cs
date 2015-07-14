@@ -25,9 +25,7 @@ namespace Web.Controllers
         public ActionResult SavePost(string title, string effectiveDate, bool publiclyVisible, string body)
         {
             RC.Database orange = new RC.Database("DevOrange");
-
             DateTime effective = DateTime.Parse(effectiveDate);
-
             PostAdd post = new PostAdd
             {
                 UserId = Convert.ToInt32(Session["UserId"]),
@@ -39,6 +37,10 @@ namespace Web.Controllers
             PostResult result = new PostOps(orange).Add(post, 0);
             return PartialView("~/Views/Partials/_Notification.cshtml", result);
         }
+
+        // UPDATE POST
+
+        // REMOVE POST
 
         public ActionResult SubmitComment(int postId, string username, string comment)
         {

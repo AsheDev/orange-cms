@@ -173,5 +173,24 @@ namespace Orange.Business
             parameters[2] = new SqlParameter("@CallingUserId", remove.CallingUserId);
             return parameters;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="tags"></param>
+        /// <returns></returns>
+        private DataTable ConstructTagsTable(List<string> tagNames)
+        {
+            DataTable dtTags = new DataTable();
+            dtTags.Columns.Add("Name", typeof(string));
+
+            foreach (string tagName in tagNames)
+            {
+                DataRow row = dtTags.NewRow();
+                row["Name"] = tagName;
+                dtTags.Rows.Add(row);
+            }
+            return dtTags;
+        }
     }
 }

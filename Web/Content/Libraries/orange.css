@@ -41,6 +41,11 @@
     cursor: default;
 }
 
+.transparent-button {
+    background-color: transparent;
+    border: 1px solid #007095;
+    color: black;
+}
 
 
 .top-bar {
