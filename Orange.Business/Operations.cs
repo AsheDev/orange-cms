@@ -1,5 +1,5 @@
-﻿using Orange.Core.Enums;
-using Ripley.Connections;
+﻿using Connections;
+using Orange.Core.Enums;
 using Orange.Core.Utility;
 using Orange.Core.Entities;
 using Orange.Core.Interfaces;

@@ -1,6 +1,6 @@
-﻿using System.Data;
+﻿using Connections;
+using System.Data;
 using Orange.Core.Enums;
-using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Utility;
 using Orange.Core.Entities;
@@ -34,6 +34,11 @@ namespace Orange.Business
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         public CommentResultList GetAll(int postId)
         {
             CommentResultList results = new CommentResultList();
@@ -49,6 +54,11 @@ namespace Orange.Business
             return results;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="newComment"></param>
+        /// <returns></returns>
         public CommentResult Add(IComment newComment)
         {
             CommentResult result = new CommentResult();
@@ -73,6 +83,11 @@ namespace Orange.Business
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="updateComment"></param>
+        /// <returns></returns>
         public CommentResult Update(IComment updateComment)
         {
             CommentResult result = new CommentResult();
@@ -97,6 +112,11 @@ namespace Orange.Business
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="remove"></param>
+        /// <returns></returns>
         public BoolResult Remove(CommentRemove remove)
         {
             BoolResult result = new BoolResult();
@@ -118,6 +138,11 @@ namespace Orange.Business
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="approval"></param>
+        /// <returns></returns>
         public BoolResult CommentApproval(CommentApproval approval)
         {
             BoolResult result = new BoolResult();
@@ -136,6 +161,11 @@ namespace Orange.Business
             return result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
         private SqlParameter[] IdParameter(int commentId)
         {
             SqlParameter[] parameters = new SqlParameter[1];
@@ -143,6 +173,11 @@ namespace Orange.Business
             return parameters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
         private SqlParameter[] GetAllParameters(int postId)
         {
             SqlParameter[] parameters = new SqlParameter[1];
@@ -150,6 +185,11 @@ namespace Orange.Business
             return parameters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="add"></param>
+        /// <returns></returns>
         private SqlParameter[] AddParameters(CommentAdd add)
         {
             SqlParameter[] parameters = new SqlParameter[6];
@@ -162,6 +202,11 @@ namespace Orange.Business
             return parameters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private SqlParameter[] UpdateParameters(CommentUpdate update)
         {
             SqlParameter[] parameters = new SqlParameter[5];
@@ -174,6 +219,11 @@ namespace Orange.Business
             return parameters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="remove"></param>
+        /// <returns></returns>
         private SqlParameter[] RemoveParameters(CommentRemove remove)
         {
             SqlParameter[] parameters = new SqlParameter[3];
@@ -183,6 +233,11 @@ namespace Orange.Business
             return parameters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="approval"></param>
+        /// <returns></returns>
         private SqlParameter[] ApprovalParameters(CommentApproval approval)
         {
             SqlParameter[] parameters = new SqlParameter[4];
@@ -193,12 +248,22 @@ namespace Orange.Business
             return parameters;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <param name="editKey"></param>
+        /// <returns></returns>
         private bool IsEditkeyValid(int commentId, string editKey)
         {
             CommentResult commentInfo = Get(commentId);
             return (commentInfo.Result.EditKey == editKey);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="comment"></param>
         private void IsUserAnonymous(ref CommentAdd comment)
         {
             if (!string.IsNullOrWhiteSpace(comment.ProvidedName)) return;

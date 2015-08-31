@@ -1,7 +1,7 @@
-﻿using System.Data;
+﻿using Connections;
+using System.Data;
 using System.Linq;
 using Orange.Core.Enums;
-using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Utility;
 using Orange.Core.Entities;
@@ -31,7 +31,21 @@ namespace Orange.Business
 
             List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostGet", IdParameter(postId));
             result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTables, result);
-            if (result.Severity != Core.Enums.Severity.Success) return result;
+            if (result.Severity != Severity.Success) return result;
+
+            Result.PopulateResult(result, returnedTables);
+            return result;
+        }
+
+        public PostResult GetLatest()
+        {
+            PostResult result = new PostResult();
+            IsDataSourceNull(result);
+            if (result.Severity != Severity.Success) return result;
+
+            List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostGetLatest");
+            result = (PostResult)Result.PostDatabaseCallErrorChecking(returnedTables, result);
+            if (result.Severity != Severity.Success) return result;
 
             Result.PopulateResult(result, returnedTables);
             return result;

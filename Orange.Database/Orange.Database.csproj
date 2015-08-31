@@ -55,6 +55,7 @@
     <Content Include="Stored Procedures\spCommentUpdate.sql" />
     <Content Include="Stored Procedures\spCommentAdd.sql" />
     <Content Include="Stored Procedures\spAccessibilityUpdate.sql" />
+    <Content Include="Stored Procedures\spGetPostLatest.sql" />
     <Content Include="Stored Procedures\spPostHistoryGetAll.sql" />
     <Content Include="Stored Procedures\spRecordAccessGetAll.sql" />
     <Content Include="Stored Procedures\spRecordNavigationGetAll.sql" />

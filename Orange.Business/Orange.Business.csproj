@@ -61,13 +61,13 @@
     <Compile Include="UserOps.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\OrangeCMS\Orange.Connections\Ripley.Connections.csproj">
-      <Project>{3795a4e2-abf2-4ae8-8857-964af24aaf01}</Project>
-      <Name>Ripley.Connections</Name>
+    <ProjectReference Include="..\..\..\Workspaces\Connections\Connections\Connections\Connections.csproj">
+      <Project>{edbbd70f-68a1-4d54-be48-d1bda2fe1323}</Project>
+      <Name>Connections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\OrangeCMS\Orange.Security\Ripley.Security.csproj">
-      <Project>{02297d3c-5356-4a1d-af1a-bebc1ae3aee4}</Project>
-      <Name>Ripley.Security</Name>
+    <ProjectReference Include="..\..\..\Workspaces\Security\Security\Security\Security.csproj">
+      <Project>{5d415e65-361f-4638-be22-5d73706a20d9}</Project>
+      <Name>Security</Name>
     </ProjectReference>
     <ProjectReference Include="..\Orange.Core\Orange.Core.csproj">
       <Project>{61008047-5f9a-4215-a4b2-8e3b1af61bcc}</Project>

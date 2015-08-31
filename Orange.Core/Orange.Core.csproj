@@ -83,12 +83,14 @@
     <Compile Include="Results\PasswordResult.cs" />
     <Compile Include="Results\PasswordSettingsResult.cs" />
     <Compile Include="Results\PermissionResult.cs" />
+    <Compile Include="Results\PostResultTest.cs" />
     <Compile Include="Results\StringResult.cs" />
     <Compile Include="Results\PostResult.cs" />
     <Compile Include="Results\UserResult.cs" />
     <Compile Include="Utility\Extensions.cs" />
     <Compile Include="Utility\ObjectBuilder.cs" />
     <Compile Include="Utility\Result.cs" />
+    <Compile Include="Utility\ResultTest.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

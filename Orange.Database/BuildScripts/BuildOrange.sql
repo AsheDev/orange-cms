@@ -1,23 +1,23 @@
 ﻿USE MASTER
 ALTER DATABASE DevOrange SET SINGLE_USER WITH ROLLBACK IMMEDIATE
-GO
 DROP DATABASE DevOrange
-GO
 CREATE DATABASE DevOrange
-GO
 USE DevOrange
 GO
 CREATE SCHEMA [o]
 GO
 SET NOCOUNT ON
-GO
--- needed to manually create login "Orange_Engine" with password 1234
+---
+IF NOT EXISTS (SELECT loginname FROM master.dbo.syslogins WHERE name = 'Orange_Engine')
+BEGIN
+	DECLARE @CreateLogin NVARCHAR(256) = 'CREATE LOGIN Orange_Engine WITH PASSWORD = ''1234'', DEFAULT_DATABASE = DevOrange, DEFAULT_LANGUAGE = us_english, CHECK_POLICY = OFF';
+	EXEC sp_executesql @CreateLogin
+END
+---
 CREATE USER Orange_Engine FOR LOGIN Orange_Engine
-GO
 ALTER USER Orange_Engine WITH DEFAULT_SCHEMA = [o]
-GO
 ALTER ROLE [db_owner] ADD MEMBER [Orange_Engine] -- set Orange_Engine as db_owner
-
+---
 IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Settings') AND (TYPE = 'U')))
 BEGIN
 	CREATE TABLE o.Settings (
@@ -147,9 +147,9 @@ GO
 
 -- A type for passing in multiple tags
 IF EXISTS(SELECT name FROM sys.types WHERE name = N'Tag')
-	DROP TYPE o.Tag
+	DROP TYPE o.PostTags
 BEGIN
-	CREATE TYPE o.Tag (
+	CREATE TYPE o.PostTags AS TABLE (
 		Name								NVARCHAR(256) NOT NULL,
 		Processed							BIT DEFAULT 0 -- when adding tags to a post. This lets us know if it's been processed
 	);
@@ -361,53 +361,54 @@ END
 GO
 
 -- generate the necessary stored procedures
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserGetAll.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserGetByUsername.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserAdd.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserUpdate.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserRemove.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spUserToggleInSystem.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGetByUsername.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserAdd.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserRemove.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserToggleInSystem.sql
 
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spLogIn.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spLogOut.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spLogIn.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spLogOut.sql
 
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordAdd.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordUpdate.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordRecordAttempt.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordResetGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordReset.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordSettingsGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPasswordSettingsUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordAdd.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordRecordAttempt.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordResetGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordReset.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordSettingsGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordSettingsUpdate.sql
 
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spPostGet.sql
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spPostGetAll.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostAdd.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostUpdate.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostRemove.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spPostHistoryGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetLatest.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostAdd.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostRemove.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostHistoryGetAll.sql
 
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spTagAdd.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spTagAdd.sql
 
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordAccessGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordAccessGetAll.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordAccess.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spRecordAccessGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spRecordAccessGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spRecordAccess.sql
 
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordNavigationGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordNavigationGetAll.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spRecordNavigation.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spRecordNavigationGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spRecordNavigationGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spRecordNavigation.sql
 
 -- this file location is the new git repository
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spCommentGet.sql
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spCommentGetAll.sql
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spCommentAdd.sql
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spCommentUpdate.sql
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spCommentRemove.sql
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\"Stored Procedures"\spCommentApproval.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentAdd.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentRemove.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentApproval.sql
 
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spAccessibilityGet.sql
-:r C:\Users\Michael\Source\Workspaces\"Orange CMS"\Orange.Core\Orange.Database\"Stored Procedures"\spAccessibilityUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spAccessibilityGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spAccessibilityUpdate.sql
 
 -- populate the database with some basic data for testing purposes
-:r C:\Users\Michael\Documents\"Visual Studio 2013"\Projects\Orange\Orange.Database\BuildScripts\PopulateOrange.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\BuildScripts\PopulateOrange.sql

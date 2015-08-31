@@ -1,6 +1,6 @@
-﻿using Orange.Business;
+﻿using Connections;
+using Orange.Business;
 using Orange.Core.Enums;
-using Ripley.Connections;
 using Orange.Core.Results;
 using Orange.Core.Entities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +15,6 @@ namespace Orange.Test
         [TestMethod]
         public void Get()
         {
-
             AccessibilityResult result = new AccessibilitySettingsOps(_dataSource).Get(1);
             Assert.AreEqual(Severity.Success, result.Severity);
         }

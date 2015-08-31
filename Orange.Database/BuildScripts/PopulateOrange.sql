@@ -31,6 +31,12 @@ VALUES
 ---
 DECLARE @TwoHours DATETIME = DATEADD(HOUR, 2, GETUTCDATE())
 DECLARE @FourHours DATETIME = DATEADD(HOUR, 4, GETUTCDATE())
+DECLARE @PostTags o.PostTags
+INSERT INTO @PostTags (Name)
+VALUES
+('Teaching'),
+('ECE'),
+('Goats');
 EXEC o.PostAdd @UserId = 2, 
 			   @Subject = 'My First Post!', 
 			   @Body = '
@@ -42,7 +48,8 @@ Proin ipsum purus, tristique ut ipsum in, molestie aliquam ipsum. Nunc in ipsum 
 Curabitur tortor lorem, mollis quis vehicula vitae, vehicula rutrum urna. Duis pellentesque, nibh at ultrices facilisis, lacus urna accumsan ex, at tempor mi lorem in dui. Fusce augue mauris, dictum non volutpat nec, consequat vel justo. Mauris vestibulum quam nec fringilla consequat. Aliquam vehicula eu metus nec tincidunt. Nunc mollis mattis pharetra. Mauris placerat tellus eget ipsum pulvinar, quis eleifend lectus efficitur. ', 
 			   @EffectiveDate = '2020-04-26 04:00:00', 
 			   @CallingUserId = 2, 
-			   @IsPubliclyVisible = 1
+			   @IsPubliclyVisible = 1,
+			   @Tags = @PostTags
 EXEC o.PostAdd @UserId = 2, 
 			   @Subject = 'This isn''t even my final form.', 
 			   @Body = '
@@ -54,7 +61,8 @@ Donec facilisis tellus magna, sit amet bibendum purus sollicitudin nec. Integer 
 Donec tempus ante commodo ultricies faucibus. Nulla sed lectus nec felis aliquet dapibus. Pellentesque gravida risus lobortis arcu aliquam, vel dapibus odio mattis. Phasellus fermentum molestie ante, at ullamcorper purus aliquam eget. Aliquam consectetur dolor at erat aliquet, quis suscipit nibh molestie. Proin pharetra hendrerit gravida. Suspendisse potenti. Vestibulum a elementum odio. ', 
 			   @EffectiveDate = @TwoHours, 
 			   @CallingUserId = 2, 
-			   @IsPubliclyVisible = 1
+			   @IsPubliclyVisible = 1,
+			   @Tags = @PostTags
 EXEC o.PostAdd @UserId = 2, 
 			   @Subject = 'Okay, let''s do this.', 
 			   @Body = '
@@ -66,7 +74,47 @@ Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condime
 In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
 			   @EffectiveDate = @FourHours, 
 			   @CallingUserId = 2, 
-			   @IsPubliclyVisible = 1
+			   @IsPubliclyVisible = 1,
+			   @Tags = @PostTags
+EXEC o.PostAdd @UserId = 2, 
+			   @Subject = 'Another post for the masses', 
+			   @Body = '
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nulla nisl, luctus id nunc eget, cursus congue augue. Praesent lectus metus, pulvinar quis ante venenatis, maximus ullamcorper erat. Proin non tincidunt augue. Mauris dignissim tellus sed magna convallis, nec blandit nisl feugiat. Etiam fermentum turpis ac lacus sollicitudin egestas luctus at enim. Mauris ligula nulla, venenatis ut lobortis sed, vestibulum non nibh. Aenean vestibulum placerat aliquam. Praesent ac consequat ipsum, eu facilisis nisi. Aenean dictum justo non tortor auctor ultrices. Sed non ipsum quis lacus tempus sodales ac vel velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean porta eros ligula, et eleifend nisi bibendum vitae. Cras vel elit vitae dui tincidunt aliquet ut ac leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent ipsum tellus, luctus id lorem dignissim, venenatis tempor leo.
+
+Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condimentum nibh tortor, at imperdiet risus elementum ac. Curabitur pulvinar nulla a suscipit ornare. Mauris at cursus nisl. Aenean porttitor at nunc ac tempus. Etiam interdum non lectus et tincidunt. Mauris quis imperdiet lorem.
+
+In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
+			   @EffectiveDate = @Time, 
+			   @CallingUserId = 2, 
+			   @IsPubliclyVisible = 1,
+			   @Tags = @PostTags
+EXEC o.PostAdd @UserId = 2, 
+			   @Subject = 'Posting for justice!', 
+			   @Body = '
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nulla nisl, luctus id nunc eget, cursus congue augue. Praesent lectus metus, pulvinar quis ante venenatis, maximus ullamcorper erat. Proin non tincidunt augue. Mauris dignissim tellus sed magna convallis, nec blandit nisl feugiat. Etiam fermentum turpis ac lacus sollicitudin egestas luctus at enim. Mauris ligula nulla, venenatis ut lobortis sed, vestibulum non nibh. Aenean vestibulum placerat aliquam. Praesent ac consequat ipsum, eu facilisis nisi. Aenean dictum justo non tortor auctor ultrices. Sed non ipsum quis lacus tempus sodales ac vel velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean porta eros ligula, et eleifend nisi bibendum vitae. Cras vel elit vitae dui tincidunt aliquet ut ac leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent ipsum tellus, luctus id lorem dignissim, venenatis tempor leo.
+
+Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condimentum nibh tortor, at imperdiet risus elementum ac. Curabitur pulvinar nulla a suscipit ornare. Mauris at cursus nisl. Aenean porttitor at nunc ac tempus. Etiam interdum non lectus et tincidunt. Mauris quis imperdiet lorem.
+
+In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
+			   @EffectiveDate = @Time, 
+			   @CallingUserId = 2, 
+			   @IsPubliclyVisible = 1,
+			   @Tags = @PostTags
+EXEC o.PostAdd @UserId = 2, 
+			   @Subject = 'H.P. Lovecraft is amazeballs!', 
+			   @Body = '
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nulla nisl, luctus id nunc eget, cursus congue augue. Praesent lectus metus, pulvinar quis ante venenatis, maximus ullamcorper erat. Proin non tincidunt augue. Mauris dignissim tellus sed magna convallis, nec blandit nisl feugiat. Etiam fermentum turpis ac lacus sollicitudin egestas luctus at enim. Mauris ligula nulla, venenatis ut lobortis sed, vestibulum non nibh. Aenean vestibulum placerat aliquam. Praesent ac consequat ipsum, eu facilisis nisi. Aenean dictum justo non tortor auctor ultrices. Sed non ipsum quis lacus tempus sodales ac vel velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aenean porta eros ligula, et eleifend nisi bibendum vitae. Cras vel elit vitae dui tincidunt aliquet ut ac leo. Interdum et malesuada fames ac ante ipsum primis in faucibus. Praesent ipsum tellus, luctus id lorem dignissim, venenatis tempor leo.
+
+Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condimentum nibh tortor, at imperdiet risus elementum ac. Curabitur pulvinar nulla a suscipit ornare. Mauris at cursus nisl. Aenean porttitor at nunc ac tempus. Etiam interdum non lectus et tincidunt. Mauris quis imperdiet lorem.
+
+In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
+			   @EffectiveDate = @Time, 
+			   @CallingUserId = 2, 
+			   @IsPubliclyVisible = 1,
+			   @Tags = @PostTags
 --- TODO: how do I know where to fit the link in the LinkText field?
 --INSERT INTO o.Links
 --(FK_CreatedByUserId, Title, Body, LinkText, Url, IsVisible)

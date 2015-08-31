@@ -10,7 +10,7 @@ CREATE PROCEDURE o.PostAdd
 	@Body NVARCHAR(MAX),
 	@EffectiveDate DATETIME,
 	@IsPubliclyVisible BIT,
-	@Tags Tags READONLY
+	@Tags PostTags READONLY
 AS
 	-- WITH ENCRYPTION ON AS
 	SET NOCOUNT ON;

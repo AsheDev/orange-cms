@@ -28,6 +28,11 @@ namespace Orange.Core.Entities
         public int CallingUserId { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
+
+        public PermissionAdd()
+        {
+            CallingUserId = 0;
+        }
     }
 
     public class PermissionUpdate : IImpersonation
@@ -35,6 +40,11 @@ namespace Orange.Core.Entities
         public int CallingUserId { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
+
+        public PermissionUpdate()
+        {
+            CallingUserId = 0;
+        }
     }
 
     public class PermissionRemove : IImpersonation
@@ -42,5 +52,10 @@ namespace Orange.Core.Entities
         public int CallingUserId { get; set; }
         public int UserId { get; set; }
         public int Id { get; set; } // this is an int, right?
+
+        public PermissionRemove()
+        {
+            CallingUserId = 0;
+        }
     }
 }
