@@ -3,7 +3,7 @@ using Orange.Core.Interfaces;
 
 namespace Orange.Core.Entities
 {
-    public class DatabaseError : IError
+    public class DefaultError : IError
     {
         public bool HasError { get; set; }
         public string Message { get; set; }

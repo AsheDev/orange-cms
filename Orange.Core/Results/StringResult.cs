@@ -7,11 +7,11 @@ namespace Orange.Core.Results
 {
     public class StringResult : Result, IResult
     {
-        public string Results { get; set; }
+        public string Result { get; set; }
 
         public StringResult()
         {
-            Results = string.Empty;
+            Result = string.Empty;
         }
     }
 }

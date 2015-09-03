@@ -51,6 +51,7 @@
     <Compile Include="Entities\AccessDetails.cs" />
     <Compile Include="Entities\Accessibility.cs" />
     <Compile Include="Entities\Comment.cs" />
+    <Compile Include="Entities\DefaultError.cs" />
     <Compile Include="Entities\Error.cs" />
     <Compile Include="Entities\Link.cs" />
     <Compile Include="Entities\NavigationDetails.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Enums\Enums.cs" />
     <Compile Include="Interfaces\IAccessibility.cs" />
     <Compile Include="Interfaces\IComment.cs" />
+    <Compile Include="Interfaces\IError.cs" />
     <Compile Include="Interfaces\IImpersonation.cs" />
     <Compile Include="Interfaces\IPassword.cs" />
     <Compile Include="Interfaces\IPost.cs" />

@@ -1,12 +1,12 @@
-﻿using Orange.Core.Entities;
-using Orange.Core.Enums;
-using Orange.Core.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data;
 using System.Linq;
 using System.Text;
+using Orange.Core.Enums;
+using Orange.Core.Entities;
+using Orange.Core.Interfaces;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace Orange.Core.Utility
 {
