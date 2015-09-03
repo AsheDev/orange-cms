@@ -384,6 +384,7 @@ GO
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGet.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetLatest.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAllByUserId.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostAdd.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostUpdate.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostRemove.sql

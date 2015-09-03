@@ -128,7 +128,6 @@ namespace Orange.Business
             IsImpersonating((IImpersonation)remove, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
-
             // TODO: error checking
 
             DataTable returnedTable = DataSource.Crud("o.UserRemove", RemoveParameters(remove));

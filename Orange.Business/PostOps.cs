@@ -13,8 +13,9 @@ namespace Orange.Business
 {
     public class PostOps : Operations
     {
+        // is it more efficient to set this, in the case of adding or updating, or to pass the class (interface)
+        // around as necessary?
         private IPost _post;
-        private int _callingUserId; // TODO: clean this up, i.e. get rid of it
 
         public PostOps() { }
 
@@ -65,7 +66,22 @@ namespace Orange.Business
             return results;
         }
 
-        public PostResult Add(IPost newPost, int callingUserId)
+        // alternative, I could just do a link statement to grab what I'm looking for
+        public PostResultList GetAllByUserId(int userId)
+        {
+            PostResultList results = new PostResultList();
+            IsDataSourceNull(results);
+            if (results.Severity != Severity.Success) return results;
+
+            List<DataTable> returnedTables = DataSource.CrudMultipleResults("o.PostGetAllByUserId");
+            results = (PostResultList)Result.PostDatabaseCallErrorChecking(returnedTables, results);
+            if (results.Severity != Core.Enums.Severity.Success) return results;
+
+            Result.PopulateResult(results, returnedTables);
+            return results;
+        }
+
+        public PostResult Add(IPost newPost)
         {
             PostResult result = new PostResult();
             IsDataSourceNull(result);
@@ -74,7 +90,6 @@ namespace Orange.Business
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
             _post = newPost;
-            _callingUserId = callingUserId;
 
             // TODO: error checking
 
@@ -86,7 +101,7 @@ namespace Orange.Business
             return result;
         }
 
-        public PostResult Update(IPost updatePost, int callingUserId) // TODO: I DON'T LIKE THIS IMPLEMENTATION!
+        public PostResult Update(IPost updatePost)
         {
             PostResult result = new PostResult();
             IsDataSourceNull(result);
@@ -95,7 +110,6 @@ namespace Orange.Business
             if (result.Severity != Core.Enums.Severity.Success) return result;
 
             _post = updatePost;
-            _callingUserId = callingUserId;
 
             // TODO: error checking
 
@@ -147,27 +161,29 @@ namespace Orange.Business
 
         private SqlParameter[] AddParameters()
         {
+            PostAdd post = (PostAdd)_post;
             SqlParameter[] parameters = new SqlParameter[6];
-            parameters[0] = new SqlParameter("@UserId", _post.UserId);
-            parameters[1] = new SqlParameter("@Subject", _post.Subject);
-            parameters[2] = new SqlParameter("@Body", _post.Body);
-            parameters[3] = new SqlParameter("@EffectiveDate", _post.EffectiveDate.ToUniversalTime());
-            parameters[4] = new SqlParameter("@IsPubliclyVisible", _post.IsPubliclyVisible);
-            parameters[5] = new SqlParameter("@CallingUserId", _callingUserId);
+            parameters[0] = new SqlParameter("@UserId", post.UserId);
+            parameters[1] = new SqlParameter("@Subject", post.Subject);
+            parameters[2] = new SqlParameter("@Body", post.Body);
+            parameters[3] = new SqlParameter("@EffectiveDate", post.EffectiveDate.ToUniversalTime());
+            parameters[4] = new SqlParameter("@IsPubliclyVisible", post.IsPubliclyVisible);
+            parameters[5] = new SqlParameter("@CallingUserId", post.CallingUserId);
             return parameters;
         }
 
         private SqlParameter[] UpdateParameters()
         {
             PostUpdate post = (PostUpdate)_post;
+            
             SqlParameter[] parameters = new SqlParameter[7];
             parameters[0] = new SqlParameter("@PostId", post.Id);
-            parameters[1] = new SqlParameter("@UserId", _post.UserId);
-            parameters[2] = new SqlParameter("@Subject", _post.Subject);
-            parameters[3] = new SqlParameter("@Body", _post.Body);
-            parameters[4] = new SqlParameter("@EffectiveDate", _post.EffectiveDate.ToUniversalTime());
-            parameters[5] = new SqlParameter("@IsPubliclyVisible", _post.IsPubliclyVisible);
-            parameters[6] = new SqlParameter("@CallingUserId", _callingUserId);
+            parameters[1] = new SqlParameter("@UserId", post.UserId);
+            parameters[2] = new SqlParameter("@Subject", post.Subject);
+            parameters[3] = new SqlParameter("@Body", post.Body);
+            parameters[4] = new SqlParameter("@EffectiveDate", post.EffectiveDate.ToUniversalTime());
+            parameters[5] = new SqlParameter("@IsPubliclyVisible", post.IsPubliclyVisible);
+            parameters[6] = new SqlParameter("@CallingUserId", post.CallingUserId);
             return parameters;
         }
 

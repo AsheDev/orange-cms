@@ -15,7 +15,7 @@ namespace Orange.Business
     {
         private PermissionUpdate _permissionUpdate;
         private PermissionAdd _permissionAdd;
-        private int _callingUserId;
+        // IPermission?
 
         public PermissionOps() { }
 
@@ -74,7 +74,7 @@ namespace Orange.Business
             return result;
         }
 
-        public PermissionResult Update(PermissionUpdate permissionUpdate, int callingUserId)
+        public PermissionResult Update(PermissionUpdate permissionUpdate)
         {
             PermissionResult result = new PermissionResult();
             IsDataSourceNull(result);
@@ -82,7 +82,6 @@ namespace Orange.Business
             IsImpersonating((IImpersonation)permissionUpdate, result);
             if (result.Severity != Core.Enums.Severity.Success) return result;
             _permissionUpdate = permissionUpdate;
-            _callingUserId = callingUserId;
 
             // TODO: error checking
 
