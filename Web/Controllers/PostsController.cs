@@ -4,10 +4,10 @@ using Web.Models;
 using System.Linq;
 using System.Web.Mvc;
 using Orange.Business;
+using RC = Connections;
 using Orange.Core.Enums;
 using Orange.Core.Results;
 using Orange.Core.Entities;
-using RC = Ripley.Connections;
 using System.Collections.Generic;
 
 namespace Web.Controllers
@@ -34,7 +34,7 @@ namespace Web.Controllers
                 IsPubliclyVisible = publiclyVisible,
                 Body = body
             };
-            PostResult result = new PostOps(orange).Add(post, 0);
+            PostResult result = new PostOps(orange).Add(post);
             return PartialView("~/Views/Partials/_Notification.cshtml", result);
         }
 

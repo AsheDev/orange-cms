@@ -1,0 +1,1 @@
+﻿sp_RENAME 'o.PostComments.Reply' , 'ReplyId', 'COLUMN'

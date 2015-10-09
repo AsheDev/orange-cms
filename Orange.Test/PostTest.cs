@@ -36,14 +36,14 @@ namespace Orange.Test
         [TestMethod]
         public void Add()
         {
-            PostResult result = new PostOps(_dataSource).Add(new PostAddTest(), 1);
+            PostResult result = new PostOps(_dataSource).Add(new PostAddTest());
             Assert.AreEqual(Severity.Success, result.Severity);
         }
 
         [TestMethod]
         public void Update()
         {
-            PostResult result = new PostOps(_dataSource).Update(new PostUpdateTest(), 1);
+            PostResult result = new PostOps(_dataSource).Update(new PostUpdateTest());
             Assert.AreEqual(Severity.Success, result.Severity);
         }
 

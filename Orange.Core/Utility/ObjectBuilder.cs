@@ -159,6 +159,8 @@ namespace Orange.Core.Utility
                         }
                         else
                         {
+                            // it'll break now and let me know something is amiss!
+                            //if (items[count] == DBNull.Value) items = DbNullDefaults(property, items, count);
                             objectBeingBuilt.GetType().GetProperty(property.Name).SetValue(objectBeingBuilt, items[count], null);
                         }
                     }
@@ -169,6 +171,37 @@ namespace Orange.Core.Utility
                 }
                 count++;
             }
+        }
+
+        /// <summary>
+        /// Once a null value from the database has been detected, this method will replace that value with an appropriate 
+        /// default value.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <param name="items"></param>
+        /// <param name="count"></param>
+        /// <returns></returns>
+        private static List<object> DbNullDefaults(PropertyInfo property, List<object> items, int count)
+        {
+            // TODO: will need more datatypes
+            switch(property.PropertyType.Name)
+            {
+                case "Int16":
+                case "Int32":
+                case "Int64":
+                    items[count] = -1;
+                    break;
+                case "String":
+                    items[count] = String.Empty;
+                    break;
+                case "DateTime":
+                    items[count] = new DateTime();
+                    break;
+                case "Boolean":
+                    items[count] = false;
+                    break;
+            }
+            return items;
         }
     }
 }

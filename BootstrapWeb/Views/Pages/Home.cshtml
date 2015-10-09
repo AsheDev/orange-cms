@@ -1,0 +1,14 @@
+﻿@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="col-sm-12">
+        <h1 class="text-center">This is home!</h1>
+        @*@Html.ActionLink("Click Me?", "Comments", "Pages")
+        <a onclick="location.href='@Url.Action("Comments", "Pages")'">View Comments</a>*@
+
+        <input onclick="location.href='@Url.Action("Comments", "Pages", new { postId=1 })'" value="View Comments" class="btn btn-success center-block" />
+    </div>
+</div>

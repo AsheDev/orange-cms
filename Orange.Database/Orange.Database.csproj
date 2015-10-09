@@ -48,9 +48,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scratch\RenameColumn.sql" />
     <Content Include="Stored Procedures\spCommentApproval.sql" />
     <Content Include="Stored Procedures\spCommentGetAll.sql" />
     <Content Include="Stored Procedures\spCommentGet.sql" />
+    <Content Include="Stored Procedures\spCommentGetChildren.sql" />
+    <Content Include="Stored Procedures\spCommentGetTopLevel.sql" />
     <Content Include="Stored Procedures\spCommentRemove.sql" />
     <Content Include="Stored Procedures\spCommentUpdate.sql" />
     <Content Include="Stored Procedures\spCommentAdd.sql" />
@@ -89,9 +92,7 @@
     <Content Include="Stored Procedures\spUserGet.sql" />
     <Content Include="Stored Procedures\spUserGetAll.sql" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scratch\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="BuildScripts\BuildOrange.sql" />
     <Content Include="BuildScripts\PopulateOrange.sql" />

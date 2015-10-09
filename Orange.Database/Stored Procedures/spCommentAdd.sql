@@ -9,7 +9,9 @@ CREATE PROCEDURE o.CommentAdd
 	@PostId INT,
 	@ProvidedName NVARCHAR(255),
 	@Body NVARCHAR(1200),
-	@EditKey NVARCHAR(7)
+	@EditKey NVARCHAR(7),
+	@TopLevel BIT,
+	@ParentCommentId INT = 0 -- top-level comments can be zeroed out
 --WITH ENCRYPTION AS
 AS
 	SET NOCOUNT ON;
@@ -25,18 +27,32 @@ AS
 			SET @UserId = (SELECT Id FROM o.Users WHERE Name = 'Anonymous');
 			SET @CallingUserId = @UserId;
 		END
+		--- if comments are auto-approved then set the approval flag to true
+		DECLARE @Approval BIT = 0;
+		IF(SELECT AwaitModeration FROM o.PostSettings) = 0
+		BEGIN
+			SET @Approval = 1;
+		END
 		---
 		INSERT INTO o.PostComments
-		(FK_PostId, FK_UserId, ProvidedName, Body, Created, ApprovalDate, EditKey)
+		(FK_PostId, FK_UserId, ProvidedName, Body, Created, ApprovalDate, EditKey, TopLevel, Approval)
 		VALUES
-		(@PostId, @UserId, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @EditKey);
+		(@PostId, @UserId, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @EditKey, @TopLevel, @Approval);
 		---
 		DECLARE @NewCommentId INT = SCOPE_IDENTITY();
 		---
+		IF(@ParentCommentId > 0)
+		BEGIN
+			INSERT INTO o.PostCommentReplyMap
+			(FK_CommentId, FK_ReplyId)
+			VALUES
+			(@ParentCommentId, @NewCommentId);
+		END
+		---
 		INSERT INTO o.PostCommentEditHistory
-		(FK_CommentId, FK_EditTypeId, FK_UserId, [TimeStamp], ProvidedName, Body, Created, ApprovalDate, EditKey, FK_CallerId)
+		(FK_CommentId, FK_EditTypeId, FK_UserId, [TimeStamp], ProvidedName, Body, Created, ApprovalDate, EditKey, FK_CallerId, TopLevel, Approval)
 		VALUES
-		(@NewCommentId, @EditTypeId, @UserId, @Created, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @EditKey, @CallingUserId);
+		(@NewCommentId, @EditTypeId, @UserId, @Created, @ProvidedName, @Body, @Created, DATEADD(SECOND, -1, @Created), @EditKey, @CallingUserId, @TopLevel, @Approval);
 		---
 		EXEC o.CommentGet @CommentId = @NewCommentId;
 		---
@@ -49,6 +65,6 @@ AS
 		SET @ErrorSeverity = ERROR_SEVERITY();
 		SET @ErrorState = ERROR_STATE();
 		RAISERROR (@ErrorMessage, @ErrorSeverity, @ErrorState);
-		EXEC o.CommentGet @CommetId = -99;
+		EXEC o.CommentGet @CommentId = -99;
 	END CATCH;
 GO

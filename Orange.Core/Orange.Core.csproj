@@ -50,9 +50,10 @@
   <ItemGroup>
     <Compile Include="Entities\AccessDetails.cs" />
     <Compile Include="Entities\Accessibility.cs" />
+    <Compile Include="Entities\BusinessError.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\DefaultError.cs" />
-    <Compile Include="Entities\Error.cs" />
+    <Compile Include="Entities\DatabaseError.cs" />
     <Compile Include="Entities\Link.cs" />
     <Compile Include="Entities\NavigationDetails.cs" />
     <Compile Include="Entities\PageDetails.cs" />

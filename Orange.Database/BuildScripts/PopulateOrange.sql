@@ -19,7 +19,9 @@ VALUES
 ('Orange', 'orange@michaelovies.com', 0, 1),
 ('AdminUser', 'admin@admin.com', 1, 2),
 ('BasicUser', 'basic@basic.com', 1, 3),
-('Anonymous', 'anon@anon.com', 0, 4); -- anonymous commenters
+('Anonymous', 'anon@anon.com', 0, 4), -- anonymous commenters
+('Ripley', 'anon@anon.com', 1, 3), -- temp fake account
+('Ridley', 'anon@anon.com', 1, 3); -- temp fake account
 ---
 INSERT INTO o.Accessibility
 (FK_PermissionId, ManagePosts, CreateNewUsers, AccessSettings, CanImpersonate, ViewMetrics)
@@ -29,14 +31,44 @@ VALUES
 (3, 1, 0, 0, 0, 0),
 (4, 0, 0, 0, 0, 0); -- the anonymous user
 ---
+INSERT INTO o.EditTypes
+(Name)
+VALUES
+('Created'),
+('Modified'),
+('Removed');
+---
+INSERT INTO o.PostSettings
+(AnonymousEmail, UserEmail, AnonymousComments, UserComments, AwaitModeration)
+VALUES
+(1, 1, 1, 1, 1);
+---
+INSERT INTO o.PasswordSettings
+(MaxPasswordAttempts, ExpirationInDays, ResetExpirationInMinutes)
+VALUES
+(3, 90, 900);
+--- this password is !Orange_2015!
+INSERT INTO o.Passwords
+(FK_UserId, Salt, HashedPassword, Attempts, Expires, Expiration, IsLocked)
+VALUES
+(1, 'SdzZONlArQhcIbLpvmV2HwGZME4fdD63', '50000:SdzZONlArQhcIbLpvmV2HwGZME4fdD63:+1fu728N7y68tGqVlxt7qc8XIt+gvp2R', 0, 0, '2020-05-16 02:19:27.217', 0);
+---
 DECLARE @TwoHours DATETIME = DATEADD(HOUR, 2, GETUTCDATE())
 DECLARE @FourHours DATETIME = DATEADD(HOUR, 4, GETUTCDATE())
+DECLARE @SixHours DATETIME = DATEADD(HOUR, 6, GETUTCDATE())
+DECLARE @EightHours DATETIME = DATEADD(HOUR, 8, GETUTCDATE())
+DECLARE @TenHours DATETIME = DATEADD(HOUR, 10, GETUTCDATE())
 DECLARE @PostTags o.PostTags
 INSERT INTO @PostTags (Name)
 VALUES
 ('Teaching'),
 ('ECE'),
 ('Goats');
+---
+
+-- ****** Break this out into a more site specific build/test script
+
+---
 EXEC o.PostAdd @UserId = 2, 
 			   @Subject = 'My First Post!', 
 			   @Body = '
@@ -85,7 +117,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nulla nisl, luct
 Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condimentum nibh tortor, at imperdiet risus elementum ac. Curabitur pulvinar nulla a suscipit ornare. Mauris at cursus nisl. Aenean porttitor at nunc ac tempus. Etiam interdum non lectus et tincidunt. Mauris quis imperdiet lorem.
 
 In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
-			   @EffectiveDate = @Time, 
+			   @EffectiveDate = @SixHours,
 			   @CallingUserId = 2, 
 			   @IsPubliclyVisible = 1,
 			   @Tags = @PostTags
@@ -98,7 +130,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nulla nisl, luct
 Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condimentum nibh tortor, at imperdiet risus elementum ac. Curabitur pulvinar nulla a suscipit ornare. Mauris at cursus nisl. Aenean porttitor at nunc ac tempus. Etiam interdum non lectus et tincidunt. Mauris quis imperdiet lorem.
 
 In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
-			   @EffectiveDate = @Time, 
+			   @EffectiveDate = @EightHours, 
 			   @CallingUserId = 2, 
 			   @IsPubliclyVisible = 1,
 			   @Tags = @PostTags
@@ -111,7 +143,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam nulla nisl, luct
 Donec sem odio, sollicitudin nec mi at, vehicula venenatis risus. Aenean condimentum nibh tortor, at imperdiet risus elementum ac. Curabitur pulvinar nulla a suscipit ornare. Mauris at cursus nisl. Aenean porttitor at nunc ac tempus. Etiam interdum non lectus et tincidunt. Mauris quis imperdiet lorem.
 
 In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tincidunt dolor. Duis posuere porttitor mi sed pulvinar. Donec non ultricies velit, a convallis turpis. Vestibulum feugiat purus vitae hendrerit placerat. Praesent aliquam sem nec eros rutrum, vitae ultricies eros lacinia. Sed id cursus nisi. Nulla blandit nec lorem in eleifend. Aenean hendrerit euismod leo non volutpat. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere eleifend ipsum nec varius. Cras a ornare elit. Aenean eu tempor erat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Etiam commodo imperdiet ligula. ', 
-			   @EffectiveDate = @Time, 
+			   @EffectiveDate = @TenHours, 
 			   @CallingUserId = 2, 
 			   @IsPubliclyVisible = 1,
 			   @Tags = @PostTags
@@ -123,26 +155,26 @@ In et venenatis neque, in lobortis orci. Mauris eu leo tortor. Vivamus vitae tin
 --"Kids don''t learn from people they don’t like.’” A rousing call to educators to believe in their students and actually 
 --connect with them on a real, human, personal level.', 'Click here to watch', 'https://www.ted.com/talks/rita_pierson_every_kid_needs_a_champion?language=en', 1);
 ---
-EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 1, @ProvidedName = 'Orange', @Body = 'Wooo! This is a comment!', @EditKey = 'Fg9$56Jc'
-EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 1, @ProvidedName = 'Orange', @Body = 'No, fuck you!', @EditKey = 'L<.#2@kA'
-EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 2, @ProvidedName = 'Orange', @Body = 'Very pedantic. Great post.', @EditKey = 'xPI3*(nb'
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 1, @ProvidedName = 'Orange', @Body = 'Very pedantic. Great post.', @EditKey = 'xPI3*(nb', @TopLevel = 1
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 1, @ProvidedName = 'Orange', @Body = 'The internet literally hates you.', @EditKey = 'L<.#2@kA', @TopLevel = 1
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 1, @ProvidedName = 'Orange', @Body = 'Nou!', @EditKey = '*fHQas(3', @TopLevel = 0, @ParentCommentId=2
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 1, @ProvidedName = 'Orange', @Body = 'GTFO.', @EditKey = '74Bcnc^1', @TopLevel = 0, @ParentCommentId=2
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 2, @ProvidedName = 'Orange', @Body = 'Dude! You got a tattoo!', @EditKey = 'Fg9$56Jc', @TopLevel = 1
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 2, @ProvidedName = 'Orange', @Body = 'So do you, dude! Dude, what does my tattoo say?', @EditKey = '&FJENcox', @TopLevel = 0, @ParentCommentId=5
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 2, @ProvidedName = 'Orange', @Body = '"Sweet!" What about mine?', @EditKey = 'mvNEOk1@', @TopLevel = 0, @ParentCommentId=6
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 2, @ProvidedName = 'Orange', @Body = '"Dude!" What does mine say?', @EditKey = 'CNF0dek', @TopLevel = 0, @ParentCommentId=7
+EXEC o.CommentAdd @UserId = 1, @CallingUserId = 1, @PostId = 2, @ProvidedName = 'Orange', @Body = '"Sweet!" What about mine?', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=8
+
+EXEC o.CommentAdd @UserId = 5, @CallingUserId = 5, @PostId = 6, @ProvidedName = 'Ripley', @Body = 'First!', @EditKey = '^7Nhha0p', @TopLevel = 1
+EXEC o.CommentAdd @UserId = 4, @CallingUserId = 4, @PostId = 6, @ProvidedName = 'Anonymous', @Body = 'Second!', @EditKey = '^7Nhha0p', @TopLevel = 1
+EXEC o.CommentAdd @UserId = 6, @CallingUserId = 6, @PostId = 6, @ProvidedName = 'Ridley', @Body = 'wutwut!', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=11
+EXEC o.CommentAdd @UserId = 4, @CallingUserId = 4, @PostId = 6, @ProvidedName = 'Anonymous', @Body = 'lollerskates.', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=11
+EXEC o.CommentAdd @UserId = 6, @CallingUserId = 6, @PostId = 6, @ProvidedName = 'Ridley', @Body = 'Third!', @EditKey = '^7Nhha0p', @TopLevel = 1
+EXEC o.CommentAdd @UserId = 6, @CallingUserId = 6, @PostId = 6, @ProvidedName = 'Ridley', @Body = 'Okay dokie!', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=14
+EXEC o.CommentAdd @UserId = 5, @CallingUserId = 5, @PostId = 6, @ProvidedName = 'Ripley', @Body = 'So deep!', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=15
+EXEC o.CommentAdd @UserId = 4, @CallingUserId = 4, @PostId = 6, @ProvidedName = 'Anonymous', @Body = 'Not at all!', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=14
 ---
-INSERT INTO o.PasswordSettings
-(MaxPasswordAttempts, ExpirationInDays, ResetExpirationInMinutes)
-VALUES
-(3, 90, 900);
----
-INSERT INTO o.EditTypes
-(Name)
-VALUES
-('Created'),
-('Modified'),
-('Removed');
---- this password is !Orange_2015!
-INSERT INTO o.Passwords
-(FK_UserId, Salt, HashedPassword, Attempts, Expires, Expiration, IsLocked)
-VALUES
-(1, 'SdzZONlArQhcIbLpvmV2HwGZME4fdD63', '50000:SdzZONlArQhcIbLpvmV2HwGZME4fdD63:+1fu728N7y68tGqVlxt7qc8XIt+gvp2R', 0, 0, '2020-05-16 02:19:27.217', 0);
+
 ---
 INSERT INTO o.Pages
 (Name, [Description], URL, IsPublic, IsActive)

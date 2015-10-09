@@ -55,6 +55,46 @@ namespace Orange.Business
         }
 
         /// <summary>
+        /// Gets the top level comments for a post.
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        public CommentResultList GetTopLevel(int postId)
+        {
+            CommentResultList results = new CommentResultList();
+            IsDataSourceNull(results);
+            if (results.Severity != Severity.Success) return results;
+
+            DataTable returnedTable = DataSource.Crud("o.CommentGetTopLevel", PostIdParameter(postId));
+
+            results = (CommentResultList)Result.PostDatabaseCallErrorChecking(returnedTable, results);
+            if (results.Severity != Core.Enums.Severity.Success) return results;
+
+            Result.PopulateResult(results, returnedTable);
+            return results;
+        }
+
+        /// <summary>
+        /// Gets child comments of a comment.
+        /// </summary>
+        /// <param name="commentId"></param>
+        /// <returns></returns>
+        public CommentResultList GetChildren(int commentId)
+        {
+            CommentResultList results = new CommentResultList();
+            IsDataSourceNull(results);
+            if (results.Severity != Severity.Success) return results;
+
+            DataTable returnedTable = DataSource.Crud("o.CommentGetChildren", IdParameter(commentId));
+
+            results = (CommentResultList)Result.PostDatabaseCallErrorChecking(returnedTable, results);
+            if (results.Severity != Core.Enums.Severity.Success) return results;
+
+            Result.PopulateResult(results, returnedTable);
+            return results;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="newComment"></param>
@@ -170,6 +210,18 @@ namespace Orange.Business
         {
             SqlParameter[] parameters = new SqlParameter[1];
             parameters[0] = new SqlParameter("@CommentId", commentId);
+            return parameters;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="postId"></param>
+        /// <returns></returns>
+        private SqlParameter[] PostIdParameter(int postId)
+        {
+            SqlParameter[] parameters = new SqlParameter[1];
+            parameters[0] = new SqlParameter("@PostId", postId);
             return parameters;
         }
 

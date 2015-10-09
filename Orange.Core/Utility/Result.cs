@@ -15,8 +15,8 @@ namespace Orange.Core.Utility
         public string Message { get; set; }
         public Severity Severity { get; set; }
         public string SeverityAlertColor { get; set; }
-        public DatabaseError ErrorDetails { get; set; } // this may be a great candidate for dependency injection
-        public IError ErrorTest { get; set; } // dependency injection test
+        public DatabaseError ErrorDetails { get; set; } // in process for replacement with interface
+        public IError ErrorTest { get; set; }
 
         public Result()
         {
@@ -264,4 +264,46 @@ namespace Orange.Core.Utility
             result = (CommentResultList)SetResultAsSuccess(result);
         }
     }
+
+    //public abstract class TestResult
+    //{
+    //    public string Message { get; set; }
+    //    public Severity Severity { get; set; }
+    //    public string SeverityAlertColor { get; set; }
+    //    public IError ErrorTest { get; set; }
+    //}
+
+    // rename to severity
+    //public interface HolyCrapSeverity
+    //{
+    //    string Description { get; set; }
+    //    string ColorCode { get; set; } // hex color
+    //}
+
+
+    //public interface HolyCrapError
+    //{
+
+    //}
+
+    //public interface PopulateResults
+    //{
+    //    void PopulateSingleResult(IResult result, IResult returnedTables);
+    //    void PopulateMultipleResults(IResult result, List<IResult> returnedTables);
+    //}
+
+    //public abstract class ResultTest
+    //{
+    //    public string Message { get; set; } // just sample filler
+
+
+    //    public abstract PopulateSingleResult();
+    //}
+
+    //public interface ResultFactory
+    //{
+    //    public string CreateResult();
+    //}
+
+    //public 
 }

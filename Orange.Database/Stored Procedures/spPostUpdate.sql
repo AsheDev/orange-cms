@@ -10,7 +10,8 @@ CREATE PROCEDURE o.PostUpdate
 	@Subject NVARCHAR(256),
 	@Body NVARCHAR(MAX),
 	@EffectiveDate DATETIME,
-	@IsPubliclyVisible BIT
+	@IsPubliclyVisible BIT,
+	@Tags PostTags READONLY
 AS
 	-- WITH ENCRYPTION ON AS
 	SET NOCOUNT ON;
@@ -31,6 +32,35 @@ AS
 		(FK_PostId, FK_EditTypeId, [TimeStamp], FK_UserId, [Subject], Body, Created, EffectiveDate, IsPubliclyVisible, FK_CallerId)
 		VALUES
 		(@PostId, @EditTypeId, GETUTCDATE(), @UserId, @Subject, @Body, @Created, @EffectiveDate, @IsPubliclyVisible, @CallingUserId);
+		---
+		IF((SELECT COUNT(Name) FROM @Tags) > 0)
+		BEGIN
+			--- this should avoid duplicates being saved
+			INSERT INTO o.Tags (Name)
+			SELECT Name FROM @Tags
+			EXCEPT
+			SELECT Name FROM o.Tags;
+			---
+			DECLARE @CurrentTagId INT;
+			DECLARE @CurrentName NVARCHAR(256);
+			WHILE EXISTS (SELECT Processed FROM @Tags WHERE Processed = 0)
+			BEGIN
+				SET @CurrentName = (SELECT TOP(1) Name FROM @Tags WHERE Processed = 0);
+				SET @CurrentTagId = (SELECT Id FROM o.Tags WHERE Name = @CurrentName);
+				---
+
+				-- TODO: HAD TO COMMENT THE BELOW OUT. I LEFT IT UNFINISHED. NO IDEA WHAT I WAS DOING. IT WONT BUILD.
+
+
+				--INSERT INTO o.TagMap
+				--(FK_PostId, FK_TagId)
+				--VALUES
+				--(@NewPostId, @CurrentTagId);
+			END
+		END
+
+
+
 		---
 		EXEC o.PostGet @PostId = @PostId;
 		---

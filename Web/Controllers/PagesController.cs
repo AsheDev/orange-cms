@@ -4,11 +4,11 @@ using Web.Models;
 using System.Linq;
 using System.Web.Mvc;
 using Orange.Business;
+using RC = Connections;
 using System.Data.Entity;
 using Orange.Core.Results;
 using System.Configuration;
 using Orange.Core.Entities;
-using RC = Ripley.Connections;
 using System.Collections.Generic;
 
 namespace Web.Controllers

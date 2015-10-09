@@ -168,7 +168,18 @@ BEGIN
 		ApprovalDate						DATETIME NOT NULL, -- when the post will show up (this should be updated when the comment is approved)
 		Approval							TINYINT DEFAULT 0, -- 0 is unapproved (pending), 1 is approved, 2 is denied
 		EditKey								NVARCHAR(8), -- a semi-password to edit the comment if the user is anonymous (can it be edited after it's been approved?)
+		TopLevel							BIT DEFAULT 1, -- is this directly related to the post
 		IsActive							BIT DEFAULT 1
+	);
+END
+GO
+
+-- this maps replies to comments. top-level comments won't have a listing here
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'PostCommentReplyMap') AND (TYPE = 'U')))
+BEGIN
+	CREATE TABLE o.PostCommentReplyMap (
+		FK_CommentId						INT FOREIGN KEY REFERENCES o.PostComments(Id),
+		FK_ReplyId							INT FOREIGN KEY REFERENCES o.PostComments(Id)
 	);
 END
 GO
@@ -215,6 +226,7 @@ BEGIN
 		ApprovalDate				DATETIME NOT NULL, -- when the post will show up (this should be updated when the comment is approved)
 		Approval					TINYINT DEFAULT 0, -- 0 is unapproved (pending), 1 is approved, 2 is denied
 		EditKey						NVARCHAR(7), -- a semi-password to edit the comment if the user is anonymous (can it be edited after it's been approved?)
+		TopLevel					BIT, -- is this directly related to the post
 		FK_CallerId					INT FOREIGN KEY REFERENCES o.Users(Id), -- in case we're impersonating
 		IsActive					BIT DEFAULT 1
 	);
@@ -267,7 +279,7 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'PostSettings') AND (TYP
 BEGIN
 	CREATE TABLE o.PostSettings (
 		AnonymousEmail				BIT DEFAULT 1, -- email the admin(s) when an anonymous user posts a new comment
-		UserEmail					BIT DEFAULT 0, -- email the admin(s) when a user posts a new comment
+		UserEmail					BIT DEFAULT 1, -- email the admin(s) when a user posts a new comment
 		AnonymousComments			BIT DEFAULT 1, -- enable anonymous comments
 		UserComments				BIT DEFAULT 1, -- enable user comments
 		AwaitModeration				BIT DEFAULT 1 -- new posts won't show until approved by an admin
@@ -382,9 +394,9 @@ GO
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordSettingsUpdate.sql
 
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGet.sql
-:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetLatest.sql
+--:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetLatest.sql -- DOESN'T EXIST!
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAll.sql
-:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAllByUserId.sql
+--:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAllByUserId.sql -- DOESN'T EXIST!
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostAdd.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostUpdate.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostRemove.sql
@@ -403,6 +415,8 @@ GO
 -- this file location is the new git repository
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentGet.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentGetTopLevel.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentGetChildren.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentAdd.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentUpdate.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentRemove.sql
