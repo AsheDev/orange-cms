@@ -15,11 +15,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web", "Web\Web.csproj", "{F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlackMesa", "..\OrangeCMS\BlackMesa\BlackMesa.csproj", "{D7219526-88C7-4484-BC0D-C8A04EC18416}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "..\..\Workspaces\Security\Security\Security\Security.csproj", "{5D415E65-361F-4638-BE22-5D73706A20D9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Connections", "..\..\Workspaces\Connections\Connections\Connections\Connections.csproj", "{EDBBD70F-68A1-4D54-BE48-D1BDA2FE1323}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BootstrapWeb", "BootstrapWeb\BootstrapWeb.csproj", "{D34B24A2-65A6-4A53-9396-BF03BBE36150}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestSite", "TestSite\TestSite.csproj", "{FF5241DE-3D44-4E4D-B02A-9A4354776691}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orange.Services", "Orange.Services\Orange.Services.csproj", "{94517BB7-3C14-4D20-B16C-C676CFAD0925}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,10 +53,6 @@ Global
 		{D7219526-88C7-4484-BC0D-C8A04EC18416}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7219526-88C7-4484-BC0D-C8A04EC18416}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7219526-88C7-4484-BC0D-C8A04EC18416}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5D415E65-361F-4638-BE22-5D73706A20D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5D415E65-361F-4638-BE22-5D73706A20D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5D415E65-361F-4638-BE22-5D73706A20D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5D415E65-361F-4638-BE22-5D73706A20D9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EDBBD70F-68A1-4D54-BE48-D1BDA2FE1323}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EDBBD70F-68A1-4D54-BE48-D1BDA2FE1323}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDBBD70F-68A1-4D54-BE48-D1BDA2FE1323}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -63,6 +61,14 @@ Global
 		{D34B24A2-65A6-4A53-9396-BF03BBE36150}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D34B24A2-65A6-4A53-9396-BF03BBE36150}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D34B24A2-65A6-4A53-9396-BF03BBE36150}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF5241DE-3D44-4E4D-B02A-9A4354776691}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF5241DE-3D44-4E4D-B02A-9A4354776691}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF5241DE-3D44-4E4D-B02A-9A4354776691}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF5241DE-3D44-4E4D-B02A-9A4354776691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94517BB7-3C14-4D20-B16C-C676CFAD0925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94517BB7-3C14-4D20-B16C-C676CFAD0925}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94517BB7-3C14-4D20-B16C-C676CFAD0925}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94517BB7-3C14-4D20-B16C-C676CFAD0925}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

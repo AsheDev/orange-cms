@@ -3,10 +3,12 @@
     // TODO: this may be an addon to the core
     public class Link
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
-        public string LinkText { get; set; } // "Click HERE to watch"
-        public string Url { get; set; }
+        public int Id { get; private set; }
+        public string Title { get; private set; }
+        public string Body { get; private set; }
+        public string LinkText { get; private set; } // "Click HERE to watch"
+        public string Url { get; private set; }
+
+        private Link() { }
     }
 }

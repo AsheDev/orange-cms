@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6641EA7F-707A-4D76-A5F8-072523E97A36}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>EFTEST</RootNamespace>
+    <AssemblyName>EFTEST</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessHistory.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ChangeLog.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentAdd_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentApproval_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentGetAll_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentGetChildren_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentGetTopLevel_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CommentUpdate_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EditType.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogIn_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="LogOut_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NavigationHistory.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewsletterInfo.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrangeDB.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrangeDB.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrangeDB.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrangeDB.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrangeDB.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Page.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Password.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordAdd_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordResetGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordReset_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordSettingsGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordSettingsUpdate_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordUpdate_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionGetByUserId_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PermissionUpdate_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Post.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostComment.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostCommentEditHistory.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostEditHistory.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostGetAll_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostGetLatest_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PostHistoryGetAll_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RecordAccessGetAll_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordAccessGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordAccess_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordNavigationGetAll_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordNavigationGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="RecordNavigation_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Role.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TableListing.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Tag.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Test.cs" />
+    <Compile Include="User.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserAdd_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserGetAll_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserGetByGuid_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserGetByUsername_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserGet_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserToggleInSystem_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserUpdate_Result.cs">
+      <DependentUpon>OrangeDB.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <EntityDeploy Include="OrangeDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OrangeDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="OrangeDB.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrangeDB.edmx</DependentUpon>
+      <LastGenOutput>OrangeDB.Context.cs</LastGenOutput>
+    </None>
+    <None Include="OrangeDB.edmx.diagram">
+      <DependentUpon>OrangeDB.edmx</DependentUpon>
+    </None>
+    <None Include="OrangeDB.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OrangeDB.edmx</DependentUpon>
+      <LastGenOutput>OrangeDB.cs</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -5,7 +5,12 @@
 USE DevOrange
 GO
 ---
-INSERT INTO o.[Permissions]
+INSERT INTO o.Settings
+(ShowLoginButton, InactivityTimer, UnderMaintenance)
+VALUES
+(1, 3600, 0);
+---
+INSERT INTO o.[Roles]
 (Name, IsRemovable, IsHidden)
 VALUES
 ('Orange', 0, 1),
@@ -13,23 +18,23 @@ VALUES
 ('Basic', 1, 0),
 ('Anonymous', 0, 1); -- people don't need to worry about this one
 ---
+INSERT INTO o.[Permissions]
+(FK_RoleId, ManagePosts, ManagePostComments, CanComment, ManageUsers, AccessSettings, CanImpersonate, ViewMetrics)
+VALUES
+(1, 1, 1, 1, 1, 1, 1, 1),
+(2, 1, 1, 1, 1, 1, 1, 1),
+(3, 0, 0, 1, 0, 0, 0, 0),
+(4, 0, 0, 1, 0, 0, 0, 0); -- the anonymous user
+---
 INSERT INTO o.Users
-(Name, Email, IsVisible, FK_PermissionId)
+(Name, Email, IsVisible, FK_RoleId)
 VALUES
 ('Orange', 'orange@michaelovies.com', 0, 1),
 ('AdminUser', 'admin@admin.com', 1, 2),
 ('BasicUser', 'basic@basic.com', 1, 3),
 ('Anonymous', 'anon@anon.com', 0, 4), -- anonymous commenters
-('Ripley', 'anon@anon.com', 1, 3), -- temp fake account
-('Ridley', 'anon@anon.com', 1, 3); -- temp fake account
----
-INSERT INTO o.Accessibility
-(FK_PermissionId, ManagePosts, CreateNewUsers, AccessSettings, CanImpersonate, ViewMetrics)
-VALUES
-(1, 1, 1, 1, 1, 1),
-(2, 1, 1, 1, 1, 1),
-(3, 1, 0, 0, 0, 0),
-(4, 0, 0, 0, 0, 0); -- the anonymous user
+('Ripley', 'anon@anon.com', 1, 3), -- temp fake Basic account
+('Ridley', 'anon@anon.com', 1, 3); -- temp fake Basic account
 ---
 INSERT INTO o.EditTypes
 (Name)
@@ -53,6 +58,11 @@ INSERT INTO o.Passwords
 VALUES
 (1, 'SdzZONlArQhcIbLpvmV2HwGZME4fdD63', '50000:SdzZONlArQhcIbLpvmV2HwGZME4fdD63:+1fu728N7y68tGqVlxt7qc8XIt+gvp2R', 0, 0, '2020-05-16 02:19:27.217', 0);
 ---
+
+--- The below items are really for testing functionality
+
+
+
 DECLARE @TwoHours DATETIME = DATEADD(HOUR, 2, GETUTCDATE())
 DECLARE @FourHours DATETIME = DATEADD(HOUR, 4, GETUTCDATE())
 DECLARE @SixHours DATETIME = DATEADD(HOUR, 6, GETUTCDATE())
@@ -175,7 +185,7 @@ EXEC o.CommentAdd @UserId = 5, @CallingUserId = 5, @PostId = 6, @ProvidedName = 
 EXEC o.CommentAdd @UserId = 4, @CallingUserId = 4, @PostId = 6, @ProvidedName = 'Anonymous', @Body = 'Not at all!', @EditKey = '^7Nhha0p', @TopLevel = 0, @ParentCommentId=14
 ---
 
----
+--- this will be specific to a site
 INSERT INTO o.Pages
 (Name, [Description], URL, IsPublic, IsActive)
 VALUES
@@ -188,7 +198,7 @@ VALUES
 EXEC o.RecordNavigation @UserId = 1, @CallingUserId = 1, @PageId = 1
 ---
 EXEC o.RecordAccess @UserId = 1, @CallingUserId = 1, @Action = 1, @Success = 1, @OperatingSystem = 'Windows!', @IPAddress = '192.168.1.1'
----
+--- this will be specific to a site
 INSERT INTO o.TableListing(Name, [Description])
 SELECT Name, ''
 FROM sys.tables

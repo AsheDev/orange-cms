@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b4b9ec4b002b4f578b93473a44f15301" Name="Diagram1">
+        <EntityTypeShape EntityType="DevOrangeModel.AccessHistory" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.EditType" Width="1.5" PointX="7.5" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.NavigationHistory" Width="1.5" PointX="5.25" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.NewsletterInfo" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.Page" Width="1.5" PointX="3" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.PostComment" Width="1.5" PointX="7.5" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.Post" Width="1.5" PointX="5.25" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.Role" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.TableListing" Width="1.5" PointX="3" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.Tag" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.User" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.ChangeLog" Width="1.5" PointX="5.25" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.Password" Width="1.5" PointX="5.25" PointY="25.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.PostCommentEditHistory" Width="1.5" PointX="9.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DevOrangeModel.PostEditHistory" Width="1.5" PointX="10.5" PointY="13.75" IsExpanded="true" />
+        <AssociationConnector Association="DevOrangeModel.FK__AccessHis__FK_Us__70DDC3D8" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostComme__FK_Ed__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostEditH__FK_Ed__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__Navigatio__FK_Pa__6E01572D" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__Navigatio__FK_Us__6D0D32F4" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostComme__FK_Co__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostComme__FK_Po__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostComme__FK_Us__4222D4EF" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostEditH__FK_Po__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__Posts__FK_UserId__34C8D9D1" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__Users__FK_RoleId__24927208" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__ChangeLog__FK_Ta__76969D2E" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__ChangeLog__FK_Ca__787EE5A0" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__ChangeLog__FK_Us__778AC167" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__Passwords__FK_Us__2B3F6F97" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostComme__FK_Ca__5629CD9C" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostComme__FK_Us__5441852A" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostEditH__FK_Ca__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="DevOrangeModel.FK__PostEditH__FK_Us__4D94879B" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

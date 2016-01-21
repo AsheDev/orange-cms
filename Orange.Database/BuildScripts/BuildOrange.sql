@@ -21,16 +21,17 @@ ALTER ROLE [db_owner] ADD MEMBER [Orange_Engine] -- set Orange_Engine as db_owne
 IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Settings') AND (TYPE = 'U')))
 BEGIN
 	CREATE TABLE o.Settings (
-		ShowLoginButton				BIT DEFAULT 0,
-		InactivityTimer				INT DEFAULT 3600 -- after an hour of inactivity the user is logged out of the system by a job
+		ShowLoginButton				BIT DEFAULT 1,
+		InactivityTimer				INT DEFAULT 3600, -- after an hour of inactivity the user is logged out of the system by a job
+		UnderMaintenance			BIT DEFAULT 1 -- I don't know if this is the best place for this setting...
 	);
 END
 GO
 
 -- Handled by: PermissionOps.cs
-IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Permissions') AND (TYPE = 'U')))
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Roles') AND (TYPE = 'U')))
 BEGIN
-	CREATE TABLE o.[Permissions] (
+	CREATE TABLE o.[Roles] (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
 		Name						NVARCHAR(256) NOT NULL, -- Admin
 		IsRemovable					BIT DEFAULT 1, -- the hidden account won't be removable (this may be a wildly bad idea)
@@ -43,13 +44,15 @@ GO
 -- for example, can the user make a new blog post? or delete posts? or something...
 -- TODO: is this implementation too rigid?
 -- Handled by: AccessibilityOps.cs (TODO: move to PermissionOps.cs - it makes more sense I think)
-IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Accessibility') AND (TYPE = 'U')))
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Permissions') AND (TYPE = 'U')))
 BEGIN
-	CREATE TABLE o.Accessibility (
-		FK_PermissionId				INT FOREIGN KEY REFERENCES o.[Permissions],
-		ManagePosts					BIT DEFAULT 0,
-		CreateNewUsers				BIT DEFAULT 0,
-		AccessSettings				BIT DEFAULT 0,
+	CREATE TABLE o.[Permissions] (
+		FK_RoleId					INT FOREIGN KEY REFERENCES o.[Roles](Id),
+		ManagePosts					BIT DEFAULT 0, -- create, update, and delete posts
+		ManagePostComments			BIT DEFAULT 0, -- can the person approve, delete comments and whatnot
+		CanComment					BIT DEFAULT 1,
+		ManageUsers					BIT DEFAULT 0,
+		AccessSettings				BIT DEFAULT 0, -- allowed access to various settings (make this mor granular)
 		CanImpersonate				BIT DEFAULT 0,
 		ViewMetrics					BIT DEFAULT 0,
 		IsActive					BIT DEFAULT 1
@@ -62,12 +65,23 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Users') AND (TYPE = 'U'
 BEGIN
 	CREATE TABLE o.Users (
 		Id							INT IDENTITY(1,1) PRIMARY KEY,
+		ObfuscatedId				UNIQUEIDENTIFIER DEFAULT NEWID(),
 		Name						NVARCHAR(256) NOT NULL,
 		Email						NVARCHAR(256) NOT NULL,
 		IsVisible					BIT DEFAULT 1, -- I want to hide my user account
-		FK_PermissionId				INT FOREIGN KEY REFERENCES o.[Permissions](Id),
+		FK_RoleId					INT FOREIGN KEY REFERENCES o.[Roles](Id),
 		InSystem					BIT DEFAULT 0,
 		IsActive					BIT DEFAULT 1
+	);
+END
+GO
+
+-- if an entry is in here then a user is currently impersonating someone
+IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'UserImpersonationMap') AND (TYPE = 'U')))
+BEGIN
+	CREATE TABLE o.UserImpersonationMap (
+		FK_UserId					INT FOREIGN KEY REFERENCES o.Users(Id),
+		FK_ImpersonatedId			INT FOREIGN KEY REFERENCES o.Users(Id)
 	);
 END
 GO
@@ -111,6 +125,7 @@ END
 GO
 
 -- Handled by: PostOps.cs
+-- ghost writer (Author)
 IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'Posts') AND (TYPE = 'U')))
 BEGIN
 	CREATE TABLE o.Posts (
@@ -120,8 +135,9 @@ BEGIN
 		Body								NVARCHAR(MAX) NOT NULL,
 		Created								DATETIME NOT NULL, -- when the post was initially created (could be the same as EffectiveDate if posted immediately)
 		EffectiveDate						DATETIME NOT NULL, -- when the post will show up
-		IsPubliclyVisible					BIT DEFAULT 1, -- maybe not everything should be on display?
-		IsActive							BIT DEFAULT 1
+		UniqueUrl							NVARCHAR(32) NOT NULL,
+		--IsPubliclyVisible					BIT DEFAULT 1, -- maybe not everything should be on display?
+		IsActive							BIT DEFAULT 1 NOT NULL
 	);
 END
 GO
@@ -309,7 +325,7 @@ IF (NOT EXISTS (SELECT * FROM sysobjects WHERE (name = N'PagesKey') AND (TYPE = 
 BEGIN
 	CREATE TABLE o.PagesKey (
 		FK_PageId					INT FOREIGN KEY REFERENCES o.Pages(Id),
-		FK_PermissionId				INT FOREIGN KEY REFERENCES o.[Permissions](Id)
+		FK_RoleId					INT FOREIGN KEY REFERENCES o.[Roles](Id)
 	);
 END
 GO
@@ -375,6 +391,7 @@ GO
 -- generate the necessary stored procedures
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGet.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGetAll.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGetByGuid.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserGetByUsername.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserAdd.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spUserUpdate.sql
@@ -394,7 +411,7 @@ GO
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPasswordSettingsUpdate.sql
 
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGet.sql
---:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetLatest.sql -- DOESN'T EXIST!
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetLatest.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAll.sql
 --:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostGetAllByUserId.sql -- DOESN'T EXIST!
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPostAdd.sql
@@ -422,8 +439,9 @@ GO
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentRemove.sql
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spCommentApproval.sql
 
-:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spAccessibilityGet.sql
-:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spAccessibilityUpdate.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPermissionGet.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPermissionGetByUserId.sql
+:r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\"Stored Procedures"\spPermissionUpdate.sql
 
 -- populate the database with some basic data for testing purposes
 :r C:\Users\"Michael Ovies"\Source\Repos\orange-cms\Orange.Database\BuildScripts\PopulateOrange.sql

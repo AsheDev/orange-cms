@@ -120,14 +120,55 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="css\bootstrap.css" />
+    <Content Include="css\contents.css" />
+    <Content Include="css\editor.css" />
     <Content Include="css\summernote.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="js\bootstrap.js" />
+    <Content Include="js\ckeditor.js" />
     <Content Include="js\Comments.js" />
+    <Content Include="js\config.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\summernote.js" />
-    <Content Include="Web.config" />
+    <Content Include="lang\en.js" />
+    <Content Include="plugins\about\dialogs\about.js" />
+    <Content Include="plugins\about\dialogs\hidpi\logo_ckeditor.png" />
+    <Content Include="plugins\about\dialogs\logo_ckeditor.png" />
+    <Content Include="plugins\clipboard\dialogs\paste.js" />
+    <Content Include="plugins\dialog\dialogDefinition.js" />
+    <Content Include="plugins\icons.png" />
+    <Content Include="plugins\icons_hidpi.png" />
+    <Content Include="plugins\link\dialogs\anchor.js" />
+    <Content Include="plugins\link\dialogs\link.js" />
+    <Content Include="plugins\link\images\anchor.png" />
+    <Content Include="plugins\link\images\hidpi\anchor.png" />
+    <Content Include="skins\moono\dialog.css" />
+    <Content Include="skins\moono\dialog_ie.css" />
+    <Content Include="skins\moono\dialog_ie7.css" />
+    <Content Include="skins\moono\dialog_ie8.css" />
+    <Content Include="skins\moono\dialog_iequirks.css" />
+    <Content Include="skins\moono\editor.css" />
+    <Content Include="skins\moono\editor_gecko.css" />
+    <Content Include="skins\moono\editor_ie.css" />
+    <Content Include="skins\moono\editor_ie7.css" />
+    <Content Include="skins\moono\editor_ie8.css" />
+    <Content Include="skins\moono\editor_iequirks.css" />
+    <Content Include="skins\moono\icons.png" />
+    <Content Include="skins\moono\icons_hidpi.png" />
+    <Content Include="skins\moono\images\arrow.png" />
+    <Content Include="skins\moono\images\close.png" />
+    <Content Include="skins\moono\images\hidpi\close.png" />
+    <Content Include="skins\moono\images\hidpi\lock-open.png" />
+    <Content Include="skins\moono\images\hidpi\lock.png" />
+    <Content Include="skins\moono\images\hidpi\refresh.png" />
+    <Content Include="skins\moono\images\lock-open.png" />
+    <Content Include="skins\moono\images\lock.png" />
+    <Content Include="skins\moono\images\refresh.png" />
+    <Content Include="skins\moono\images\spinner.gif" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -162,10 +203,6 @@
       <Project>{edbbd70f-68a1-4d54-be48-d1bda2fe1323}</Project>
       <Name>Connections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Workspaces\Security\Security\Security\Security.csproj">
-      <Project>{5d415e65-361f-4638-be22-5d73706a20d9}</Project>
-      <Name>Security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Orange.Business\Orange.Business.csproj">
       <Project>{57f0ac93-fc67-48f7-b23f-c266fec4cc44}</Project>
       <Name>Orange.Business</Name>
@@ -180,6 +217,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Shared\_Alert.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Pages\CkEditorTest.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="skins\moono\readme.md" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

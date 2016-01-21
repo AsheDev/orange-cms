@@ -5,13 +5,13 @@ using OE = Orange.Core.Enums;
 
 namespace Orange.Core.Results
 {
-    public class PasswordResult : Result, IResult
-    {
-        public Password Result { get; set; }
+    //public class PasswordResult : Result, IResult
+    //{
+    //    public Password Result { get; set; }
 
-        public PasswordResult()
-        {
-            Result = new Password();
-        }
-    }
+    //    public PasswordResult()
+    //    {
+    //        Result = new Password();
+    //    }
+    //}
 }

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "CkEditorTest";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+@section PageSpecificScripts
+{
+    <script src="~/js/jquery.js"></script>
+<script src="//cdn.ckeditor.com/4.5.4/standard/ckeditor.js"></script>
+    <script src="~/js/config.js"></script>
+    @*<link href="~/css/editor.css" rel="stylesheet" />*@
+    <link href="~/css/contents.css" rel="stylesheet" />
+}
+
+<textarea name="editor1" id="editor1" rows="10" cols="80">
+    This is my textarea to be replaced with CKEditor.
+</textarea>
+<script>
+    $(function () {
+        CKEDITOR.replace("editor1");
+    });
+</script>

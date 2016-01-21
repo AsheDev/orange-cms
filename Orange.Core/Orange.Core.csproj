@@ -38,7 +38,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Xml.Linq" />
@@ -49,7 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\AccessDetails.cs" />
-    <Compile Include="Entities\Accessibility.cs" />
+    <Compile Include="Entities\Authentication.cs" />
+    <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\Permission.cs" />
     <Compile Include="Entities\BusinessError.cs" />
     <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\DefaultError.cs" />
@@ -57,15 +68,17 @@
     <Compile Include="Entities\Link.cs" />
     <Compile Include="Entities\NavigationDetails.cs" />
     <Compile Include="Entities\PageDetails.cs" />
-    <Compile Include="Entities\Password.cs" />
+    <Compile Include="Entities\Credentials.cs" />
     <Compile Include="Entities\PasswordReset.cs" />
-    <Compile Include="Entities\Permission.cs" />
+    <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\Post.cs" />
     <Compile Include="Entities\PasswordSettings.cs" />
+    <Compile Include="Entities\Settings.cs" />
     <Compile Include="Entities\Tag.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\UserPermissionMap.cs" />
     <Compile Include="Enums\Enums.cs" />
-    <Compile Include="Interfaces\IAccessibility.cs" />
+    <Compile Include="Interfaces\IPermissions.cs" />
     <Compile Include="Interfaces\IComment.cs" />
     <Compile Include="Interfaces\IError.cs" />
     <Compile Include="Interfaces\IImpersonation.cs" />
@@ -75,8 +88,9 @@
     <Compile Include="Interfaces\IUser.cs" />
     <Compile Include="Models\Authentication.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Repository.cs" />
     <Compile Include="Results\AccessDetailsResult.cs" />
-    <Compile Include="Results\AccessibilityResult.cs" />
+    <Compile Include="Results\PermissionResult.cs" />
     <Compile Include="Results\BoolResult.cs" />
     <Compile Include="Results\CommentResult.cs" />
     <Compile Include="Results\IntResult.cs" />
@@ -85,17 +99,27 @@
     <Compile Include="Results\PasswordResetResult.cs" />
     <Compile Include="Results\PasswordResult.cs" />
     <Compile Include="Results\PasswordSettingsResult.cs" />
-    <Compile Include="Results\PermissionResult.cs" />
+    <Compile Include="Results\RoleResult.cs" />
     <Compile Include="Results\PostResultTest.cs" />
     <Compile Include="Results\StringResult.cs" />
     <Compile Include="Results\PostResult.cs" />
-    <Compile Include="Results\UserResult.cs" />
+    <Compile Include="Results\UserResponses.cs" />
     <Compile Include="Utility\Extensions.cs" />
     <Compile Include="Utility\ObjectBuilder.cs" />
     <Compile Include="Utility\Result.cs" />
     <Compile Include="Utility\ResultTest.cs" />
+    <Compile Include="Values\HashedPassword.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Workspaces\Connections\Connections\Connections\Connections.csproj">
+      <Project>{edbbd70f-68a1-4d54-be48-d1bda2fe1323}</Project>
+      <Name>Connections</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

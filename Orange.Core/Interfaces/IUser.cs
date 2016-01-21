@@ -5,7 +5,7 @@
         string Name { get; set; }
         string Email { get; set; }
         //bool IsVisible { get; set; }
-        int PermissionId { get; set; }
+        int RoleId { get; set; }
         //bool IsActive { get; set; }
     }
 }

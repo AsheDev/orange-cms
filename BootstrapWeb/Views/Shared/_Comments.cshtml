@@ -1,0 +1,106 @@
+﻿@using Orange.Business
+@using Orange.Core.Entities
+@model Orange.Core.Results.CommentResultList
+
+@* this will be null on page load so replies aren't loaded *@
+@if (!object.ReferenceEquals(Model, null))
+{
+    Random rnd = new Random();
+    string address = "";
+    foreach (Comment comment in Model.Results)
+    {
+    <li>
+        <div class="individual-comment-@comment.Id col-sm-12">
+            <div id="comment-@comment.Id">
+                <div class="row">
+                    <div class="col-sm-1">
+                        <div class="commenterImage">
+                            @{address = "https://robohash.org/" + @comment.Created.AddSeconds(rnd.Next(23, 722)).ToShortTimeString() + ".png?bgset=bg1";}
+                            <img src=@address />
+                        </div>
+                    </div>
+                    <div class="col-sm-11">
+                        <div class="commentText">
+                            @if (comment.TopLevel == true)
+                            {
+                                <p class="text-left">Posted by @comment.ProvidedName</p>
+                            }
+                            else
+                            {
+                                <p class="text-left">@comment.ProvidedName replied:</p>
+                            }
+                            <p class="text-left">@comment.Body</p>
+                            <p class="sub-text text-left">on @comment.Created.ToShortDateString()</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 6px;">
+                    <div class="col-sm-11 col-sm-offset-1">
+                        <input id="reply-@comment.Id" class="btn btn-success pull-left btn-xs" value="Reply" onclick="ToggleReply(this.id)" />
+                        @* only two of these buttons will ever be shown at once *@
+                        @if (comment.ReplyCount > 0)
+                        {
+                            <input id="showReplies-@comment.Id" style="margin-left: 6px;" class="btn btn-primary pull-left btn-xs" onclick="ShowReplies(this.id)" value="Show Replies (@comment.ReplyCount)" />
+                        }
+                        else
+                        {
+                            <input style="margin-left: 6px;" class="btn btn-default pull-left btn-xs" disabled value="No Replies" />
+                        }
+
+                        @if (comment.Approval == Orange.Core.Enums.Approval.Pending)
+                        {
+                            @* TODO: if Pending the reply button should not be displayed (or the show button for that matter) *@
+                            <input id="approve-@comment.Id" style="margin-left: 6px;" class="btn btn-success pull-left btn-xs" value="Approve Comment" onclick="ApproveComment(this.id)" />
+                            <input id="deny-@comment.Id" style="margin-left: 6px;" class="btn btn-danger pull-left btn-xs" value="Deny Comment" onclick="DenyComment(this.id)" />
+                        }
+                        
+                        @* if it's approved already we'll want delete functionality I suppose *@
+                    </div>
+                </div>
+            </div>
+
+            <div id="replyRow-@comment.Id" class="row hidden" style="margin-top: 6px;">
+                <div class="col-sm-11 col-sm-offset-1">
+                    <div class="row" style="margin-top: 6px;">
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" placeholder="Name" />
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 6px;">
+                        <div class="col-sm-11">
+                            <textarea class="form-control" type="text" placeholder="Your comments"></textarea>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 6px;">
+                        <div class="col-sm-12">
+                            <input type="button" class="btn btn-success pull-left col-sm-2" value="Submit Reply" />
+                            <br /><br /><br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @* On reply, approve, or deny should activate this alert *@
+            <div class="row hidden" id="alertRow-@comment.Id" style="margin-top:6px;">
+                <div class="col-sm-8 col-sm-offset-1">
+                    @Html.Partial("_Alert")
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12" id="horizontal-@comment.Id">
+                    <hr />
+                </div>
+            </div>
+
+            <div class="row">
+                <div id="color-@comment.Id">
+                    <div id="comments-@comment.Id" style="overflow: auto;">
+                        @Html.Partial("_Comments", new Orange.Core.Results.CommentResultList())
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    }
+}

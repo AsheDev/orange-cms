@@ -38,7 +38,7 @@ namespace Orange.Core.Utility
             result.Message = Convert.ToString(errorDetails.AsEnumerable().First().ItemArray[0]);
             result.Severity = Severity.Warning;
             result.SeverityAlertColor = Severity.Warning.GetDescription();
-            result.ErrorDetails = (DatabaseError)ConstructSingleObject(new DatabaseError(), errorDetails);
+            //result.ErrorDetails = (DatabaseError)ConstructSingleObject(new DatabaseError(), errorDetails);
             return result;
         }
 
@@ -116,15 +116,15 @@ namespace Orange.Core.Utility
             return SetResultAsSuccess(result);
         }
 
-        private static object ConstructSingleObject<T>(T objectType, DataTable table)
-        {
-            return ObjectBuilder.PopulateBasicObject(objectType, table);
-        }
+        //private static object ConstructSingleObject<T>(T objectType, DataTable table)
+        //{
+        //    return ObjectBuilder.PopulateBasicObject(objectType, table);
+        //}
 
-        private static List<object> ConstructMultipleObjects<T>(T objectType, DataTable table)
-        {
-            return ObjectBuilder.PopulateMulitpleBasicObjects(objectType, table);
-        }
+        //private static List<object> ConstructMultipleObjects<T>(T objectType, DataTable table)
+        //{
+        //    return ObjectBuilder.PopulateMulitpleBasicObjects(objectType, table);
+        //}
 
         //public static abstract void PopulateResult(IResult result, DataTable returnedTable) { }
 

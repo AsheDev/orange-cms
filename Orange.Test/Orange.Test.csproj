@@ -81,10 +81,6 @@
       <Project>{edbbd70f-68a1-4d54-be48-d1bda2fe1323}</Project>
       <Name>Connections</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Workspaces\Security\Security\Security\Security.csproj">
-      <Project>{5d415e65-361f-4638-be22-5d73706a20d9}</Project>
-      <Name>Security</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Orange.Business\Orange.Business.csproj">
       <Project>{57f0ac93-fc67-48f7-b23f-c266fec4cc44}</Project>
       <Name>Orange.Business</Name>

@@ -1,0 +1,2634 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DevOrangeModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccessHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="Action" Type="bit" Nullable="false" />
+          <Property Name="Success" Type="bit" Nullable="false" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DevOrange.o.ChangeLog' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ChangeLog">
+          <Key>
+            <PropertyRef Name="Operation" />
+          </Key>
+          <Property Name="FK_TableId" Type="int" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="FK_CallingUserId" Type="int" />
+          <Property Name="Operation" Type="tinyint" Nullable="false" />
+          <Property Name="LololNo" Type="int" />
+          <Property Name="OKAYMORE" Type="int" />
+        </EntityType>
+        <EntityType Name="EditTypes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NavigationHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="FK_PageId" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NewsletterInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="SignUpDate" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Pages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+          <Property Name="URL" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsPublic" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DevOrange.o.Passwords' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Passwords">
+          <Key>
+            <PropertyRef Name="Expiration" />
+          </Key>
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="Salt" Type="nvarchar" MaxLength="128" />
+          <Property Name="HashedPassword" Type="nvarchar" MaxLength="128" />
+          <Property Name="Attempts" Type="tinyint" />
+          <Property Name="Expires" Type="bit" />
+          <Property Name="Expiration" Type="datetime" Nullable="false" />
+          <Property Name="IsLocked" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DevOrange.o.PostCommentEditHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PostCommentEditHistory">
+          <Key>
+            <PropertyRef Name="ProvidedName" />
+            <PropertyRef Name="Body" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="ApprovalDate" />
+          </Key>
+          <Property Name="FK_CommentId" Type="int" />
+          <Property Name="FK_EditTypeId" Type="int" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="ProvidedName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Body" Type="nvarchar" MaxLength="1200" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="ApprovalDate" Type="datetime" Nullable="false" />
+          <Property Name="Approval" Type="tinyint" />
+          <Property Name="EditKey" Type="nvarchar" MaxLength="7" />
+          <Property Name="TopLevel" Type="bit" />
+          <Property Name="FK_CallerId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="PostComments">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_PostId" Type="int" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="ProvidedName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Body" Type="nvarchar" MaxLength="1200" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="ApprovalDate" Type="datetime" Nullable="false" />
+          <Property Name="Approval" Type="tinyint" />
+          <Property Name="EditKey" Type="nvarchar" MaxLength="8" />
+          <Property Name="TopLevel" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'DevOrange.o.PostEditHistory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="PostEditHistory">
+          <Key>
+            <PropertyRef Name="Body" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="EffectiveDate" />
+          </Key>
+          <Property Name="FK_PostId" Type="int" />
+          <Property Name="FK_EditTypeId" Type="int" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="TimeStamp" Type="datetime" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="EffectiveDate" Type="datetime" Nullable="false" />
+          <Property Name="IsPubliclyVisible" Type="bit" />
+          <Property Name="FK_CallerId" Type="int" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Posts">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_UserId" Type="int" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Body" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Created" Type="datetime" Nullable="false" />
+          <Property Name="EffectiveDate" Type="datetime" Nullable="false" />
+          <Property Name="IsPubliclyVisible" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IsRemovable" Type="bit" />
+          <Property Name="IsHidden" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="TableListing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ObfuscatedId" Type="uniqueidentifier" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IsVisible" Type="bit" />
+          <Property Name="FK_RoleId" Type="int" />
+          <Property Name="InSystem" Type="bit" />
+          <Property Name="IsActive" Type="bit" />
+        </EntityType>
+        <Association Name="FK__AccessHis__FK_Us__70DDC3D8">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="AccessHistory" Type="Self.AccessHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccessHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeLog__FK_Ca__787EE5A0">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="FK_CallingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeLog__FK_Ta__76969D2E">
+          <End Role="TableListing" Type="Self.TableListing" Multiplicity="0..1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableListing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="FK_TableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeLog__FK_Us__778AC167">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Navigatio__FK_Pa__6E01572D">
+          <End Role="Pages" Type="Self.Pages" Multiplicity="0..1" />
+          <End Role="NavigationHistory" Type="Self.NavigationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NavigationHistory">
+              <PropertyRef Name="FK_PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Navigatio__FK_Us__6D0D32F4">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="NavigationHistory" Type="Self.NavigationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NavigationHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Passwords__FK_Us__2B3F6F97">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Passwords" Type="Self.Passwords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Passwords">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Ca__5629CD9C">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_CallerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Co__52593CB8">
+          <End Role="PostComments" Type="Self.PostComments" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostComments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Ed__534D60F1">
+          <End Role="EditTypes" Type="Self.EditTypes" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EditTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_EditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Po__412EB0B6">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="PostComments" Type="Self.PostComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostComments">
+              <PropertyRef Name="FK_PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Us__4222D4EF">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PostComments" Type="Self.PostComments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostComments">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Us__5441852A">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Ca__4F7CD00D">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_CallerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Ed__4CA06362">
+          <End Role="EditTypes" Type="Self.EditTypes" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EditTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_EditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Po__4BAC3F29">
+          <End Role="Posts" Type="Self.Posts" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Us__4D94879B">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Posts__FK_UserId__34C8D9D1">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Posts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__FK_RoleId__24927208">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="FK_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="CommentAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="PostId" Type="int" Mode="In" />
+          <Parameter Name="ProvidedName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Body" Type="nvarchar" Mode="In" />
+          <Parameter Name="EditKey" Type="nvarchar" Mode="In" />
+          <Parameter Name="TopLevel" Type="bit" Mode="In" />
+          <Parameter Name="ParentCommentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CommentApproval" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="CommentId" Type="int" Mode="In" />
+          <Parameter Name="Approval" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="CommentGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="CommentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CommentGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="PostId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CommentGetChildren" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="CommentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CommentGetTopLevel" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="PostId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CommentRemove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="CommentId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="CommentUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="CommentId" Type="int" Mode="In" />
+          <Parameter Name="ProvidedName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Body" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="LogIn" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="LogOut" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PasswordAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="HashedPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="Salt" Type="nvarchar" Mode="In" />
+          <Parameter Name="Expires" Type="bit" Mode="In" />
+          <Parameter Name="Expiration" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="PasswordGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="username" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PasswordRecordAttempt" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="PasswordReset" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="AuthenticationURL" Type="nvarchar" Mode="In" />
+          <Parameter Name="Created" Type="datetime" Mode="In" />
+          <Parameter Name="Expires" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="PasswordResetGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PasswordSettingsGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o" />
+        <Function Name="PasswordSettingsUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="MaxAttempts" Type="int" Mode="In" />
+          <Parameter Name="ExpirationInDays" Type="int" Mode="In" />
+          <Parameter Name="ResetExpirationInMinutes" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PasswordUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="HashedPassword" Type="nvarchar" Mode="In" />
+          <Parameter Name="Salt" Type="nvarchar" Mode="In" />
+          <Parameter Name="Expires" Type="bit" Mode="In" />
+          <Parameter Name="Expiration" Type="datetime" Mode="In" />
+          <Parameter Name="Attempts" Type="int" Mode="In" />
+          <Parameter Name="IsLocked" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PermissionGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PermissionGetByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PermissionUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+          <Parameter Name="ManagePosts" Type="bit" Mode="In" />
+          <Parameter Name="ManagePostComments" Type="bit" Mode="In" />
+          <Parameter Name="CanComment" Type="bit" Mode="In" />
+          <Parameter Name="ManageUsers" Type="bit" Mode="In" />
+          <Parameter Name="AccessSettings" Type="bit" Mode="In" />
+          <Parameter Name="CanImpersonate" Type="bit" Mode="In" />
+          <Parameter Name="ViewMetrics" Type="bit" Mode="In" />
+          <Parameter Name="IsActive" Type="bit" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="Subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="Body" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EffectiveDate" Type="datetime" Mode="In" />
+          <Parameter Name="IsPubliclyVisible" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="PostGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="PostId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o" />
+        <Function Name="PostGetLatest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o" />
+        <Function Name="PostHistoryGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="PostId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostRemove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="PostId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="PostUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="PostId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="Subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="Body" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="EffectiveDate" Type="datetime" Mode="In" />
+          <Parameter Name="IsPubliclyVisible" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="RecordAccess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="Action" Type="bit" Mode="In" />
+          <Parameter Name="Success" Type="bit" Mode="In" />
+          <Parameter Name="OperatingSystem" Type="nvarchar" Mode="In" />
+          <Parameter Name="IPAddress" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="RecordAccessGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="AccessId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RecordAccessGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o" />
+        <Function Name="RecordNavigation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="PageId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RecordNavigationGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="NavId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="RecordNavigationGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o" />
+        <Function Name="TagAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UserAdd" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UserGet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UserGetAll" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o" />
+        <Function Name="UserGetByGuid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="ObfuscatedId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="UserGetByUsername" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="Username" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UserRemove" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UserToggleInSystem" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="UserUpdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="o">
+          <Parameter Name="UserId" Type="int" Mode="In" />
+          <Parameter Name="CallingUserId" Type="int" Mode="In" />
+          <Parameter Name="Id" Type="int" Mode="In" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="RoleId" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DevOrangeModelStoreContainer">
+          <EntitySet Name="AccessHistory" EntityType="Self.AccessHistory" Schema="o" store:Type="Tables" />
+          <EntitySet Name="EditTypes" EntityType="Self.EditTypes" Schema="o" store:Type="Tables" />
+          <EntitySet Name="NavigationHistory" EntityType="Self.NavigationHistory" Schema="o" store:Type="Tables" />
+          <EntitySet Name="NewsletterInfo" EntityType="Self.NewsletterInfo" Schema="o" store:Type="Tables" />
+          <EntitySet Name="Pages" EntityType="Self.Pages" Schema="o" store:Type="Tables" />
+          <EntitySet Name="PostComments" EntityType="Self.PostComments" Schema="o" store:Type="Tables" />
+          <EntitySet Name="Posts" EntityType="Self.Posts" Schema="o" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="o" store:Type="Tables" />
+          <EntitySet Name="TableListing" EntityType="Self.TableListing" Schema="o" store:Type="Tables" />
+          <EntitySet Name="Tags" EntityType="Self.Tags" Schema="o" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="o" store:Type="Tables" />
+          <EntitySet Name="ChangeLog" EntityType="Self.ChangeLog" store:Type="Tables" store:Schema="o">
+            <DefiningQuery>SELECT 
+    [ChangeLog].[FK_TableId] AS [FK_TableId], 
+    [ChangeLog].[FK_UserId] AS [FK_UserId], 
+    [ChangeLog].[FK_CallingUserId] AS [FK_CallingUserId], 
+    [ChangeLog].[Operation] AS [Operation], 
+    [ChangeLog].[LololNo] AS [LololNo], 
+    [ChangeLog].[OKAYMORE] AS [OKAYMORE]
+    FROM [o].[ChangeLog] AS [ChangeLog]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Passwords" EntityType="Self.Passwords" store:Type="Tables" store:Schema="o">
+            <DefiningQuery>SELECT 
+    [Passwords].[FK_UserId] AS [FK_UserId], 
+    [Passwords].[Salt] AS [Salt], 
+    [Passwords].[HashedPassword] AS [HashedPassword], 
+    [Passwords].[Attempts] AS [Attempts], 
+    [Passwords].[Expires] AS [Expires], 
+    [Passwords].[Expiration] AS [Expiration], 
+    [Passwords].[IsLocked] AS [IsLocked]
+    FROM [o].[Passwords] AS [Passwords]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PostCommentEditHistory" EntityType="Self.PostCommentEditHistory" store:Type="Tables" store:Schema="o">
+            <DefiningQuery>SELECT 
+    [PostCommentEditHistory].[FK_CommentId] AS [FK_CommentId], 
+    [PostCommentEditHistory].[FK_EditTypeId] AS [FK_EditTypeId], 
+    [PostCommentEditHistory].[FK_UserId] AS [FK_UserId], 
+    [PostCommentEditHistory].[TimeStamp] AS [TimeStamp], 
+    [PostCommentEditHistory].[ProvidedName] AS [ProvidedName], 
+    [PostCommentEditHistory].[Body] AS [Body], 
+    [PostCommentEditHistory].[Created] AS [Created], 
+    [PostCommentEditHistory].[ApprovalDate] AS [ApprovalDate], 
+    [PostCommentEditHistory].[Approval] AS [Approval], 
+    [PostCommentEditHistory].[EditKey] AS [EditKey], 
+    [PostCommentEditHistory].[TopLevel] AS [TopLevel], 
+    [PostCommentEditHistory].[FK_CallerId] AS [FK_CallerId], 
+    [PostCommentEditHistory].[IsActive] AS [IsActive]
+    FROM [o].[PostCommentEditHistory] AS [PostCommentEditHistory]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="PostEditHistory" EntityType="Self.PostEditHistory" store:Type="Tables" store:Schema="o">
+            <DefiningQuery>SELECT 
+    [PostEditHistory].[FK_PostId] AS [FK_PostId], 
+    [PostEditHistory].[FK_EditTypeId] AS [FK_EditTypeId], 
+    [PostEditHistory].[FK_UserId] AS [FK_UserId], 
+    [PostEditHistory].[TimeStamp] AS [TimeStamp], 
+    [PostEditHistory].[Subject] AS [Subject], 
+    [PostEditHistory].[Body] AS [Body], 
+    [PostEditHistory].[Created] AS [Created], 
+    [PostEditHistory].[EffectiveDate] AS [EffectiveDate], 
+    [PostEditHistory].[IsPubliclyVisible] AS [IsPubliclyVisible], 
+    [PostEditHistory].[FK_CallerId] AS [FK_CallerId], 
+    [PostEditHistory].[IsActive] AS [IsActive]
+    FROM [o].[PostEditHistory] AS [PostEditHistory]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__AccessHis__FK_Us__70DDC3D8" Association="Self.FK__AccessHis__FK_Us__70DDC3D8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AccessHistory" EntitySet="AccessHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeLog__FK_Ca__787EE5A0" Association="Self.FK__ChangeLog__FK_Ca__787EE5A0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ChangeLog" EntitySet="ChangeLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeLog__FK_Ta__76969D2E" Association="Self.FK__ChangeLog__FK_Ta__76969D2E">
+            <End Role="TableListing" EntitySet="TableListing" />
+            <End Role="ChangeLog" EntitySet="ChangeLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeLog__FK_Us__778AC167" Association="Self.FK__ChangeLog__FK_Us__778AC167">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ChangeLog" EntitySet="ChangeLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Navigatio__FK_Pa__6E01572D" Association="Self.FK__Navigatio__FK_Pa__6E01572D">
+            <End Role="Pages" EntitySet="Pages" />
+            <End Role="NavigationHistory" EntitySet="NavigationHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Navigatio__FK_Us__6D0D32F4" Association="Self.FK__Navigatio__FK_Us__6D0D32F4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="NavigationHistory" EntitySet="NavigationHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Passwords__FK_Us__2B3F6F97" Association="Self.FK__Passwords__FK_Us__2B3F6F97">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Passwords" EntitySet="Passwords" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Ca__5629CD9C" Association="Self.FK__PostComme__FK_Ca__5629CD9C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Co__52593CB8" Association="Self.FK__PostComme__FK_Co__52593CB8">
+            <End Role="PostComments" EntitySet="PostComments" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Ed__534D60F1" Association="Self.FK__PostComme__FK_Ed__534D60F1">
+            <End Role="EditTypes" EntitySet="EditTypes" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Po__412EB0B6" Association="Self.FK__PostComme__FK_Po__412EB0B6">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="PostComments" EntitySet="PostComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Us__4222D4EF" Association="Self.FK__PostComme__FK_Us__4222D4EF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostComments" EntitySet="PostComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Us__5441852A" Association="Self.FK__PostComme__FK_Us__5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Ca__4F7CD00D" Association="Self.FK__PostEditH__FK_Ca__4F7CD00D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Ed__4CA06362" Association="Self.FK__PostEditH__FK_Ed__4CA06362">
+            <End Role="EditTypes" EntitySet="EditTypes" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Po__4BAC3F29" Association="Self.FK__PostEditH__FK_Po__4BAC3F29">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Us__4D94879B" Association="Self.FK__PostEditH__FK_Us__4D94879B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Posts__FK_UserId__34C8D9D1" Association="Self.FK__Posts__FK_UserId__34C8D9D1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__FK_RoleId__24927208" Association="Self.FK__Users__FK_RoleId__24927208">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DevOrangeModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="AccessHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="Action" Type="Boolean" Nullable="false" />
+          <Property Name="Success" Type="Boolean" Nullable="false" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="Self.FK__AccessHis__FK_Us__70DDC3D8" FromRole="AccessHistory" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="EditType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PostCommentEditHistories" Relationship="Self.FK__PostComme__FK_Ed__534D60F1" FromRole="EditTypes" ToRole="PostCommentEditHistory" />
+          <NavigationProperty Name="PostEditHistories" Relationship="Self.FK__PostEditH__FK_Ed__4CA06362" FromRole="EditTypes" ToRole="PostEditHistory" />
+        </EntityType>
+        <EntityType Name="NavigationHistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="FK_PageId" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Page" Relationship="Self.FK__Navigatio__FK_Pa__6E01572D" FromRole="NavigationHistory" ToRole="Pages" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Navigatio__FK_Us__6D0D32F4" FromRole="NavigationHistory" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="NewsletterInfo">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SignUpDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Page">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="URL" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="IsPublic" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="NavigationHistories" Relationship="Self.FK__Navigatio__FK_Pa__6E01572D" FromRole="Pages" ToRole="NavigationHistory" />
+        </EntityType>
+        <EntityType Name="PostComment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PostId" Type="Int32" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="ProvidedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovalDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Approval" Type="Byte" />
+          <Property Name="EditKey" Type="String" MaxLength="8" FixedLength="false" Unicode="true" />
+          <Property Name="TopLevel" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PostCommentEditHistories" Relationship="Self.FK__PostComme__FK_Co__52593CB8" FromRole="PostComments" ToRole="PostCommentEditHistory" />
+          <NavigationProperty Name="Post" Relationship="Self.FK__PostComme__FK_Po__412EB0B6" FromRole="PostComments" ToRole="Posts" />
+          <NavigationProperty Name="User" Relationship="Self.FK__PostComme__FK_Us__4222D4EF" FromRole="PostComments" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Post">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsPubliclyVisible" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="PostComments" Relationship="Self.FK__PostComme__FK_Po__412EB0B6" FromRole="Posts" ToRole="PostComments" />
+          <NavigationProperty Name="PostEditHistories" Relationship="Self.FK__PostEditH__FK_Po__4BAC3F29" FromRole="Posts" ToRole="PostEditHistory" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Posts__FK_UserId__34C8D9D1" FromRole="Posts" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsRemovable" Type="Boolean" />
+          <Property Name="IsHidden" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__FK_RoleId__24927208" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="TableListing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ChangeLogs" Relationship="Self.FK__ChangeLog__FK_Ta__76969D2E" FromRole="TableListing" ToRole="ChangeLog" />
+        </EntityType>
+        <EntityType Name="Tag">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ObfuscatedId" Type="Guid" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsVisible" Type="Boolean" />
+          <Property Name="FK_RoleId" Type="Int32" />
+          <Property Name="InSystem" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="AccessHistories" Relationship="Self.FK__AccessHis__FK_Us__70DDC3D8" FromRole="Users" ToRole="AccessHistory" />
+          <NavigationProperty Name="NavigationHistories" Relationship="Self.FK__Navigatio__FK_Us__6D0D32F4" FromRole="Users" ToRole="NavigationHistory" />
+          <NavigationProperty Name="PostComments" Relationship="Self.FK__PostComme__FK_Us__4222D4EF" FromRole="Users" ToRole="PostComments" />
+          <NavigationProperty Name="Posts" Relationship="Self.FK__Posts__FK_UserId__34C8D9D1" FromRole="Users" ToRole="Posts" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__FK_RoleId__24927208" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="ChangeLogs" Relationship="Self.FK__ChangeLog__FK_Ca__787EE5A0" FromRole="Users" ToRole="ChangeLog" />
+          <NavigationProperty Name="ChangeLogs1" Relationship="Self.FK__ChangeLog__FK_Us__778AC167" FromRole="Users" ToRole="ChangeLog" />
+          <NavigationProperty Name="Passwords" Relationship="Self.FK__Passwords__FK_Us__2B3F6F97" FromRole="Users" ToRole="Passwords" />
+          <NavigationProperty Name="PostCommentEditHistories" Relationship="Self.FK__PostComme__FK_Ca__5629CD9C" FromRole="Users" ToRole="PostCommentEditHistory" />
+          <NavigationProperty Name="PostCommentEditHistories1" Relationship="Self.FK__PostComme__FK_Us__5441852A" FromRole="Users" ToRole="PostCommentEditHistory" />
+          <NavigationProperty Name="PostEditHistories" Relationship="Self.FK__PostEditH__FK_Ca__4F7CD00D" FromRole="Users" ToRole="PostEditHistory" />
+          <NavigationProperty Name="PostEditHistories1" Relationship="Self.FK__PostEditH__FK_Us__4D94879B" FromRole="Users" ToRole="PostEditHistory" />
+        </EntityType>
+        <EntityType Name="ChangeLog">
+          <Key>
+            <PropertyRef Name="Operation" />
+          </Key>
+          <Property Name="FK_TableId" Type="Int32" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="FK_CallingUserId" Type="Int32" />
+          <Property Name="Operation" Type="Byte" Nullable="false" />
+          <NavigationProperty Name="TableListing" Relationship="Self.FK__ChangeLog__FK_Ta__76969D2E" FromRole="ChangeLog" ToRole="TableListing" />
+          <NavigationProperty Name="User" Relationship="Self.FK__ChangeLog__FK_Ca__787EE5A0" FromRole="ChangeLog" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__ChangeLog__FK_Us__778AC167" FromRole="ChangeLog" ToRole="Users" />
+          <Property Name="LololNo" Type="Int32" />
+          <Property Name="OKAYMORE" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Password">
+          <Key>
+            <PropertyRef Name="Expiration" />
+          </Key>
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="Salt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="HashedPassword" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Attempts" Type="Byte" />
+          <Property Name="Expires" Type="Boolean" />
+          <Property Name="Expiration" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsLocked" Type="Boolean" />
+          <NavigationProperty Name="User" Relationship="Self.FK__Passwords__FK_Us__2B3F6F97" FromRole="Passwords" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PostCommentEditHistory">
+          <Key>
+            <PropertyRef Name="ProvidedName" />
+            <PropertyRef Name="Body" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="ApprovalDate" />
+          </Key>
+          <Property Name="FK_CommentId" Type="Int32" />
+          <Property Name="FK_EditTypeId" Type="Int32" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="ProvidedName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Body" Type="String" MaxLength="1200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ApprovalDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Approval" Type="Byte" />
+          <Property Name="EditKey" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="TopLevel" Type="Boolean" />
+          <Property Name="FK_CallerId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="EditType" Relationship="Self.FK__PostComme__FK_Ed__534D60F1" FromRole="PostCommentEditHistory" ToRole="EditTypes" />
+          <NavigationProperty Name="PostComment" Relationship="Self.FK__PostComme__FK_Co__52593CB8" FromRole="PostCommentEditHistory" ToRole="PostComments" />
+          <NavigationProperty Name="User" Relationship="Self.FK__PostComme__FK_Ca__5629CD9C" FromRole="PostCommentEditHistory" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__PostComme__FK_Us__5441852A" FromRole="PostCommentEditHistory" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="PostEditHistory">
+          <Key>
+            <PropertyRef Name="Body" />
+            <PropertyRef Name="Created" />
+            <PropertyRef Name="EffectiveDate" />
+          </Key>
+          <Property Name="FK_PostId" Type="Int32" />
+          <Property Name="FK_EditTypeId" Type="Int32" />
+          <Property Name="FK_UserId" Type="Int32" />
+          <Property Name="TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Subject" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="Body" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Created" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EffectiveDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsPubliclyVisible" Type="Boolean" />
+          <Property Name="FK_CallerId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="EditType" Relationship="Self.FK__PostEditH__FK_Ed__4CA06362" FromRole="PostEditHistory" ToRole="EditTypes" />
+          <NavigationProperty Name="Post" Relationship="Self.FK__PostEditH__FK_Po__4BAC3F29" FromRole="PostEditHistory" ToRole="Posts" />
+          <NavigationProperty Name="User" Relationship="Self.FK__PostEditH__FK_Ca__4F7CD00D" FromRole="PostEditHistory" ToRole="Users" />
+          <NavigationProperty Name="User1" Relationship="Self.FK__PostEditH__FK_Us__4D94879B" FromRole="PostEditHistory" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK__AccessHis__FK_Us__70DDC3D8">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="AccessHistory" Type="Self.AccessHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AccessHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Ed__534D60F1">
+          <End Role="EditTypes" Type="Self.EditType" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EditTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_EditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Ed__4CA06362">
+          <End Role="EditTypes" Type="Self.EditType" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EditTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_EditTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Navigatio__FK_Pa__6E01572D">
+          <End Role="Pages" Type="Self.Page" Multiplicity="0..1" />
+          <End Role="NavigationHistory" Type="Self.NavigationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NavigationHistory">
+              <PropertyRef Name="FK_PageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Navigatio__FK_Us__6D0D32F4">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="NavigationHistory" Type="Self.NavigationHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="NavigationHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Co__52593CB8">
+          <End Role="PostComments" Type="Self.PostComment" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PostComments">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_CommentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Po__412EB0B6">
+          <End Role="Posts" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="PostComments" Type="Self.PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostComments">
+              <PropertyRef Name="FK_PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Us__4222D4EF">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostComments" Type="Self.PostComment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostComments">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Po__4BAC3F29">
+          <End Role="Posts" Type="Self.Post" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Posts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_PostId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Posts__FK_UserId__34C8D9D1">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Posts" Type="Self.Post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Posts">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__FK_RoleId__24927208">
+          <End Role="Roles" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="FK_RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeLog__FK_Ta__76969D2E">
+          <End Role="TableListing" Type="Self.TableListing" Multiplicity="0..1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TableListing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="FK_TableId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeLog__FK_Ca__787EE5A0">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="FK_CallingUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ChangeLog__FK_Us__778AC167">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="ChangeLog" Type="Self.ChangeLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ChangeLog">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Passwords__FK_Us__2B3F6F97">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Passwords" Type="Self.Password" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Passwords">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Ca__5629CD9C">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_CallerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostComme__FK_Us__5441852A">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostCommentEditHistory" Type="Self.PostCommentEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostCommentEditHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Ca__4F7CD00D">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_CallerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PostEditH__FK_Us__4D94879B">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="PostEditHistory" Type="Self.PostEditHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PostEditHistory">
+              <PropertyRef Name="FK_UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DevOrangeEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AccessHistories" EntityType="Self.AccessHistory" />
+          <EntitySet Name="EditTypes" EntityType="Self.EditType" />
+          <EntitySet Name="NavigationHistories" EntityType="Self.NavigationHistory" />
+          <EntitySet Name="NewsletterInfoes" EntityType="Self.NewsletterInfo" />
+          <EntitySet Name="Pages" EntityType="Self.Page" />
+          <EntitySet Name="PostComments" EntityType="Self.PostComment" />
+          <EntitySet Name="Posts" EntityType="Self.Post" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="TableListings" EntityType="Self.TableListing" />
+          <EntitySet Name="Tags" EntityType="Self.Tag" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="ChangeLogs" EntityType="Self.ChangeLog" />
+          <EntitySet Name="Passwords" EntityType="Self.Password" />
+          <EntitySet Name="PostCommentEditHistories" EntityType="Self.PostCommentEditHistory" />
+          <EntitySet Name="PostEditHistories" EntityType="Self.PostEditHistory" />
+          <AssociationSet Name="FK__AccessHis__FK_Us__70DDC3D8" Association="Self.FK__AccessHis__FK_Us__70DDC3D8">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="AccessHistory" EntitySet="AccessHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Ed__534D60F1" Association="Self.FK__PostComme__FK_Ed__534D60F1">
+            <End Role="EditTypes" EntitySet="EditTypes" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Ed__4CA06362" Association="Self.FK__PostEditH__FK_Ed__4CA06362">
+            <End Role="EditTypes" EntitySet="EditTypes" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Navigatio__FK_Pa__6E01572D" Association="Self.FK__Navigatio__FK_Pa__6E01572D">
+            <End Role="Pages" EntitySet="Pages" />
+            <End Role="NavigationHistory" EntitySet="NavigationHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Navigatio__FK_Us__6D0D32F4" Association="Self.FK__Navigatio__FK_Us__6D0D32F4">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="NavigationHistory" EntitySet="NavigationHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Co__52593CB8" Association="Self.FK__PostComme__FK_Co__52593CB8">
+            <End Role="PostComments" EntitySet="PostComments" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Po__412EB0B6" Association="Self.FK__PostComme__FK_Po__412EB0B6">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="PostComments" EntitySet="PostComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Us__4222D4EF" Association="Self.FK__PostComme__FK_Us__4222D4EF">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostComments" EntitySet="PostComments" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Po__4BAC3F29" Association="Self.FK__PostEditH__FK_Po__4BAC3F29">
+            <End Role="Posts" EntitySet="Posts" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Posts__FK_UserId__34C8D9D1" Association="Self.FK__Posts__FK_UserId__34C8D9D1">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Posts" EntitySet="Posts" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__FK_RoleId__24927208" Association="Self.FK__Users__FK_RoleId__24927208">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeLog__FK_Ta__76969D2E" Association="Self.FK__ChangeLog__FK_Ta__76969D2E">
+            <End Role="TableListing" EntitySet="TableListings" />
+            <End Role="ChangeLog" EntitySet="ChangeLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeLog__FK_Ca__787EE5A0" Association="Self.FK__ChangeLog__FK_Ca__787EE5A0">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ChangeLog" EntitySet="ChangeLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ChangeLog__FK_Us__778AC167" Association="Self.FK__ChangeLog__FK_Us__778AC167">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ChangeLog" EntitySet="ChangeLogs" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Passwords__FK_Us__2B3F6F97" Association="Self.FK__Passwords__FK_Us__2B3F6F97">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Passwords" EntitySet="Passwords" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Ca__5629CD9C" Association="Self.FK__PostComme__FK_Ca__5629CD9C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostComme__FK_Us__5441852A" Association="Self.FK__PostComme__FK_Us__5441852A">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostCommentEditHistory" EntitySet="PostCommentEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Ca__4F7CD00D" Association="Self.FK__PostEditH__FK_Ca__4F7CD00D">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PostEditH__FK_Us__4D94879B" Association="Self.FK__PostEditH__FK_Us__4D94879B">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="PostEditHistory" EntitySet="PostEditHistories" />
+          </AssociationSet>
+          <FunctionImport Name="CommentAdd" ReturnType="Collection(DevOrangeModel.CommentAdd_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="PostId" Mode="In" Type="Int32" />
+            <Parameter Name="ProvidedName" Mode="In" Type="String" />
+            <Parameter Name="Body" Mode="In" Type="String" />
+            <Parameter Name="EditKey" Mode="In" Type="String" />
+            <Parameter Name="TopLevel" Mode="In" Type="Boolean" />
+            <Parameter Name="ParentCommentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CommentApproval" ReturnType="Collection(DevOrangeModel.CommentApproval_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="CommentId" Mode="In" Type="Int32" />
+            <Parameter Name="Approval" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="CommentGet" ReturnType="Collection(DevOrangeModel.CommentGet_Result)">
+          <Parameter Name="CommentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CommentGetAll" ReturnType="Collection(DevOrangeModel.CommentGetAll_Result)">
+          <Parameter Name="PostId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CommentGetChildren" ReturnType="Collection(DevOrangeModel.CommentGetChildren_Result)">
+          <Parameter Name="CommentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CommentGetTopLevel" ReturnType="Collection(DevOrangeModel.CommentGetTopLevel_Result)">
+          <Parameter Name="PostId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CommentRemove" ReturnType="Collection(Boolean)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="CommentId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CommentUpdate" ReturnType="Collection(DevOrangeModel.CommentUpdate_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="CommentId" Mode="In" Type="Int32" />
+            <Parameter Name="ProvidedName" Mode="In" Type="String" />
+            <Parameter Name="Body" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="LogIn" ReturnType="Collection(DevOrangeModel.LogIn_Result)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="LogOut" ReturnType="Collection(DevOrangeModel.LogOut_Result)">
+            <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordAdd" ReturnType="Collection(DevOrangeModel.PasswordAdd_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="HashedPassword" Mode="In" Type="String" />
+            <Parameter Name="Salt" Mode="In" Type="String" />
+            <Parameter Name="Expires" Mode="In" Type="Boolean" />
+            <Parameter Name="Expiration" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordGet" ReturnType="Collection(DevOrangeModel.PasswordGet_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordRecordAttempt" ReturnType="Collection(Int32)">
+          <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordReset" ReturnType="Collection(DevOrangeModel.PasswordReset_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="AuthenticationURL" Mode="In" Type="String" />
+            <Parameter Name="Created" Mode="In" Type="DateTime" />
+            <Parameter Name="Expires" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordResetGet" ReturnType="Collection(DevOrangeModel.PasswordResetGet_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordSettingsGet" ReturnType="Collection(DevOrangeModel.PasswordSettingsGet_Result)" />
+          <FunctionImport Name="PasswordSettingsUpdate" ReturnType="Collection(DevOrangeModel.PasswordSettingsUpdate_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="MaxAttempts" Mode="In" Type="Int32" />
+            <Parameter Name="ExpirationInDays" Mode="In" Type="Int32" />
+            <Parameter Name="ResetExpirationInMinutes" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PasswordUpdate" ReturnType="Collection(DevOrangeModel.PasswordUpdate_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="HashedPassword" Mode="In" Type="String" />
+            <Parameter Name="Salt" Mode="In" Type="String" />
+            <Parameter Name="Expires" Mode="In" Type="Boolean" />
+            <Parameter Name="Expiration" Mode="In" Type="DateTime" />
+            <Parameter Name="Attempts" Mode="In" Type="Int32" />
+            <Parameter Name="IsLocked" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PermissionGet" ReturnType="Collection(DevOrangeModel.PermissionGet_Result)">
+          <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PermissionGetByUserId" ReturnType="Collection(DevOrangeModel.PermissionGetByUserId_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PermissionUpdate" ReturnType="Collection(DevOrangeModel.PermissionUpdate_Result)">
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="ManagePosts" Mode="In" Type="Boolean" />
+            <Parameter Name="ManagePostComments" Mode="In" Type="Boolean" />
+            <Parameter Name="CanComment" Mode="In" Type="Boolean" />
+            <Parameter Name="ManageUsers" Mode="In" Type="Boolean" />
+            <Parameter Name="AccessSettings" Mode="In" Type="Boolean" />
+            <Parameter Name="CanImpersonate" Mode="In" Type="Boolean" />
+            <Parameter Name="ViewMetrics" Mode="In" Type="Boolean" />
+            <Parameter Name="IsActive" Mode="In" Type="Boolean" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostAdd">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="Subject" Mode="In" Type="String" />
+            <Parameter Name="Body" Mode="In" Type="String" />
+            <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+            <Parameter Name="IsPubliclyVisible" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="PostGet" ReturnType="Collection(DevOrangeModel.PostGet_Result)">
+          <Parameter Name="PostId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostGetAll" ReturnType="Collection(DevOrangeModel.PostGetAll_Result)" />
+          <FunctionImport Name="PostGetLatest" ReturnType="Collection(DevOrangeModel.PostGetLatest_Result)" />
+          <FunctionImport Name="PostHistoryGetAll" ReturnType="Collection(DevOrangeModel.PostHistoryGetAll_Result)">
+          <Parameter Name="PostId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostRemove" ReturnType="Collection(Boolean)">
+            <Parameter Name="PostId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="PostUpdate">
+            <Parameter Name="PostId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="Subject" Mode="In" Type="String" />
+            <Parameter Name="Body" Mode="In" Type="String" />
+            <Parameter Name="EffectiveDate" Mode="In" Type="DateTime" />
+            <Parameter Name="IsPubliclyVisible" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="RecordAccess" ReturnType="Collection(DevOrangeModel.RecordAccess_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="Action" Mode="In" Type="Boolean" />
+            <Parameter Name="Success" Mode="In" Type="Boolean" />
+            <Parameter Name="OperatingSystem" Mode="In" Type="String" />
+            <Parameter Name="IPAddress" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="RecordAccessGet" ReturnType="Collection(DevOrangeModel.RecordAccessGet_Result)">
+          <Parameter Name="AccessId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RecordAccessGetAll" ReturnType="Collection(DevOrangeModel.RecordAccessGetAll_Result)" />
+          <FunctionImport Name="RecordNavigation" ReturnType="Collection(DevOrangeModel.RecordNavigation_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="PageId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RecordNavigationGet" ReturnType="Collection(DevOrangeModel.RecordNavigationGet_Result)">
+          <Parameter Name="NavId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="RecordNavigationGetAll" ReturnType="Collection(DevOrangeModel.RecordNavigationGetAll_Result)" />
+          <FunctionImport Name="TagAdd">
+          <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UserAdd" ReturnType="Collection(DevOrangeModel.UserAdd_Result)">
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UserGet" ReturnType="Collection(DevOrangeModel.UserGet_Result)">
+          <Parameter Name="UserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UserGetAll" ReturnType="Collection(DevOrangeModel.UserGetAll_Result)" />
+          <FunctionImport Name="UserGetByGuid" ReturnType="Collection(DevOrangeModel.UserGetByGuid_Result)">
+          <Parameter Name="ObfuscatedId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="UserGetByUsername" ReturnType="Collection(DevOrangeModel.UserGetByUsername_Result)">
+          <Parameter Name="Username" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UserRemove" ReturnType="Collection(Boolean)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UserToggleInSystem" ReturnType="Collection(DevOrangeModel.UserToggleInSystem_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UserUpdate" ReturnType="Collection(DevOrangeModel.UserUpdate_Result)">
+            <Parameter Name="UserId" Mode="In" Type="Int32" />
+            <Parameter Name="CallingUserId" Mode="In" Type="Int32" />
+            <Parameter Name="Id" Mode="In" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="RoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="CommentAdd_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommentApproval_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommentGet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommentGetAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommentGetChildren_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommentGetTopLevel_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="CommentUpdate_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="ProvidedName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" MaxLength="1200" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="ApprovalDate" Nullable="false" Precision="23" />
+          <Property Type="Byte" Name="Approval" Nullable="true" />
+          <Property Type="String" Name="EditKey" Nullable="true" MaxLength="8" />
+          <Property Type="Boolean" Name="TopLevel" Nullable="true" />
+          <Property Type="Int32" Name="ReplyCount" Nullable="false" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="LogIn_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="LogOut_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PasswordAdd_Result">
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="Salt" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="HashedPassword" Nullable="true" MaxLength="128" />
+          <Property Type="Byte" Name="Attempts" Nullable="true" />
+          <Property Type="Boolean" Name="Expires" Nullable="true" />
+          <Property Type="DateTime" Name="Expiration" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsLocked" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PasswordGet_Result">
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="Salt" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="HashedPassword" Nullable="true" MaxLength="128" />
+          <Property Type="Byte" Name="Attempts" Nullable="true" />
+          <Property Type="Boolean" Name="Expires" Nullable="true" />
+          <Property Type="DateTime" Name="Expiration" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsLocked" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PasswordReset_Result">
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="AuthenticationUrl" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="Created" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Expires" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="PasswordResetGet_Result">
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="AuthenticationUrl" Nullable="true" MaxLength="128" />
+          <Property Type="DateTime" Name="Created" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="Expires" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="PasswordSettingsGet_Result">
+          <Property Type="Int32" Name="MaxPasswordAttempts" Nullable="true" />
+          <Property Type="Int32" Name="ExpirationInDays" Nullable="true" />
+          <Property Type="Int32" Name="ResetExpirationInMinutes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PasswordSettingsUpdate_Result">
+          <Property Type="Int32" Name="MaxPasswordAttempts" Nullable="true" />
+          <Property Type="Int32" Name="ExpirationInDays" Nullable="true" />
+          <Property Type="Int32" Name="ResetExpirationInMinutes" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PasswordUpdate_Result">
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="Salt" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="HashedPassword" Nullable="true" MaxLength="128" />
+          <Property Type="Byte" Name="Attempts" Nullable="true" />
+          <Property Type="Boolean" Name="Expires" Nullable="true" />
+          <Property Type="DateTime" Name="Expiration" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsLocked" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PermissionGet_Result">
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="ManagePosts" Nullable="true" />
+          <Property Type="Boolean" Name="ManagePostComments" Nullable="true" />
+          <Property Type="Boolean" Name="CanComment" Nullable="true" />
+          <Property Type="Boolean" Name="ManageUsers" Nullable="true" />
+          <Property Type="Boolean" Name="AccessSettings" Nullable="true" />
+          <Property Type="Boolean" Name="CanImpersonate" Nullable="true" />
+          <Property Type="Boolean" Name="ViewMetrics" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PermissionGetByUserId_Result">
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="ManagePosts" Nullable="true" />
+          <Property Type="Boolean" Name="ManagePostComments" Nullable="true" />
+          <Property Type="Boolean" Name="CanComment" Nullable="true" />
+          <Property Type="Boolean" Name="ManageUsers" Nullable="true" />
+          <Property Type="Boolean" Name="AccessSettings" Nullable="true" />
+          <Property Type="Boolean" Name="CanImpersonate" Nullable="true" />
+          <Property Type="Boolean" Name="ViewMetrics" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PermissionUpdate_Result">
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="ManagePosts" Nullable="true" />
+          <Property Type="Boolean" Name="ManagePostComments" Nullable="true" />
+          <Property Type="Boolean" Name="CanComment" Nullable="true" />
+          <Property Type="Boolean" Name="ManageUsers" Nullable="true" />
+          <Property Type="Boolean" Name="AccessSettings" Nullable="true" />
+          <Property Type="Boolean" Name="CanImpersonate" Nullable="true" />
+          <Property Type="Boolean" Name="ViewMetrics" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PostGet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CommentCount" Nullable="true" />
+          <Property Type="Boolean" Name="IsPubliclyVisible" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PostGetAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="true" />
+          <Property Type="DateTime" Name="Created" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CommentCount" Nullable="true" />
+          <Property Type="Boolean" Name="IsPubliclyVisible" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PostGetLatest_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="String" Name="Subject" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="CommentCount" Nullable="true" />
+          <Property Type="Boolean" Name="IsPubliclyVisible" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="PostHistoryGetAll_Result">
+          <Property Type="Int32" Name="FK_PostId" Nullable="true" />
+          <Property Type="Int32" Name="FK_EditTypeId" Nullable="true" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Subject" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="Body" Nullable="false" />
+          <Property Type="DateTime" Name="Created" Nullable="false" Precision="23" />
+          <Property Type="DateTime" Name="EffectiveDate" Nullable="false" Precision="23" />
+          <Property Type="Boolean" Name="IsPubliclyVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_CallerId" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="RecordAccess_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="Boolean" Name="Action" Nullable="false" />
+          <Property Type="Boolean" Name="Success" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="String" Name="OperatingSystem" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="IPAddress" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="RecordAccessGet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="Boolean" Name="Action" Nullable="false" />
+          <Property Type="Boolean" Name="Success" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="String" Name="OperatingSystem" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="IPAddress" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="RecordAccessGetAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="Boolean" Name="Action" Nullable="false" />
+          <Property Type="Boolean" Name="Success" Nullable="false" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="String" Name="OperatingSystem" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="IPAddress" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="RecordNavigation_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Id1" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="IsPublic" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="RecordNavigationGet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Id1" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="IsPublic" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="RecordNavigationGetAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="FK_UserId" Nullable="true" />
+          <Property Type="DateTime" Name="TimeStamp" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="Id1" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="256" />
+          <Property Type="String" Name="URL" Nullable="true" MaxLength="256" />
+          <Property Type="Boolean" Name="IsPublic" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserAdd_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserGet_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserGetAll_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserGetByGuid_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserGetByUsername_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserToggleInSystem_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="UserUpdate_Result">
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Guid" Name="ObfuscatedId" Nullable="true" />
+          <Property Type="Int32" Name="FK_ImpersonatingId" Nullable="true" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="256" />
+          <Property Type="Boolean" Name="IsVisible" Nullable="true" />
+          <Property Type="Int32" Name="FK_RoleId" Nullable="true" />
+          <Property Type="Boolean" Name="InSystem" Nullable="true" />
+          <Property Type="Boolean" Name="IsActive" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DevOrangeModelStoreContainer" CdmEntityContainer="DevOrangeEntities">
+          <EntitySetMapping Name="AccessHistories">
+            <EntityTypeMapping TypeName="DevOrangeModel.AccessHistory">
+              <MappingFragment StoreEntitySet="AccessHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EditTypes">
+            <EntityTypeMapping TypeName="DevOrangeModel.EditType">
+              <MappingFragment StoreEntitySet="EditTypes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NavigationHistories">
+            <EntityTypeMapping TypeName="DevOrangeModel.NavigationHistory">
+              <MappingFragment StoreEntitySet="NavigationHistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="FK_PageId" ColumnName="FK_PageId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NewsletterInfoes">
+            <EntityTypeMapping TypeName="DevOrangeModel.NewsletterInfo">
+              <MappingFragment StoreEntitySet="NewsletterInfo">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="SignUpDate" ColumnName="SignUpDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pages">
+            <EntityTypeMapping TypeName="DevOrangeModel.Page">
+              <MappingFragment StoreEntitySet="Pages">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostComments">
+            <EntityTypeMapping TypeName="DevOrangeModel.PostComment">
+              <MappingFragment StoreEntitySet="PostComments">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Posts">
+            <EntityTypeMapping TypeName="DevOrangeModel.Post">
+              <MappingFragment StoreEntitySet="Posts">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="IsPubliclyVisible" ColumnName="IsPubliclyVisible" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DevOrangeModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsRemovable" ColumnName="IsRemovable" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableListings">
+            <EntityTypeMapping TypeName="DevOrangeModel.TableListing">
+              <MappingFragment StoreEntitySet="TableListing">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="DevOrangeModel.Tag">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DevOrangeModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChangeLogs">
+            <EntityTypeMapping TypeName="DevOrangeModel.ChangeLog">
+              <MappingFragment StoreEntitySet="ChangeLog">
+                <ScalarProperty Name="OKAYMORE" ColumnName="OKAYMORE" />
+                <ScalarProperty Name="LololNo" ColumnName="LololNo" />
+                <ScalarProperty Name="FK_TableId" ColumnName="FK_TableId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="FK_CallingUserId" ColumnName="FK_CallingUserId" />
+                <ScalarProperty Name="Operation" ColumnName="Operation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Passwords">
+            <EntityTypeMapping TypeName="DevOrangeModel.Password">
+              <MappingFragment StoreEntitySet="Passwords">
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+                <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostCommentEditHistories">
+            <EntityTypeMapping TypeName="DevOrangeModel.PostCommentEditHistory">
+              <MappingFragment StoreEntitySet="PostCommentEditHistory">
+                <ScalarProperty Name="FK_CommentId" ColumnName="FK_CommentId" />
+                <ScalarProperty Name="FK_EditTypeId" ColumnName="FK_EditTypeId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="FK_CallerId" ColumnName="FK_CallerId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PostEditHistories">
+            <EntityTypeMapping TypeName="DevOrangeModel.PostEditHistory">
+              <MappingFragment StoreEntitySet="PostEditHistory">
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_EditTypeId" ColumnName="FK_EditTypeId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="IsPubliclyVisible" ColumnName="IsPubliclyVisible" />
+                <ScalarProperty Name="FK_CallerId" ColumnName="FK_CallerId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="CommentAdd" FunctionName="DevOrangeModel.Store.CommentAdd">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentAdd_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CommentApproval" FunctionName="DevOrangeModel.Store.CommentApproval">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentApproval_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CommentGet" FunctionName="DevOrangeModel.Store.CommentGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentGet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CommentGetAll" FunctionName="DevOrangeModel.Store.CommentGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentGetAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CommentGetChildren" FunctionName="DevOrangeModel.Store.CommentGetChildren">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentGetChildren_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CommentGetTopLevel" FunctionName="DevOrangeModel.Store.CommentGetTopLevel">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentGetTopLevel_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="CommentRemove" FunctionName="DevOrangeModel.Store.CommentRemove" />
+          <FunctionImportMapping FunctionImportName="CommentUpdate" FunctionName="DevOrangeModel.Store.CommentUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.CommentUpdate_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="ProvidedName" ColumnName="ProvidedName" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="ApprovalDate" ColumnName="ApprovalDate" />
+                <ScalarProperty Name="Approval" ColumnName="Approval" />
+                <ScalarProperty Name="EditKey" ColumnName="EditKey" />
+                <ScalarProperty Name="TopLevel" ColumnName="TopLevel" />
+                <ScalarProperty Name="ReplyCount" ColumnName="ReplyCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LogIn" FunctionName="DevOrangeModel.Store.LogIn">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.LogIn_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="LogOut" FunctionName="DevOrangeModel.Store.LogOut">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.LogOut_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordAdd" FunctionName="DevOrangeModel.Store.PasswordAdd">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordAdd_Result">
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+                <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordGet" FunctionName="DevOrangeModel.Store.PasswordGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordGet_Result">
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+                <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordRecordAttempt" FunctionName="DevOrangeModel.Store.PasswordRecordAttempt" />
+          <FunctionImportMapping FunctionImportName="PasswordReset" FunctionName="DevOrangeModel.Store.PasswordReset">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordReset_Result">
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="AuthenticationUrl" ColumnName="AuthenticationUrl" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordResetGet" FunctionName="DevOrangeModel.Store.PasswordResetGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordResetGet_Result">
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="AuthenticationUrl" ColumnName="AuthenticationUrl" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordSettingsGet" FunctionName="DevOrangeModel.Store.PasswordSettingsGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordSettingsGet_Result">
+                <ScalarProperty Name="MaxPasswordAttempts" ColumnName="MaxPasswordAttempts" />
+                <ScalarProperty Name="ExpirationInDays" ColumnName="ExpirationInDays" />
+                <ScalarProperty Name="ResetExpirationInMinutes" ColumnName="ResetExpirationInMinutes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordSettingsUpdate" FunctionName="DevOrangeModel.Store.PasswordSettingsUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordSettingsUpdate_Result">
+                <ScalarProperty Name="MaxPasswordAttempts" ColumnName="MaxPasswordAttempts" />
+                <ScalarProperty Name="ExpirationInDays" ColumnName="ExpirationInDays" />
+                <ScalarProperty Name="ResetExpirationInMinutes" ColumnName="ResetExpirationInMinutes" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PasswordUpdate" FunctionName="DevOrangeModel.Store.PasswordUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PasswordUpdate_Result">
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Salt" ColumnName="Salt" />
+                <ScalarProperty Name="HashedPassword" ColumnName="HashedPassword" />
+                <ScalarProperty Name="Attempts" ColumnName="Attempts" />
+                <ScalarProperty Name="Expires" ColumnName="Expires" />
+                <ScalarProperty Name="Expiration" ColumnName="Expiration" />
+                <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PermissionGet" FunctionName="DevOrangeModel.Store.PermissionGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PermissionGet_Result">
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="ManagePosts" ColumnName="ManagePosts" />
+                <ScalarProperty Name="ManagePostComments" ColumnName="ManagePostComments" />
+                <ScalarProperty Name="CanComment" ColumnName="CanComment" />
+                <ScalarProperty Name="ManageUsers" ColumnName="ManageUsers" />
+                <ScalarProperty Name="AccessSettings" ColumnName="AccessSettings" />
+                <ScalarProperty Name="CanImpersonate" ColumnName="CanImpersonate" />
+                <ScalarProperty Name="ViewMetrics" ColumnName="ViewMetrics" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PermissionGetByUserId" FunctionName="DevOrangeModel.Store.PermissionGetByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PermissionGetByUserId_Result">
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="ManagePosts" ColumnName="ManagePosts" />
+                <ScalarProperty Name="ManagePostComments" ColumnName="ManagePostComments" />
+                <ScalarProperty Name="CanComment" ColumnName="CanComment" />
+                <ScalarProperty Name="ManageUsers" ColumnName="ManageUsers" />
+                <ScalarProperty Name="AccessSettings" ColumnName="AccessSettings" />
+                <ScalarProperty Name="CanImpersonate" ColumnName="CanImpersonate" />
+                <ScalarProperty Name="ViewMetrics" ColumnName="ViewMetrics" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PermissionUpdate" FunctionName="DevOrangeModel.Store.PermissionUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PermissionUpdate_Result">
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="ManagePosts" ColumnName="ManagePosts" />
+                <ScalarProperty Name="ManagePostComments" ColumnName="ManagePostComments" />
+                <ScalarProperty Name="CanComment" ColumnName="CanComment" />
+                <ScalarProperty Name="ManageUsers" ColumnName="ManageUsers" />
+                <ScalarProperty Name="AccessSettings" ColumnName="AccessSettings" />
+                <ScalarProperty Name="CanImpersonate" ColumnName="CanImpersonate" />
+                <ScalarProperty Name="ViewMetrics" ColumnName="ViewMetrics" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PostAdd" FunctionName="DevOrangeModel.Store.PostAdd" />
+          <FunctionImportMapping FunctionImportName="PostGet" FunctionName="DevOrangeModel.Store.PostGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PostGet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="IsPubliclyVisible" ColumnName="IsPubliclyVisible" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PostGetAll" FunctionName="DevOrangeModel.Store.PostGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PostGetAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="IsPubliclyVisible" ColumnName="IsPubliclyVisible" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PostGetLatest" FunctionName="DevOrangeModel.Store.PostGetLatest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PostGetLatest_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="CommentCount" ColumnName="CommentCount" />
+                <ScalarProperty Name="IsPubliclyVisible" ColumnName="IsPubliclyVisible" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PostHistoryGetAll" FunctionName="DevOrangeModel.Store.PostHistoryGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.PostHistoryGetAll_Result">
+                <ScalarProperty Name="FK_PostId" ColumnName="FK_PostId" />
+                <ScalarProperty Name="FK_EditTypeId" ColumnName="FK_EditTypeId" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Body" ColumnName="Body" />
+                <ScalarProperty Name="Created" ColumnName="Created" />
+                <ScalarProperty Name="EffectiveDate" ColumnName="EffectiveDate" />
+                <ScalarProperty Name="IsPubliclyVisible" ColumnName="IsPubliclyVisible" />
+                <ScalarProperty Name="FK_CallerId" ColumnName="FK_CallerId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="PostRemove" FunctionName="DevOrangeModel.Store.PostRemove" />
+          <FunctionImportMapping FunctionImportName="PostUpdate" FunctionName="DevOrangeModel.Store.PostUpdate" />
+          <FunctionImportMapping FunctionImportName="RecordAccess" FunctionName="DevOrangeModel.Store.RecordAccess">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.RecordAccess_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="OperatingSystem" ColumnName="OperatingSystem" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RecordAccessGet" FunctionName="DevOrangeModel.Store.RecordAccessGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.RecordAccessGet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="OperatingSystem" ColumnName="OperatingSystem" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RecordAccessGetAll" FunctionName="DevOrangeModel.Store.RecordAccessGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.RecordAccessGetAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="Action" ColumnName="Action" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="OperatingSystem" ColumnName="OperatingSystem" />
+                <ScalarProperty Name="IPAddress" ColumnName="IPAddress" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RecordNavigation" FunctionName="DevOrangeModel.Store.RecordNavigation">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.RecordNavigation_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Id1" ColumnName="Id1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RecordNavigationGet" FunctionName="DevOrangeModel.Store.RecordNavigationGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.RecordNavigationGet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Id1" ColumnName="Id1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="RecordNavigationGetAll" FunctionName="DevOrangeModel.Store.RecordNavigationGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.RecordNavigationGetAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FK_UserId" ColumnName="FK_UserId" />
+                <ScalarProperty Name="TimeStamp" ColumnName="TimeStamp" />
+                <ScalarProperty Name="Id1" ColumnName="Id1" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="IsPublic" ColumnName="IsPublic" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="TagAdd" FunctionName="DevOrangeModel.Store.TagAdd" />
+          <FunctionImportMapping FunctionImportName="UserAdd" FunctionName="DevOrangeModel.Store.UserAdd">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserAdd_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserGet" FunctionName="DevOrangeModel.Store.UserGet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserGet_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserGetAll" FunctionName="DevOrangeModel.Store.UserGetAll">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserGetAll_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserGetByGuid" FunctionName="DevOrangeModel.Store.UserGetByGuid">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserGetByGuid_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserGetByUsername" FunctionName="DevOrangeModel.Store.UserGetByUsername">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserGetByUsername_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserRemove" FunctionName="DevOrangeModel.Store.UserRemove" />
+          <FunctionImportMapping FunctionImportName="UserToggleInSystem" FunctionName="DevOrangeModel.Store.UserToggleInSystem">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserToggleInSystem_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="UserUpdate" FunctionName="DevOrangeModel.Store.UserUpdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DevOrangeModel.UserUpdate_Result">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ObfuscatedId" ColumnName="ObfuscatedId" />
+                <ScalarProperty Name="FK_ImpersonatingId" ColumnName="FK_ImpersonatingId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="IsVisible" ColumnName="IsVisible" />
+                <ScalarProperty Name="FK_RoleId" ColumnName="FK_RoleId" />
+                <ScalarProperty Name="InSystem" ColumnName="InSystem" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

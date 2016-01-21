@@ -6,7 +6,7 @@ GO
 CREATE PROCEDURE o.UserAdd
 	@Name NVARCHAR(256),
 	@Email NVARCHAR(256),
-	@PermissionId INT,
+	@RoleId INT,
 	@UserId INT,
 	@CallingUserId INT -- if you're impersonating should you be allowed to modify the settings?
 AS
@@ -29,9 +29,9 @@ AS
 		ELSE 
 		BEGIN
 			INSERT INTO o.Users
-			(Name, Email, FK_PermissionId)
+			(Name, Email, FK_RoleId)
 			VALUES
-			(@Name, @Email, @PermissionId);
+			(@Name, @Email, @RoleId);
 			---
 			SET @NewUserId = SCOPE_IDENTITY();
 			---

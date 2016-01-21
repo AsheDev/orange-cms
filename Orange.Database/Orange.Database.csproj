@@ -57,9 +57,11 @@
     <Content Include="Stored Procedures\spCommentRemove.sql" />
     <Content Include="Stored Procedures\spCommentUpdate.sql" />
     <Content Include="Stored Procedures\spCommentAdd.sql" />
-    <Content Include="Stored Procedures\spAccessibilityUpdate.sql" />
+    <Content Include="Stored Procedures\spPermissionGetByUserId.sql" />
+    <Content Include="Stored Procedures\spPermissionUpdate.sql" />
     <Content Include="Stored Procedures\spGetAllByUserId.sql" />
     <Content Include="Stored Procedures\spGetPostLatest.sql" />
+    <Content Include="Stored Procedures\spPostGetLatest.sql" />
     <Content Include="Stored Procedures\spPostHistoryGetAll.sql" />
     <Content Include="Stored Procedures\spRecordAccessGetAll.sql" />
     <Content Include="Stored Procedures\spRecordNavigationGetAll.sql" />
@@ -81,8 +83,9 @@
     <Content Include="Stored Procedures\spPostGetAll.sql" />
     <Content Include="Stored Procedures\spPostRemove.sql" />
     <Content Include="Stored Procedures\spLogIn.sql" />
-    <Content Include="Stored Procedures\spAccessibilityGet.sql" />
+    <Content Include="Stored Procedures\spPermissionGet.sql" />
     <Content Include="Stored Procedures\spTagAdd.sql" />
+    <Content Include="Stored Procedures\spUserGetByGuid.sql" />
     <Content Include="Stored Procedures\spUserToggleInSystem.sql" />
     <Content Include="Stored Procedures\spUserGetByUsername.sql" />
     <Content Include="Stored Procedures\spUserRemove.sql" />

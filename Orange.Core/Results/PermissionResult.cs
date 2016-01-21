@@ -2,7 +2,7 @@
 using Orange.Core.Utility;
 using Orange.Core.Entities;
 using Orange.Core.Interfaces;
-using System.Collections.Generic;
+using Orange.Core.Repositories;
 
 namespace Orange.Core.Results
 {
@@ -10,20 +10,9 @@ namespace Orange.Core.Results
     {
         public Permission Result { get; set; }
 
-        public PermissionResult()
+        public PermissionResult(Repository repo)
         {
-            Result = new Permission();
+            Result = new Permission(repo);
         }
     }
-
-    public class PermissionResultList : Result, IResult
-    {
-        public List<Permission> Results { get; set; }
-
-        public PermissionResultList()
-        {
-            Results = new List<Permission>();
-        }
-    }
-
 }

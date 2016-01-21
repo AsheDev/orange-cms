@@ -1,0 +1,173 @@
+﻿@{
+    ViewBag.Title = "Comments";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+@using Orange.Business
+@using Orange.Core.Entities
+@*@model Orange.Core.Results.CommentResultList*@
+@model BootstrapWeb.Models.BlogPost
+
+@section PageSpecificScripts
+{
+    <script src="~/js/summernote.js"></script>
+    <link href="~/css/summernote.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+    <script src="~/js/Comments.js"></script>
+}
+
+<style type="text/css">
+    /*.detailBox {
+        width:320px;
+        border:1px solid #bbb;
+        margin:50px;
+    }*/
+    /*.titleBox {
+        background-color:#fdfdfd;
+        padding:10px;
+    }
+    .titleBox label{
+      color:#444;
+      margin:0;
+      display:inline-block;
+    }*/
+
+    /*.commentBox {
+        padding:10px;
+        border-top:1px dotted #bbb;
+    }
+    .commentBox .form-group:first-child, .actionBox .form-group:first-child {
+        width:80%;
+    }
+    .commentBox .form-group:nth-child(2), .actionBox .form-group:nth-child(2) {
+        width:18%;
+    }*/
+    .actionBox .form-group * {
+        width:100%;
+    }
+    /*.taskDescription {
+        margin-top:10px 0;
+    }*/
+    .commentList {
+        padding:0;
+        list-style:none;
+        /*max-height:200px;
+        overflow:auto;*/
+    }
+    .commentList li {
+        margin:0;
+        margin-top:10px;
+    }
+    .commentList li > div {
+        display:table-cell;
+    }
+    .commenterImage {
+        width:100%;
+        margin-right:5px;
+        height:100%;
+        float:left;
+    }
+    .commenterImage img {
+        width: 100%;
+        border-radius:50%;
+    }
+    .commentText p {
+        margin:0;
+    }
+    .sub-text {
+        color:#aaa;
+        font-family:verdana;
+        font-size:11px;
+    }
+    .actionBox {
+        border-top:1px dotted #bbb;
+        padding:10px;
+    }
+
+    /*.gradient {
+        background-image: linear-gradient( #FFFFFF, #F06D06);
+    }*/
+
+    .gradient {
+        height: 1em;
+        background: -webkit-linear-gradient(to bottom, #FFFFFF, #66B3FF); /* For Safari 5.1 to 6.0 */
+        background: -o-linear-gradient(to bottom, #FFFFFF, #66B3FF); /* For Opera 11.1 to 12.0 */
+        background: -moz-linear-gradient(to bottom, #FFFFFF, #66B3FF); /* For Firefox 3.6 to 15 */
+        background: linear-gradient(to bottom, #FFFFFF, #66B3FF); /* Standard syntax (must be last) */
+    }
+</style>
+
+
+
+<div class="container-fluid">
+    <input id="commentLevel" type="text" hidden value="0" />
+    <div class="col-sm-12">
+        <h1 class="text-center">These are comments!</h1>
+        <input onclick="location.href='@Url.Action("Home", "Pages")'" value="Go Home" class="btn btn-success center-block" />
+        <br /><br />
+    </div>
+
+    <div class="col-sm-10 col-sm-offset-1 text-center">
+        <hr />
+        <h2 class="text-left">Add a comment</h2>
+        <div class="row">
+            <div class="col-sm-2">
+                <input class="form-control" type="text" placeholder="Name" />
+            </div>
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-sm-12">
+                <textarea class="form-control" type="text" placeholder="Your comments"></textarea>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 6px;">
+            <div class="col-sm-12">
+                <input type="button" class="btn btn-success pull-left col-sm-2" value="Submit" />
+                <br /><br /><br />
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="actionBox">
+            <ul class="commentList">
+                <div id="color-0">
+                    <div id="comments-top">
+                        @Html.Partial("_Comments", Model.TopLevelComments)
+                    </div>
+                </div>
+            </ul>
+            <br /><br /><br />
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        //$('#summernote').summernote({
+        //    height: 280
+        //});
+
+        document.getElementById('comments-top').id = "comments-0";
+    });
+
+    
+
+    // TODO CORE
+    function GetBasePath() {
+        var startPos = window.location.pathname.indexOf('/') + 1;
+        var endPos = window.location.pathname.indexOf('/', startPos);
+        if (endPos < 0) {
+            endPos = window.location.pathname.length;
+        }
+        return '/' + window.location.pathname.substring(startPos, endPos) + '/';
+    }
+
+    
+
+    // TODO CORE
+    // only works with a single "-" mind you
+    function GetTrailingId(elementId) {
+        return elementId.substr(elementId.indexOf("-") + 1);
+    }
+
+    
+</script>

@@ -9,7 +9,7 @@ CREATE PROCEDURE o.UserUpdate
 	@Id INT, -- the userr being changed
 	@Name NVARCHAR(256),
 	@Email NVARCHAR(256),
-	@PermissionId INT
+	@RoleId INT
 AS
 	-- WITH ENCRYPTION ON AS
 	SET NOCOUNT ON;
@@ -20,7 +20,7 @@ AS
 		UPDATE o.Users
 		SET Name = @Name,
 			Email = @Email,
-			FK_PermissionId = @PermissionId
+			FK_RoleId = @RoleId
 		WHERE Id = @Id;
 		---
 		EXEC o.UserGet @UserId = @Id;

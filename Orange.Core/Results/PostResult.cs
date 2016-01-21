@@ -2,37 +2,38 @@
 using Orange.Core.Utility;
 using Orange.Core.Entities;
 using Orange.Core.Interfaces;
+using Orange.Core.Repositories;
 using System.Collections.Generic;
 
 namespace Orange.Core.Results
 {
     public class PostResult : Result, IResult
     {
-        public Post Result { get; set; }
+        private Post _post;
+
+        public Post Post
+        {
+            get { return _post; }
+            set
+            {
+                _post = value;
+                if (!string.IsNullOrWhiteSpace(value._errorMessage)) SetResultAsCritical(this, value._errorMessage);
+            }
+        }
 
         public PostResult()
         {
-            Result = new Post();
+            Post = new Post(null);
         }
     }
 
     public class PostResultList : Result, IResult
     {
-        public List<Post> Results { get; set; }
+        public List<Post> Posts { get; set; }
 
         public PostResultList()
         {
-            Results = new List<Post>();
-        }
-    }
-
-    public class PostHistoryResultList : Result, IResult
-    {
-        public List<PostHistory> Results { get; set; }
-
-        public PostHistoryResultList()
-        {
-            Results = new List<PostHistory>();
+            Posts = new List<Post>();
         }
     }
 }

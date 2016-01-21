@@ -60,7 +60,9 @@ namespace Orange.Core.Enums
         [Description("Incorrect password.")]
         NoMatch = 9,
         [Description("The email provided already has an associated account.")]
-        PasswordExists = 9
+        PasswordExists = 10,
+        [Description("Passwords do not match.")]
+        Mismatch = 11
     }
 
     public enum Operations
@@ -97,6 +99,15 @@ namespace Orange.Core.Enums
         [Description("Username already in use.")]
         UsernameExists = 0,
         [Description("Email is invalid.")] // don't directly say a user is using it
-        EmailExists = 1
+        EmailExists = 1,
+        [Description("Provided email is invalid.")]
+        EmailInvalid = 2
+    }
+
+    public enum RecordStatus
+    {
+        Inactive = 0,
+        Active = 1,
+        All = 2
     }
 }
